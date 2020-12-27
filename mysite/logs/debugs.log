@@ -1870,3 +1870,83 @@ tz
 2020-12-18 16:10:02,298-django.request-(WARNING) Not Found: /images/items/8.jpg
 2020-12-18 16:10:02,335-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
 2020-12-18 16:10:02,346-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-26 17:30:17,124-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:30:23,428-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:30:35,309-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:30:38,658-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2020-12-26 17:30:38,660-django.request-(WARNING) Not Found: /images/items/11.jpg
+2020-12-26 17:30:38,662-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-26 17:30:38,663-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-26 17:30:38,664-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-26 17:30:38,665-django.request-(WARNING) Not Found: /images/items/8.jpg
+2020-12-26 17:30:38,693-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-26 17:30:38,694-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-26 17:30:38,696-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-26 17:30:38,698-django.request-(WARNING) Not Found: /images/items/3.jpg
+2020-12-26 17:30:38,700-django.request-(WARNING) Not Found: /images/items/4.jpg
+2020-12-26 17:30:38,706-django.request-(WARNING) Not Found: /images/items/5.jpg
+2020-12-26 17:30:38,715-django.request-(WARNING) Not Found: /images/items/7.jpg
+2020-12-26 17:30:38,733-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2020-12-26 17:30:38,735-django.request-(WARNING) Not Found: /images/items/9.jpg
+2020-12-26 17:30:38,744-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-26 17:30:38,754-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2020-12-26 17:30:38,764-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2020-12-26 17:30:38,776-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-26 17:30:38,788-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-26 17:30:38,804-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-26 17:30:38,813-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2020-12-26 17:30:38,817-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-26 17:30:38,830-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2020-12-26 17:30:38,834-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-26 17:30:38,849-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2020-12-26 17:30:38,851-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-26 17:30:42,011-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:30:42,174-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:36:23,955-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:36:28,219-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:36:28,333-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:39:01,290-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:40:57,529-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:41:16,846-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/mysite/settings.py changed, reloading.
+2020-12-26 17:41:16,847-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:41:17,274-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:41:29,709-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:45:18,212-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:45:33,484-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/mysite/settings.py changed, reloading.
+2020-12-26 17:45:34,029-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:45:34,624-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:45:41,918-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:45:44,129-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:46:53,872-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:49:32,659-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:50:17,516-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:50:23,100-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:50:23,214-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:50:40,753-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:50:49,991-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/mysite/settings.py changed, reloading.
+2020-12-26 17:50:50,427-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:50:53,602-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/mysite/settings.py changed, reloading.
+2020-12-26 17:50:54,178-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:51:09,800-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:51:24,307-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:51:24,421-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:52:18,547-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:52:55,559-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:53:07,446-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:53:21,360-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/mysite/settings.py changed, reloading.
+2020-12-26 17:53:21,362-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:53:23,354-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:54:19,398-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:54:23,994-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 17:54:25,612-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:54:25,838-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 17:55:43,305-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 19:03:54,644-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-26 19:04:02,054-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 19:04:02,118-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:32:40,181-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:34:13,518-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:35:31,388-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:36:28,124-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:49:40,546-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-26 21:49:52,148-asyncio-(DEBUG) Using selector: EpollSelector
