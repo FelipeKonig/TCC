@@ -1,4 +1,6 @@
 {% extends 'ecommerce/base.html' %}
+{% load crispy_forms_tags %}
+
 {% load static %}
 
 {% block body %}
@@ -11,23 +13,28 @@
 <!-- ============================ COMPONENT REGISTER   ================================= -->
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
-		<header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-		<form>
+		<header class="mb-4"><h4 class="card-title">Criar conta</h4></header>
+		<form method="POST" autocomplete="off">
 				<div class="form-row">
 					<div class="col form-group">
-						<label>First name</label>
-					  	<input type="text" class="form-control" placeholder="">
+						{{ formUser.first_name| as_crispy_field }}
 					</div> <!-- form-group end.// -->
 					<div class="col form-group">
-						<label>Last name</label>
-					  	<input type="text" class="form-control" placeholder="">
+						{{ formUser.last_name| as_crispy_field }}
 					</div> <!-- form-group end.// -->
 				</div> <!-- form-row end.// -->
 				<div class="form-group">
-					<label>Email</label>
-					<input type="email" class="form-control" placeholder="">
-					<small class="form-text text-muted">We'll never share your email with anyone else.</small>
-				</div> <!-- form-group end.// -->
+
+					{{ formUser.email|as_crispy_field }}
+					{{ formTelefone.numeroFixo|as_crispy_field }}
+					{{ formTelefone.numeroCelular|as_crispy_field }}
+
+
+				</div>
+
+
+			<!-- form-group end.// -->
+			<!--
 				<div class="form-group">
 					<label class="custom-control custom-radio custom-control-inline">
 					  <input class="custom-control-input" checked="" type="radio" name="gender" value="option1">
@@ -37,7 +44,9 @@
 					  <input class="custom-control-input" type="radio" name="gender" value="option2">
 					  <span class="custom-control-label"> Female </span>
 					</label>
-				</div> <!-- form-group end.// -->
+				</div>
+				-->
+				<!-- form-group end.// -->
 				<div class="form-row">
 					<div class="form-group col-md-6">
 					  <label>City</label>
@@ -57,12 +66,13 @@
 				</div> <!-- form-row.// -->
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label>Create password</label>
-					    <input class="form-control" type="password">
+						{{ formUser.password1|as_crispy_field }}
+
+
 					</div> <!-- form-group end.// -->
 					<div class="form-group col-md-6">
-						<label>Repeat password</label>
-					    <input class="form-control" type="password">
+												{{ formUser.password2|as_crispy_field }}
+
 					</div> <!-- form-group end.// -->
 				</div>
 			    <div class="form-group">
@@ -82,6 +92,30 @@
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
+
+
+<script>
+$(document).ready(function(){
+			$("#cpf").mask("000.000.000-00")
+			$("#cnpj").mask("00.000.000/0000-00")
+			$("#id_numeroFixo").mask("(00) 0000-0000")
+			$("#cep").mask("00.000-000")
+			$("#dataNascimento").mask("00/00/0000")
+
+			$("#id_numeroCelular").mask("(00) 0000-00009")
+
+			$("#id_numeroCelular").blur(function(event){
+				if ($(this).val().length == 15){
+					$("#id_numeroCelular").mask("(00) 00000-0009")
+				}else{
+					$("#id_numeroCelular").mask("(00) 0000-00009")
+				}
+			})
+		})
+</script>
+
 </body>
 
+
 {% endblock %}
+

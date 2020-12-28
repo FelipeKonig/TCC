@@ -47,9 +47,9 @@ LOGGING = {
             'filters': ['require_debug_true'],
         },
     },
-    'loggers':{
+    'loggers': {
         '': {
-            'handlers': ['debug','console','errors'],
+            'handlers': ['debug', 'console', 'errors'],
             'level': 'DEBUG',
         }
     }
@@ -64,7 +64,6 @@ LOGGING = {
 
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
-
 
 # Application definition
 
@@ -95,7 +94,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,7 +108,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -143,7 +141,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -157,7 +154,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -169,9 +165,14 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'usuarios.CustomUsuario'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+TIME_INPUT_FORMATS = ('%d/%m/%Y', )
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'BR'
+
 
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
-

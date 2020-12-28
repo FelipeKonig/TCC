@@ -1,8 +1,11 @@
 import uuid
 
 from django.db import models
+from phone_field import PhoneField
 from stdimage.models import StdImageField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 
 # Função para evitar duplicação de nomes de imagens, e renomear o nome da imagem com hash
@@ -13,18 +16,19 @@ def get_file_path(_instance, filename):
 
 
 class Telefone(models.Model):
-    numero = models.CharField('Número', max_length=20, help_text='Insira o telefone')
+    numeroCelular = models.CharField('Telefone celular',max_length=30, help_text='Obrigatório')
+    numeroFixo = models.CharField('Telefone fixo',blank=True, max_length=30, help_text='Não obrigatório')
 
     class Meta:
         verbose_name = 'Telefone'
         verbose_name_plural = 'Telefones'
 
     def __str__(self):
-        return self.numero
+        return self.numeroCelular
 
 
 class Estado(models.Model):
-    nome = models.CharField('Nome', max_length=100, help_text='Insira o estado')
+    nome = models.CharField('Nome', max_length=100, help_text='Obrigatório')
     sigla = models.CharField('Sigla', max_length=5)
 
     class Meta:
@@ -36,7 +40,7 @@ class Estado(models.Model):
 
 
 class Cidade(models.Model):
-    nome = models.CharField('Nome', max_length=100, help_text='Insira a cidade')
+    nome = models.CharField('Nome', max_length=100, help_text='Obrigatório')
     estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
 
     class Meta:
@@ -48,8 +52,8 @@ class Cidade(models.Model):
 
 
 class Endereco(models.Model):
-    bairro = models.CharField('Bairro', max_length=50, help_text='Insira o bairro'),
-    complemento = models.CharField('Complemento', max_length=50, blank=True, help_text='Insira o complemento')
+    bairro = models.CharField('Bairro', max_length=50, help_text='Obrigatório'),
+    complemento = models.CharField('Complemento', max_length=50, blank=True, help_text='Obrigatório')
     numero = models.CharField('Número', max_length=100, default='S/N')
     estado = models.OneToOneField(Estado, on_delete=models.PROTECT)
     cidade = models.OneToOneField(Cidade, on_delete=models.PROTECT)
@@ -93,12 +97,15 @@ class UsuarioManager(BaseUserManager):
 
 
 class CustomUsuario(AbstractUser):
-    email = models.EmailField('E-mail', unique=True, help_text='Insira seu e-mail')
+
+    first_name = models.CharField('Primeiro nome', max_length=100, help_text='Obrigatório')
+    last_name = models.CharField('Último nome', max_length=100, help_text='Obrigatório')
+    email = models.EmailField('E-mail', unique=True, help_text='Obrigatório')
     # fone = models.CharField('Telefone', max_length=15)
     is_staff = models.BooleanField('Membro da equipe', default=True)
     telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone')
-    cpf = models.CharField('CPF', unique=True, max_length=11)
-    data_nascimento = models.DateField('Data de nascimento', help_text='Insira a sua data de nascimento')
+    cpf = models.CharField('CPF', unique=True, max_length=11, help_text='Obrigatório')
+    data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório')
     foto = StdImageField('Foto', upload_to=get_file_path,
                          variations={'thumb': {'width': 400, 'height': 400, 'crop': True}})
     endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço')
