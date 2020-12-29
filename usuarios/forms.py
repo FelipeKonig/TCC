@@ -1,12 +1,31 @@
-from .models import CustomUsuario, Telefone
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from .models import (
+    CustomUsuario,
+    Telefone,
+    Endereco
+)
+
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    ReadOnlyPasswordHashField
+)
 from django import forms
+
+CHOICES = [('sim', 'Sim'),
+           ('nao', 'Não')]
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 class CustomUsuarioCreationForm(UserCreationForm):
+    radio_Endereco = forms.ChoiceField(label='Deseja adicionar mais um endereço?', choices=CHOICES, widget=forms.RadioSelect(),  help_text='Não obrigatório')
+    data_nascimento = forms.DateField(widget=DateInput, label='Data de nascimento', help_text='Obrigatório', required=True)
+
     class Meta:
         model = CustomUsuario
-        fields = ('first_name', 'last_name', 'email', 'data_nascimento', 'telefone', 'endereco', 'foto')
+        fields = ('first_name', 'last_name', 'email',  'telefone', 'cpf', 'endereco', 'foto')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -38,3 +57,17 @@ class TelefoneForm(forms.ModelForm):
         super(TelefoneForm, self).__init__(*args, **kwargs)
         self.fields['numeroFixo'].widget.attrs['placeholder'] = 'Insira o seu telefone fixo'
         self.fields['numeroCelular'].widget.attrs['placeholder'] = 'Insira o seu telefone celular'
+
+
+class EnderecoForm(forms.ModelForm):
+    class Meta:
+        model = Endereco
+        fields = ('rua', 'bairro', 'complemento', 'numero', 'cep')
+
+    def __init__(self, *args, **kwargs):
+        super(EnderecoForm, self).__init__(*args, **kwargs)
+        self.fields['rua'].widget.attrs['placeholder'] = 'Insira a rua'
+        self.fields['bairro'].widget.attrs['placeholder'] = 'Insira o bairro'
+        self.fields['complemento'].widget.attrs['placeholder'] = 'Insira o complemento'
+        self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número'
+        self.fields['cep'].widget.attrs['placeholder'] = 'Insira o cep'

@@ -14,7 +14,7 @@
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
 		<header class="mb-4"><h4 class="card-title">Criar conta</h4></header>
-		<form method="POST" autocomplete="off">
+		<form method="POST" id="usuarioForm"  autocomplete="off" data-cities-url="{% url 'usuarios:ajax_carregar_cidades' %}">
 				<div class="form-row">
 					<div class="col form-group">
 						{{ formUser.first_name| as_crispy_field }}
@@ -24,55 +24,103 @@
 					</div> <!-- form-group end.// -->
 				</div> <!-- form-row end.// -->
 				<div class="form-group">
-
+					{{ formUser.data_nascimento|as_crispy_field }}
 					{{ formUser.email|as_crispy_field }}
 					{{ formTelefone.numeroFixo|as_crispy_field }}
 					{{ formTelefone.numeroCelular|as_crispy_field }}
-
-
 				</div>
-
-
-			<!-- form-group end.// -->
-			<!--
-				<div class="form-group">
-					<label class="custom-control custom-radio custom-control-inline">
-					  <input class="custom-control-input" checked="" type="radio" name="gender" value="option1">
-					  <span class="custom-control-label"> Male </span>
-					</label>
-					<label class="custom-control custom-radio custom-control-inline">
-					  <input class="custom-control-input" type="radio" name="gender" value="option2">
-					  <span class="custom-control-label"> Female </span>
-					</label>
-				</div>
-				-->
-				<!-- form-group end.// -->
+				<header class="mb-4"><h5 class="card-title">Endereço</h5></header>
+		<!-- Endereço 1// -->
 				<div class="form-row">
 					<div class="form-group col-md-6">
-					  <label>City</label>
-					  <input type="text" class="form-control">
+						  <label>Estados*</label>
+
+						<select name="estados" id="estados" class="form-control" required>
+					    	<option disabled selected="true">Selecione o estado</option>
+							{% for estado in estados %}
+						  <option value="{{estado.id}}" required>{{estado.nome}} - ({{estado.sigla}})</option>
+						  {% endfor %}
+					  	</select>
+						<small id="hint_id_estados" class="form-text text-muted">Obrigatório</small>
 					</div> <!-- form-group end.// -->
+
+
+
 					<div class="form-group col-md-6">
-					  <label>Country</label>
-					  <select id="inputState" class="form-control">
-					    <option> Choose...</option>
-					      <option>Uzbekistan</option>
-					      <option>Russia</option>
-					      <option selected="">United States</option>
-					      <option>India</option>
-					      <option>Afganistan</option>
-					  </select>
+					  	<label>Cidades*</label>
+					  	<select name="cidades" id="cidades" class="form-control" required>
+					   		 <option disabled selected="true" required>Selecione a cidade</option>
+					  	</select>
+						<small id="hint_id_cidades" class="form-text text-muted">Obrigatório</small>
+					</div>
+					<div class="form-group col-md-6">
+						{{ formEndereco.rua|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ formEndereco.bairro|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ formEndereco.numero|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ formEndereco.complemento|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-6">
+						{{ formEndereco.cep|as_crispy_field }}
+					</div>
+
+					{{ formUser.radio_Endereco|as_crispy_field }}
+				<!-- Endereço 2// -->
+
+			<div class="form-row">
+
+				<div class="form-group col-md-6 sim selectEndereco">
+						  <label>Estados*</label>
+
+						<select name="estados" id="estados1" class="form-control" required>
+					    	<option disabled selected="true">Selecione o estado</option>
+							{% for estado in estados %}
+						  <option value="{{estado.id}}" required>{{estado.nome}} - ({{estado.sigla}})</option>
+						  {% endfor %}
+					  	</select>
+						<small id="hint_id_estados1" class="form-text text-muted">Obrigatório</small>
 					</div> <!-- form-group end.// -->
+
+
+				<div class="form-group col-md-6 sim selectEndereco">
+					  	<label>Cidades*</label>
+					  	<select name="cidades" id="cidades1" class="form-control" required>
+					   		 <option disabled selected="true" required>Selecione a cidade</option>
+					  	</select>
+						<small id="hint_id_cidades1" class="form-text text-muted">Obrigatório</small>
+				</div>
+				<div class="form-group col-md-6 sim selectEndereco">
+					{{ formEndereco1.rua|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-6 sim selectEndereco" >
+					{{ formEndereco1.bairro|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-6 sim selectEndereco">
+					{{ formEndereco1.numero|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-6 sim selectEndereco">
+					{{ formEndereco1.complemento|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-6 sim selectEndereco">
+					{{ formEndereco1.cep|as_crispy_field }}
+				</div>
+			</div>
+
+
+
+					<!-- form-group end.// -->
 				</div> <!-- form-row.// -->
-				<div class="form-row">
+			<div class="form-row">
 					<div class="form-group col-md-6">
 						{{ formUser.password1|as_crispy_field }}
-
-
 					</div> <!-- form-group end.// -->
 					<div class="form-group col-md-6">
-												{{ formUser.password2|as_crispy_field }}
-
+						{{ formUser.password2|as_crispy_field }}
 					</div> <!-- form-group end.// -->
 				</div>
 			    <div class="form-group">
@@ -92,30 +140,9 @@
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
-
-
-<script>
-$(document).ready(function(){
-			$("#cpf").mask("000.000.000-00")
-			$("#cnpj").mask("00.000.000/0000-00")
-			$("#id_numeroFixo").mask("(00) 0000-0000")
-			$("#cep").mask("00.000-000")
-			$("#dataNascimento").mask("00/00/0000")
-
-			$("#id_numeroCelular").mask("(00) 0000-00009")
-
-			$("#id_numeroCelular").blur(function(event){
-				if ($(this).val().length == 15){
-					$("#id_numeroCelular").mask("(00) 00000-0009")
-				}else{
-					$("#id_numeroCelular").mask("(00) 0000-00009")
-				}
-			})
-		})
-</script>
-
 </body>
 
+<script src="{% static '/js/javascriptUsuarios.js' %}" type="text/javascript"></script>
 
 {% endblock %}
 

@@ -1649,3 +1649,430 @@ Traceback (most recent call last):
   File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
     raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
 django.template.exceptions.TemplateDoesNotExist: registration/login.html
+2020-12-28 12:08:50,044-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 23, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/forms/models.py", line 287, in __init__
+    raise ValueError('ModelForm has no model class specified.')
+ValueError: ModelForm has no model class specified.
+2020-12-28 12:08:51,014-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 23, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/forms/models.py", line 287, in __init__
+    raise ValueError('ModelForm has no model class specified.')
+ValueError: ModelForm has no model class specified.
+2020-12-28 14:12:30,767-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 27, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/forms.py", line 65, in __init__
+    self.fields['cidade'].queryset = Cidade.objects.none()
+KeyError: 'cidade'
+2020-12-28 14:14:35,701-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:15:50,544-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:09,997-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:42,986-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:53,668-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:54,764-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:20:21,977-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/defaulttags.py", line 446, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/urls/resolvers.py", line 685, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajax_load_cities' not found. 'ajax_load_cities' is not a valid view function or pattern name.
+2020-12-28 14:43:49,801-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field

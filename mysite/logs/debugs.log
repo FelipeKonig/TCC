@@ -3712,3 +3712,696 @@ django.template.exceptions.TemplateDoesNotExist: registration/login.html
 2020-12-28 00:09:48,848-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
 2020-12-28 00:10:37,793-asyncio-(DEBUG) Using selector: EpollSelector
 2020-12-28 00:10:37,907-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 11:39:19,541-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 11:43:20,025-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 11:43:20,139-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 11:56:33,082-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:08:13,361-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:08:34,875-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:08:34,939-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:08:37,412-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:08:50,044-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 23, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/forms/models.py", line 287, in __init__
+    raise ValueError('ModelForm has no model class specified.')
+ValueError: ModelForm has no model class specified.
+2020-12-28 12:08:50,128-django.request-(WARNING) Not Found: /favicon.ico
+2020-12-28 12:08:51,014-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 23, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/forms/models.py", line 287, in __init__
+    raise ValueError('ModelForm has no model class specified.')
+ValueError: ModelForm has no model class specified.
+2020-12-28 12:08:55,026-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:08:55,139-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:09:09,457-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:09:50,119-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:09:50,183-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:09:51,671-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:10:24,198-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:10:24,311-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:12:41,847-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:12:52,197-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 12:12:52,197-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:12:52,563-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 12:16:08,264-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:16:08,378-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 12:33:13,065-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:06:49,702-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 13:07:19,821-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:07:19,935-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:08:55,883-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 13:09:05,542-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:09:05,655-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:09:12,670-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 13:09:23,093-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:09:23,207-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:09:40,356-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 13:17:24,990-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:17:25,104-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:18:28,265-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 13:56:27,346-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 13:56:27,459-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:12:27,479-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:12:30,767-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 27, in get
+    formEstado = super().get_form(EstadoForm)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 33, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/forms.py", line 65, in __init__
+    self.fields['cidade'].queryset = Cidade.objects.none()
+KeyError: 'cidade'
+2020-12-28 14:13:47,559-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 14:13:47,559-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:13:47,891-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:14:32,455-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 14:14:32,455-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:14:32,845-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:14:35,701-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:15:48,045-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 14:15:48,046-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:15:48,385-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:15:50,544-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:15:54,923-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:15:55,037-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:16:08,481-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:16:09,997-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:34,147-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 14:16:34,148-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:16:34,482-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:16:42,986-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:52,930-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 14:16:52,931-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:16:53,269-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:16:53,668-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:16:54,764-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:18:11,362-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 14:18:11,364-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:18:11,691-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:19:09,723-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:19:09,837-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:20:20,153-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:20:21,977-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/defaulttags.py", line 446, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/urls/resolvers.py", line 685, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajax_load_cities' not found. 'ajax_load_cities' is not a valid view function or pattern name.
+2020-12-28 14:21:14,207-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:21:14,320-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:21:24,539-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:21:32,790-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:21:32,904-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:28:04,678-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:28:33,189-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:28:33,303-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:30:45,063-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:39:21,076-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:39:21,190-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:42:55,467-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:43:49,801-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/usuarios/views.py", line 35, in get
+    return render(request, 'cadastros/usuario_cadastro.html', context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 988, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/template/base.py", line 698, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/crispy_forms/templatetags/crispy_forms_filters.py", line 101, in as_crispy_field
+    raise CrispyError("|as_crispy_field got passed an invalid or inexistent field")
+crispy_forms.exceptions.CrispyError: |as_crispy_field got passed an invalid or inexistent field
+2020-12-28 14:43:59,567-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:43:59,680-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:46:32,812-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:49:44,185-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 14:49:44,186-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:49:44,517-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 14:50:03,092-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:50:03,206-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 14:53:14,014-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 15:06:41,720-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 15:06:41,834-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:00:15,857-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:00:19,388-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-28 17:00:19,393-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-28 17:00:19,397-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-28 17:00:19,456-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-28 17:00:19,471-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-28 17:00:19,473-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-28 17:00:19,475-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-28 17:00:19,479-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-28 17:00:19,481-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-28 17:00:19,630-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2020-12-28 17:00:19,644-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2020-12-28 17:00:19,648-django.request-(WARNING) Not Found: /images/items/5.jpg
+2020-12-28 17:00:19,655-django.request-(WARNING) Not Found: /images/items/8.jpg
+2020-12-28 17:00:19,673-django.request-(WARNING) Not Found: /images/items/4.jpg
+2020-12-28 17:00:19,681-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2020-12-28 17:00:19,700-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2020-12-28 17:00:19,718-django.request-(WARNING) Not Found: /images/items/3.jpg
+2020-12-28 17:00:19,724-django.request-(WARNING) Not Found: /images/items/7.jpg
+2020-12-28 17:00:19,756-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-28 17:00:19,761-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-28 17:00:19,764-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2020-12-28 17:00:19,768-django.request-(WARNING) Not Found: /images/items/9.jpg
+2020-12-28 17:00:19,779-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-28 17:00:19,790-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-28 17:00:19,798-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-28 17:00:19,823-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-28 17:00:19,827-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-28 17:00:19,842-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-28 17:00:19,868-django.request-(WARNING) Not Found: /images/items/11.jpg
+2020-12-28 17:00:19,879-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-28 17:00:19,882-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-28 17:00:19,890-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-28 17:00:19,894-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-28 17:00:19,906-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2020-12-28 17:00:19,923-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2020-12-28 17:00:19,947-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-28 17:01:31,843-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:01:32,007-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:09:36,915-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:10:27,832-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:10:27,833-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:10:28,426-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:11:32,831-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:11:32,832-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:11:33,403-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:12:00,352-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:12:00,352-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:12:00,940-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:12:15,488-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:12:15,489-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:12:16,054-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:12:42,735-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:12:42,736-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:12:43,297-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:13:21,300-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-28 17:13:21,301-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:13:21,893-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 17:14:27,942-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 17:14:28,056-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:14:26,335-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:15:45,201-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:15:45,315-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:16:15,758-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:22:45,175-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:22:45,289-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:22:53,778-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:28:45,148-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:28:45,261-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:40:36,830-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:41:15,042-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:41:15,156-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:41:16,528-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:41:18,202-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:41:18,266-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:41:25,599-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:42:10,100-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:42:19,372-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:42:37,650-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:43:32,525-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 18:43:32,526-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:43:32,859-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:44:19,616-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 18:44:19,617-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:44:19,933-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:45:44,027-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 18:45:44,028-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:45:44,363-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:46:21,920-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:46:22,034-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:46:56,836-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:47:18,250-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:47:30,072-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:48:27,937-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:48:29,873-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:48:55,924-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:49:05,530-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:49:49,652-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:49:59,092-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:49:59,206-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:51:54,063-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:53:09,148-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 18:53:09,148-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:53:09,538-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:53:19,787-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 18:53:19,788-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:53:20,136-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:53:45,547-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 18:53:45,548-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:53:45,879-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:54:51,817-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/models.py changed, reloading.
+2020-12-28 18:54:51,818-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:54:52,143-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 18:55:15,881-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:55:15,995-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 18:56:26,155-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:16:25,187-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:16:25,300-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:23:05,056-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:23:17,896-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:23:17,959-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:23:37,650-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:24:49,804-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:24:49,806-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:24:50,143-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:24:57,397-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:24:57,398-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:24:57,740-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:25:20,157-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:25:20,158-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:25:20,512-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:26:24,518-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:26:24,519-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:26:24,850-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:26:34,119-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:26:34,120-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:26:34,455-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:26:44,741-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:26:44,742-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:26:45,115-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 19:26:55,413-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 19:26:55,414-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 19:26:55,852-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 20:08:01,741-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:08:01,856-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:19:59,053-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 20:48:31,721-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:48:31,835-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:52:20,727-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 20:53:01,245-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:53:01,358-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:53:34,333-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 20:54:07,094-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 20:54:07,095-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 20:54:07,435-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:04:01,005-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:04:01,119-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:04:16,418-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:05:35,777-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:05:35,891-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:06:09,002-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:08:01,793-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:08:22,490-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:08:22,604-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:10:18,966-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:14:18,339-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:14:18,453-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:15:17,511-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:15:41,536-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:15:41,649-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:16:18,984-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:18:35,484-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 21:18:35,485-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:18:36,081-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:19:38,222-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/forms.py changed, reloading.
+2020-12-28 21:19:38,223-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:19:38,823-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-28 21:20:54,158-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-28 21:20:54,272-asyncio-(DEBUG) Using selector: EpollSelector

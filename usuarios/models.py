@@ -7,7 +7,6 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-
 # Função para evitar duplicação de nomes de imagens, e renomear o nome da imagem com hash
 def get_file_path(_instance, filename):
     ext = filename.split('.')[-1]
@@ -16,8 +15,8 @@ def get_file_path(_instance, filename):
 
 
 class Telefone(models.Model):
-    numeroCelular = models.CharField('Telefone celular',max_length=30, help_text='Obrigatório')
-    numeroFixo = models.CharField('Telefone fixo',blank=True, max_length=30, help_text='Não obrigatório')
+    numeroCelular = models.CharField('Telefone celular', max_length=30, help_text='Obrigatório')
+    numeroFixo = models.CharField('Telefone fixo', blank=True, max_length=30, help_text='Não obrigatório')
 
     class Meta:
         verbose_name = 'Telefone'
@@ -36,7 +35,7 @@ class Estado(models.Model):
         verbose_name_plural = 'Estados'
 
     def __str__(self):
-        return self.nome
+        return "{} - ({})".format(self.nome, self.sigla)
 
 
 class Cidade(models.Model):
@@ -52,13 +51,13 @@ class Cidade(models.Model):
 
 
 class Endereco(models.Model):
-    bairro = models.CharField('Bairro', max_length=50, help_text='Obrigatório'),
-    complemento = models.CharField('Complemento', max_length=50, blank=True, help_text='Obrigatório')
-    numero = models.CharField('Número', max_length=100, default='S/N')
+    complemento = models.CharField('Complemento', max_length=50, blank=True, help_text=' Não obrigatório')
+    numero = models.CharField('Número', max_length=100, default='S/N', help_text='Obrigatório')
     estado = models.OneToOneField(Estado, on_delete=models.PROTECT)
     cidade = models.OneToOneField(Cidade, on_delete=models.PROTECT)
-    rua = models.CharField('Rua', max_length=100, help_text='Insira a rua')
-    cep = models.CharField('CEP', max_length=25, help_text='Insira o CEP')
+    rua = models.CharField('Rua', max_length=100, help_text='Obrigatório')
+    cep = models.CharField('CEP', max_length=25, help_text='Obrigatório')
+    bairro = models.CharField('Bairro', max_length=50, help_text='Obrigatório')
 
 
 class UsuarioManager(BaseUserManager):
@@ -97,7 +96,6 @@ class UsuarioManager(BaseUserManager):
 
 
 class CustomUsuario(AbstractUser):
-
     first_name = models.CharField('Primeiro nome', max_length=100, help_text='Obrigatório')
     last_name = models.CharField('Último nome', max_length=100, help_text='Obrigatório')
     email = models.EmailField('E-mail', unique=True, help_text='Obrigatório')
@@ -117,4 +115,3 @@ class CustomUsuario(AbstractUser):
         return self.email
 
     objects = UsuarioManager()
-
