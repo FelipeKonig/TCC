@@ -1,10 +1,9 @@
 import uuid
 
 from django.db import models
-from phone_field import PhoneField
 from stdimage.models import StdImageField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from phonenumber_field.modelfields import PhoneNumberField
+
 
 
 # Função para evitar duplicação de nomes de imagens, e renomear o nome da imagem com hash
@@ -99,17 +98,16 @@ class CustomUsuario(AbstractUser):
     first_name = models.CharField('Primeiro nome', max_length=100, help_text='Obrigatório')
     last_name = models.CharField('Último nome', max_length=100, help_text='Obrigatório')
     email = models.EmailField('E-mail', unique=True, help_text='Obrigatório')
-    # fone = models.CharField('Telefone', max_length=15)
     is_staff = models.BooleanField('Membro da equipe', default=True)
-    telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone')
-    cpf = models.CharField('CPF', unique=True, max_length=11, help_text='Obrigatório')
-    data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório')
+    telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone', null=True)
+    cpf = models.CharField('CPF', max_length=11, help_text='Obrigatório')
+    data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório', validators=[])
     foto = StdImageField('Foto', upload_to=get_file_path,
                          variations={'thumb': {'width': 400, 'height': 400, 'crop': True}})
-    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço')
+    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'telefone', 'cpf', 'data_nascimento', 'foto', 'endereco']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'data_nascimento']
 
     def __str__(self):
         return self.email
