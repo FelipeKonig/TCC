@@ -60,7 +60,13 @@
 
 				{% else %}
 				<li><a href="#" class="nav-link"><strong>Ola, seja bem vindo {{ user.first_name }} {{user.last_name}} </strong></a></li>
-
+				<li><a href="{% url 'logout' %}" class="nav-link">
+					<img src="https://img.icons8.com/ios-glyphs/26/4a90e2/exit.png"/>
+					<strong>
+					Sair
+					</strong>
+				</a>
+				</li>
 				{% endif %}
 
 				<li><a href="#" class="nav-link"> Deals </a></li>
