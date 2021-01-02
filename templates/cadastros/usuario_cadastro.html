@@ -38,7 +38,7 @@
 				<div class="form-group col-md-6">
 						{{ form.password2|as_crispy_field }}
 				</div>
-				<button type="submit" class="btn btn-primary btn-block"> Register  </button>
+				<button type="submit" class="btn btn-primary btn-block"> Registrar  </button>
 			</div>
 
 			</form>
@@ -46,18 +46,15 @@
 
 		</article>
     </div>
-    <p class="text-center mt-4">Have an account? <a href="">Log In</a></p>
+    <p class="text-center mt-4">Já possui uma conta? <a href="{% url 'usuarios:login' %}">Entre aqui</a></p>
+	<div class="text-center mt-4" >
+        <img src="https://img.icons8.com/ios-glyphs/60/4a90e2/finger-and-thumb.png"/>
+    </div>
     <br><br>
-
 
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-<script src="sweetalert2/dist/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
-<script src="{% static 'js/javascriptUsuario.js' %}" type="text/javascript"></script>
-
 
 </body>
 	{% if messages %}
@@ -80,10 +77,10 @@
 
 				Toast.fire({
 				  icon: 'success',
-				  title: '{{m}}'
+				  title: '{{m}} \n Clique no botão OK para prosseguir'
 				}).then((result) => {
 				  if (result.isConfirmed) {
-						window.location.href = "{% url 'login' %}";
+						window.location.href = "{% url 'usuarios:login' %}";
 				  }
 				})
 		  </script>

@@ -1,5 +1,5 @@
 {% extends 'ecommerce/base.html' %}
-{% load crispy_forms_tags %
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block body %}
@@ -12,36 +12,74 @@
 <!-- ============================ COMPONENT LOGIN   ================================= -->
 	<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
       <div class="card-body">
-      <h4 class="card-title mb-4">Sign in</h4>
-      <form>
-      	  <a href="#" class="btn btn-facebook btn-block mb-2"> <i class="fab fa-facebook-f"></i> &nbsp  Sign in with Facebook</a>
-      	  <a href="#" class="btn btn-google btn-block mb-4"> <i class="fab fa-google"></i> &nbsp  Sign in with Google</a>
+      <h4 class="card-title mb-4">Entrar</h4>
+      <form  method="POST" autocomplete="off" >
+          				{% csrf_token %}
+
           <div class="form-group">
-			 <input name="" class="form-control" placeholder="Username" type="text">
+
+              {{ form.username|as_crispy_field }}
           </div> <!-- form-group// -->
           <div class="form-group">
-			<input name="" class="form-control" placeholder="Password" type="password">
+              {{ form.password|as_crispy_field }}
+
           </div> <!-- form-group// -->
 
           <div class="form-group">
-          	<a href="#" class="float-right">Forgot password?</a>
-            <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
-          </div> <!-- form-group form-check .// -->
+          	<a href="#" class="float-right">
+
+                Esqueceu a senha? <img src="https://img.icons8.com/metro/26/4a90e2/forgot-password.png"/></a>
+          </div>
           <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-          </div> <!-- form-group// -->
+          </div>
       </form>
-      </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
 
-     <p class="text-center mt-4">Don't have account? <a href="#">Sign up</a></p>
-     <br><br>
-<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+          {% if form.errors %}
+                {% for error in form.non_field_errors %}
 
+                <div class="alert alert-danger">
+                    <p>{{ error|escape }}</p>
+                </div>
+            {% endfor %}
+          {% endif %}
 
+      </div>
+    </div>
+     <p class="text-center mt-4">Não possui ainda sua conta? <a href="{% url 'usuarios:cadastrousuario' %}">Clique aqui para se registrar
+     </a></p>
+    <div class="text-center mt-4" >
+        <img src="https://img.icons8.com/ios-glyphs/60/4a90e2/finger-and-thumb.png"/>
+    </div>
+        <br><br>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
 
 </body>
+
+        {% if form.errors %}
+            {% for error in form.non_field_errors %}
+                <script type="text/javascript">
+
+             const Toast = Swal.mixin({
+				  toast: true,
+				  position: 'center',
+				  showConfirmButton: true,
+				  timer: 3000,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				  }
+				})
+
+				Toast.fire({
+				  icon: 'error',
+				  title: 'Usuário e/ou senha inválidos! \n {{ error|escape }}'
+				})
+		        </script>
+            {% endfor %}
+          {% endif %}
 
 {% endblock %}

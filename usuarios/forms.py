@@ -9,12 +9,11 @@ from .models import (
 )
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Row, Column
 
 from django.contrib.auth.forms import (
     UserCreationForm,
-    UserChangeForm,
-    ReadOnlyPasswordHashField
+    AuthenticationForm
 )
 from django import forms
 
@@ -41,6 +40,24 @@ class DateInput(forms.DateInput):
 
     def clean(self, value):
         return super(DateInput, self).clean(value)
+
+
+class UsuarioLoginForm(AuthenticationForm):
+    username = forms.EmailField(label='E-mail', help_text='Obrigatório')
+    password = forms.CharField(widget=forms.PasswordInput(), label='Senha', help_text='Obrigatório')
+
+    def __init__(self, *args, **kwargs):
+        super(UsuarioLoginForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-6'),
+                Column('password', css_class='form-group col-md-6'),
+                css_class='form-row'
+            ))
+        self.fields['username'].widget.attrs['placeholder'] = 'Insira seu e-mail'
+        self.fields['password'].widget.attrs['placeholder'] = 'Insira sua senha'
 
 
 class CustomUsuarioCreationForm(UserCreationForm):
