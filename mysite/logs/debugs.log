@@ -7202,3 +7202,288 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is n
 2020-12-31 20:03:13,982-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
 2020-12-31 20:03:42,957-asyncio-(DEBUG) Using selector: EpollSelector
 2020-12-31 20:03:43,070-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 20:50:13,492-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 20:50:16,849-django.request-(WARNING) Not Found: /images/items/8.jpg
+2020-12-31 20:50:16,853-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-31 20:50:16,855-django.request-(WARNING) Not Found: /images/items/9.jpg
+2020-12-31 20:50:16,857-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-31 20:50:16,863-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-31 20:50:16,865-django.request-(WARNING) Not Found: /images/items/3.jpg
+2020-12-31 20:50:16,884-django.request-(WARNING) Not Found: /images/items/5.jpg
+2020-12-31 20:50:16,888-django.request-(WARNING) Not Found: /images/items/4.jpg
+2020-12-31 20:50:16,909-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-31 20:50:16,912-django.request-(WARNING) Not Found: /images/items/7.jpg
+2020-12-31 20:50:16,926-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2020-12-31 20:50:16,931-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-31 20:50:16,939-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2020-12-31 20:50:16,961-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-31 20:50:16,968-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-31 20:50:16,973-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-31 20:50:16,994-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2020-12-31 20:50:17,012-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-31 20:50:17,020-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-31 20:50:17,036-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-31 20:50:17,048-django.request-(WARNING) Not Found: /images/items/11.jpg
+2020-12-31 20:50:17,060-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-31 20:50:17,064-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2020-12-31 20:50:17,078-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2020-12-31 20:50:17,131-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2020-12-31 20:50:17,133-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-31 20:50:17,138-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2020-12-31 20:50:49,429-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-31 20:50:49,432-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-31 20:50:49,433-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-31 20:50:49,437-django.request-(WARNING) Not Found: /images/items/5.jpg
+2020-12-31 20:50:49,438-django.request-(WARNING) Not Found: /images/items/7.jpg
+2020-12-31 20:50:49,441-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-31 20:50:49,449-django.request-(WARNING) Not Found: /images/items/8.jpg
+2020-12-31 20:50:49,453-django.request-(WARNING) Not Found: /images/items/9.jpg
+2020-12-31 20:50:49,459-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-31 20:50:49,470-django.request-(WARNING) Not Found: /images/items/11.jpg
+2020-12-31 20:50:49,477-django.request-(WARNING) Not Found: /images/items/3.jpg
+2020-12-31 20:50:49,484-django.request-(WARNING) Not Found: /images/items/4.jpg
+2020-12-31 20:50:49,487-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-31 20:50:49,490-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2020-12-31 20:50:49,492-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2020-12-31 20:50:49,497-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-31 20:50:49,509-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-31 20:50:49,513-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-31 20:50:49,515-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-31 20:50:49,522-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2020-12-31 20:50:49,537-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2020-12-31 20:50:49,541-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-31 20:50:49,543-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-31 20:50:49,560-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2020-12-31 20:50:49,565-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2020-12-31 20:50:49,570-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-31 20:50:49,577-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2020-12-31 20:52:29,773-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-31 20:52:29,774-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 20:52:30,121-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 20:53:25,298-django.request-(ERROR) Internal Server Error: /usuarios/cadastro
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 116, in get_success_url
+    url = self.object.get_absolute_url()
+AttributeError: 'CustomUsuario' object has no attribute 'get_absolute_url'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/contrib/messages/views.py", line 11, in form_valid
+    response = super().form_valid(form)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 126, in form_valid
+    return super().form_valid(form)
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 57, in form_valid
+    return HttpResponseRedirect(self.get_success_url())
+  File "/home/ramonbecker/Documentos/git/TCC/myvenv/lib/python3.8/site-packages/django/views/generic/edit.py", line 118, in get_success_url
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: No URL to redirect to.  Either provide a url or define a get_absolute_url method on the Model.
+2020-12-31 20:54:02,507-django.utils.autoreload-(INFO) /home/ramonbecker/Documentos/git/TCC/usuarios/views.py changed, reloading.
+2020-12-31 20:54:02,508-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 20:54:02,840-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 20:59:14,877-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-31 20:59:14,881-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-31 20:59:14,915-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-31 20:59:14,921-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-31 20:59:14,939-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-31 20:59:14,956-django.request-(WARNING) Not Found: /images/items/8.jpg
+2020-12-31 20:59:14,960-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2020-12-31 20:59:14,974-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2020-12-31 20:59:14,981-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2020-12-31 20:59:14,984-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2020-12-31 20:59:14,987-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2020-12-31 20:59:15,003-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2020-12-31 20:59:15,021-django.request-(WARNING) Not Found: /images/items/4.jpg
+2020-12-31 20:59:15,023-django.request-(WARNING) Not Found: /images/items/1.jpg
+2020-12-31 20:59:15,043-django.request-(WARNING) Not Found: /images/items/2.jpg
+2020-12-31 20:59:15,049-django.request-(WARNING) Not Found: /images/items/14.jpg
+2020-12-31 20:59:15,058-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2020-12-31 20:59:15,084-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2020-12-31 20:59:15,095-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2020-12-31 20:59:15,112-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2020-12-31 20:59:15,121-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2020-12-31 20:59:15,124-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2020-12-31 20:59:15,144-django.request-(WARNING) Not Found: /images/items/6.jpg
+2020-12-31 20:59:15,146-django.request-(WARNING) Not Found: /images/items/3.jpg
+2020-12-31 20:59:15,174-django.request-(WARNING) Not Found: /images/items/5.jpg
+2020-12-31 20:59:15,179-django.request-(WARNING) Not Found: /images/items/7.jpg
+2020-12-31 20:59:15,205-django.request-(WARNING) Not Found: /images/items/9.jpg
+2020-12-31 20:59:15,220-django.request-(WARNING) Not Found: /images/items/11.jpg
+2020-12-31 20:59:15,224-django.request-(WARNING) Not Found: /images/items/12.jpg
+2020-12-31 20:59:15,227-django.request-(WARNING) Not Found: /images/items/10.jpg
+2020-12-31 20:59:15,249-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2020-12-31 20:59:15,252-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2020-12-31 21:06:23,285-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:06:23,399-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:06:26,575-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 21:08:13,267-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:08:13,381-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:09:09,608-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 21:09:09,745-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:09:17,759-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 21:11:42,030-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:11:42,144-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:11:52,119-asyncio-(DEBUG) Using selector: EpollSelector
+2020-12-31 21:11:55,194-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2020-12-31 21:16:37,042-django.request-(WARNING) Not Found: /favicon.ico
+2021-01-01 12:58:22,214-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 12:58:31,946-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 12:58:31,947-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 12:58:32,024-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 12:58:32,085-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 12:58:58,471-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 12:58:58,476-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 12:58:58,514-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 12:58:58,529-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 12:59:19,174-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 12:59:22,879-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:02:18,196-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:02:18,360-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:04:00,591-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:04:50,356-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:04:50,470-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:04:53,003-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:04:56,790-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:04:56,799-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:04:57,018-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:04:57,068-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:04:59,595-django.request-(WARNING) Not Found: /favicon.ico
+2021-01-01 13:05:14,067-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:05:14,180-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:05:55,175-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:05:58,603-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:05:58,606-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:05:58,665-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:07:20,836-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:07:20,949-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:07:23,337-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:07:27,596-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:07:27,597-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:07:27,633-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:08:36,432-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:08:36,434-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:16:45,516-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:16:45,521-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:17:10,631-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:17:10,635-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:21:59,368-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:21:59,374-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:22:01,537-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:22:01,562-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:22:01,627-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:22:01,646-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:22:27,001-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:22:27,010-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:23:09,340-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:23:09,348-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:23:31,047-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:23:31,055-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:23:31,244-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:23:31,589-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:23:41,712-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:23:41,750-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:23:41,809-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:23:41,827-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:25:32,483-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:25:32,495-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:25:33,385-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:25:33,399-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:25:33,464-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:25:33,483-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:25:53,614-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:25:53,623-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:28:25,845-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:28:25,959-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:28:28,487-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:28:32,086-django.request-(WARNING) Not Found: /images/items/8.jpg
+2021-01-01 13:28:32,088-django.request-(WARNING) Not Found: /images/items/14.jpg
+2021-01-01 13:28:32,090-django.request-(WARNING) Not Found: /images/items/9.jpg
+2021-01-01 13:28:32,114-django.request-(WARNING) Not Found: /images/items/2.jpg
+2021-01-01 13:28:32,145-django.request-(WARNING) Not Found: /images/items/1.jpg
+2021-01-01 13:28:32,154-django.request-(WARNING) Not Found: /images/items/7.jpg
+2021-01-01 13:28:32,158-django.request-(WARNING) Not Found: /images/items/3.jpg
+2021-01-01 13:28:32,162-django.request-(WARNING) Not Found: /images/items/4.jpg
+2021-01-01 13:28:32,167-django.request-(WARNING) Not Found: /images/items/6.jpg
+2021-01-01 13:28:32,178-django.request-(WARNING) Not Found: /images/items/5.jpg
+2021-01-01 13:28:32,185-django.request-(WARNING) Not Found: /images/items/10.jpg
+2021-01-01 13:28:32,188-django.request-(WARNING) Not Found: /images/items/11.jpg
+2021-01-01 13:28:32,205-django.request-(WARNING) Not Found: /images/items/12.jpg
+2021-01-01 13:28:32,208-django.request-(WARNING) Not Found: /images/icons/flags/CN.png
+2021-01-01 13:28:32,228-django.request-(WARNING) Not Found: /images/icons/flags/DE.png
+2021-01-01 13:28:32,240-django.request-(WARNING) Not Found: /images/icons/flags/AU.png
+2021-01-01 13:28:32,251-django.request-(WARNING) Not Found: /images/icons/flags/IN.png
+2021-01-01 13:28:32,254-django.request-(WARNING) Not Found: /images/icons/flags/RU.png
+2021-01-01 13:28:32,263-django.request-(WARNING) Not Found: /images/icons/flags/GB.png
+2021-01-01 13:28:32,288-django.request-(WARNING) Not Found: /images/icons/flags/UZ.png
+2021-01-01 13:28:32,291-django.request-(WARNING) Not Found: /images/icons/flags/TR.png
+2021-01-01 13:28:32,304-django.request-(WARNING) Not Found: /images/banners/ad-sm.png
+2021-01-01 13:28:32,331-django.request-(WARNING) Not Found: /images/banners/banner9.jpg
+2021-01-01 13:28:32,335-django.request-(WARNING) Not Found: /images/posts/1.jpg
+2021-01-01 13:28:32,346-django.request-(WARNING) Not Found: /images/items/8.jpg
+2021-01-01 13:28:32,350-django.request-(WARNING) Not Found: /images/posts/2.jpg
+2021-01-01 13:28:32,359-django.request-(WARNING) Not Found: /images/posts/4.jpg
+2021-01-01 13:28:32,378-django.request-(WARNING) Not Found: /images/posts/3.jpg
+2021-01-01 13:28:34,786-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:28:34,788-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:28:34,872-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:28:34,925-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:29:01,306-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:29:01,315-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:29:01,373-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:29:01,430-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:35:31,555-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:35:31,559-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:35:31,665-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:35:31,693-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:35:35,788-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:35:35,792-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:35:35,859-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:36:02,445-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:36:02,450-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:38:18,245-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:38:18,248-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:38:18,328-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:38:18,355-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:38:49,658-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:38:49,662-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:38:49,710-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:38:49,741-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:40:51,537-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:40:51,768-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:43:40,416-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-01 13:43:43,908-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:43:43,939-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:43:44,226-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:43:44,574-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:44:07,601-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:44:07,625-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:44:07,844-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-01 13:44:07,984-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-01 13:44:27,409-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-01 13:44:27,518-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-02 09:52:52,245-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-02 09:53:17,528-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-02 09:53:17,642-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-02 10:19:02,011-django.utils.autoreload-(INFO) Watching for file changes with StatReloader
+2021-01-02 10:19:15,429-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-02 10:19:15,430-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-02 10:19:15,486-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-02 10:19:15,519-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-02 10:19:42,025-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-02 10:19:42,026-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-02 10:19:42,055-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.js
+2021-01-02 10:19:42,072-django.request-(WARNING) Not Found: /usuarios/sweetalert2/dist/sweetalert2.min.css
+2021-01-02 10:20:10,555-asyncio-(DEBUG) Using selector: EpollSelector
+2021-01-02 10:20:10,668-asyncio-(DEBUG) Using selector: EpollSelector

@@ -40,7 +40,10 @@
 				</div>
 				<button type="submit" class="btn btn-primary btn-block"> Register  </button>
 			</div>
+
 			</form>
+
+
 		</article>
     </div>
     <p class="text-center mt-4">Have an account? <a href="">Log In</a></p>
@@ -48,9 +51,45 @@
 
 
 </section>
-<script src="{% static 'js/javascriptUsuarios.js' %}" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
+<script src="{% static 'js/javascriptUsuario.js' %}" type="text/javascript"></script>
+
 
 </body>
+	{% if messages %}
+		{% for m in messages %}
 
+		{% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<li {% if m.tags %} class="{{ m.tags }}"{% endif %}>{{ m }}</li>
+		<script>
+				const Toast = Swal.mixin({
+				  toast: true,
+				  position: 'center',
+				  showConfirmButton: true,
+				  timer: 3000,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				  }
+				})
+
+				Toast.fire({
+				  icon: 'success',
+				  title: '{{m}}'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+						window.location.href = "{% url 'login' %}";
+				  }
+				})
+		  </script>
+		 {{ m }}
+		{% endif %}
+		{% endfor %}
+	{% endif %}
 {% endblock %}
 

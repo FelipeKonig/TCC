@@ -165,13 +165,12 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'usuarios.CustomUsuario'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 TIME_INPUT_FORMATS = ('%d/%m/%Y', )
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
-PHONENUMBER_DB_FORMAT = 'NATIONAL'
-PHONENUMBER_DEFAULT_REGION = 'BR'
-
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
