@@ -48,15 +48,13 @@
 		    <ul class="navbar-nav mr-auto">
 				{% if not user.is_authenticated %}
 
-				<li><span class="nav-link"> <h3>Olá,</h3>
-					<a href="{% url 'usuarios:login' %}">
-
-					<img src="https://img.icons8.com/ios-filled/26/4a90e2/login-rounded-right.png"/>
-					clique aqui para <strong>Logar </strong></a>
-					ou <a href="{% url 'usuarios:cadastrousuario' %}"> <strong>Registre-se</strong> aqui  </a>
-				<img src="https://img.icons8.com/material/26/4a90e2/add-user-male--v1.png"/>
-				</span>
-				</li>
+        <!-- Mantive a fonte como estava no template original -->
+        <li><span class="nav-link"> Olá, clique aqui para
+          <a href="{% url 'usuarios:login' %}">
+         <strong>Entrar </strong></a>
+          ou <a href="{% url 'usuarios:cadastrousuario' %}"> <strong>Registrar-se</strong> </a>
+        </span>
+        </li>
 
 				{% else %}
 				<li><a href="#" class="nav-link"><strong>Ola, seja bem vindo {{ user.first_name }} {{user.last_name}} </strong></a></li>
@@ -69,9 +67,9 @@
 				</li>
 				{% endif %}
 
-				<li><a href="#" class="nav-link"> Deals </a></li>
-				<li><a href="#" class="nav-link"> Sell </a></li>
-				<li><a href="#" class="nav-link"> Help </a></li>
+				<li><a href="#" class="nav-link"> Promoções </a></li>
+				<li><a href="#" class="nav-link"> Venda </a></li>
+				<li><a href="#" class="nav-link"> Ajuda </a></li>
 		    </ul>
 		  </div> <!-- navbar-collapse .// -->
 		</div> <!-- container //  -->
@@ -82,7 +80,7 @@
 		<div class="row align-items-center">
       <!-- deletar essa div -->
 			<div class="col-xl-2 col-lg-3 col-md-12">
-				<a href="http://bootstrap-ecommerce.com" class="brand-wrap">
+				<a href="{% url 'e-commerce:home' %}" class="brand-wrap">
 					<img class="logo" src="{% static 'ecommerce/images/logo.png' %}">
 				</a> <!-- brand-wrap.// -->
 			</div>
@@ -90,15 +88,15 @@
 				<form action="#" class="search-header">
 					<div class="input-group w-100">
 						<select class="custom-select border-right"  name="category_name">
-								<option value="">All type</option><option value="codex">Special</option>
-								<option value="comments">Only best</option>
-								<option value="content">Latest</option>
+								<option value="">Todos os tipos</option><option value="codex">Especial</option>
+								<option value="comments">Apenas os melhores</option>
+								<option value="content">Últimos</option>
 						</select>
-					    <input type="text" class="form-control" placeholder="Search">
+					    <input type="text" class="form-control" placeholder="Procurar">
 
 					    <div class="input-group-append">
 					      <button class="btn btn-primary" type="submit">
-					        <i class="fa fa-search"></i> Search
+					        <i class="fa fa-search"></i> Procurar
 					      </button>
 					    </div>
 				    </div>
@@ -112,7 +110,7 @@
 								<i class="fa fa-user"></i>
 								<span class="notify">3</span>
 							</div>
-							<small class="text"> My profile </small>
+							<small class="text"> Meu perfil </small>
 						</a>
 					</div>
 					<div class="widget-header mr-3">
@@ -121,7 +119,7 @@
 								<i class="fa fa-comment-dots"></i>
 								<span class="notify">1</span>
 							</div>
-							<small class="text"> Message </small>
+							<small class="text"> Mensagem </small>
 						</a>
 					</div>
 					<div class="widget-header mr-3">
@@ -129,7 +127,7 @@
 							<div class="icon-area">
 								<i class="fa fa-store"></i>
 							</div>
-							<small class="text"> Orders </small>
+							<small class="text"> Ordens </small>
 						</a>
 					</div>
 					<div class="widget-header">
@@ -137,7 +135,7 @@
 							<div class="icon-area">
 								<i class="fa fa-shopping-cart"></i>
 							</div>
-							<small class="text"> Cart </small>
+							<small class="text"> Carrinho </small>
 						</a>
 					</div>
 				</div> <!-- widgets-wrap.// -->
@@ -157,7 +155,7 @@
 	<div class="collapse navbar-collapse" id="main_nav">
 	<ul class="navbar-nav">
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bars text-muted mr-2"></i> Demo pages </a>
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bars text-muted mr-2"></i> Navegue aqui </a>
 			<div class="dropdown-menu dropdown-large">
 				<nav class="row">
 					<div class="col-6">
@@ -186,19 +184,20 @@
 			</div> <!--  dropdown-menu dropdown-large end.// -->
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">Ready to ship</a>
+			<a class="nav-link" href="#">Pronto para enviar</a>
 		</li>
 		<li class="nav-item">
-		<a class="nav-link" href="#">Trade shows</a>
+		<a class="nav-link" href="#">Exposição comercial</a>
 		</li>
 		<li class="nav-item">
-		<a class="nav-link" href="#">Services</a>
+		<a class="nav-link" href="#">Serviços</a>
 		</li>
 		<li class="nav-item">
-		<a class="nav-link" href="#">Sell with us</a>
+		<a class="nav-link" href="#">Venda conosco</a>
 		</li>
 	</ul>
-	<ul class="navbar-nav ml-md-auto">
+  <!-- Não tem app e linguagem em outras línguas -->
+	<!-- <ul class="navbar-nav ml-md-auto">
 			<li class="nav-item">
 			<a class="nav-link" href="#">Get the app</a>
 		</li>
@@ -211,7 +210,7 @@
 			<a class="dropdown-item" href="#">Chinese</a>
 			</div>
 		</li>
-		</ul>
+		</ul> -->
 	</div> <!-- collapse .// -->
 </div> <!-- container .// -->
 </nav>
