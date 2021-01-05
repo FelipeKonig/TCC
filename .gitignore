@@ -7,6 +7,5 @@ db.sqlite3
 /static
 .DS_Store
 local_settings.py
-debugs.log
-errors.log
+*.log
 .idea
