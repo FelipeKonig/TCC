@@ -1,0 +1,4 @@
+<option value="">Selecione a cidade</option>
+{% for cidade in cidades %}
+<option value="{{ cidade.pk }}">{{ cidade.nome }}</option>
+{% endfor %}
