@@ -1,0 +1,52 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">Minha conta</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+	<div class="container">
+
+	<div class="row">
+		{% block menu-perfil %}
+		   {% include "usuarios/menu-perfil.html" %}
+		{% endblock %}
+		<main class="col-md-9">
+
+		<a href="#" class="btn btn-light mb-3"> <i class="fa fa-plus"></i> Adicionar novo endereço </a>
+
+        <div class="row">
+					{% for endereco in enderecos %}
+            <div class="col-md-6">
+                <article class="box mb-4">
+                    <h6>{{ endereco.cidade.nome }}, {{ endereco.estado.nome }}</h6>
+                    <p>{{ endereco.bairro }} <br> {{ endereco.rua }}, {{ endereco.numero }}  </p>
+                    <a href="#" class="btn btn-light disabled"> <i class="fa fa-check"></i> Default</a> <a href="#" class="btn btn-light"> <i class="fa fa-pen"></i> </a>   <a href="#" class="btn btn-light"> <i class="text-danger fa fa-trash"></i>  </a>
+                </article>
+            </div>  <!-- col.// -->
+            {% empty %}
+							<p> &nbsp; Você ainda não possui nenhum endereço </p>
+							{% endfor %}
+        </div> <!-- row.// -->
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+</body>
+
+{% endblock %}

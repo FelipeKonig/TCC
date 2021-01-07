@@ -103,16 +103,16 @@ class CustomUsuarioCreationForm(UserCreationForm):
 
 
 class TelefoneForm(forms.ModelForm):
-    numeroFixo = forms.CharField(required=False, help_text='Não obrigatório', label='Telefone fixo', max_length=30)
+    # numeroFixo = forms.CharField(required=False, help_text='Não obrigatório', label='Telefone fixo', max_length=30)
 
     class Meta:
         model = Telefone
-        fields = ('numeroCelular',)
+        fields = ('numero',)
 
     def __init__(self, *args, **kwargs):
         super(TelefoneForm, self).__init__(*args, **kwargs)
-        self.fields['numeroFixo'].widget.attrs['placeholder'] = 'Insira o seu telefone fixo'
-        self.fields['numeroCelular'].widget.attrs['placeholder'] = 'Insira o seu telefone celular'
+        self.fields['tipo'].widget.attrs['placeholder'] = 'Insira o tipo do telefone'
+        self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número do telefone'
 
 
 class EnderecoForm1(forms.ModelForm):

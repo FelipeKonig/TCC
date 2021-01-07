@@ -18,17 +18,9 @@
 <div class="container">
 
 <div class="row">
-	<aside class="col-md-3">
-		<nav class="list-group">
-			<a class="list-group-item active" href="{% url 'e-commerce:perfil_principal' %}"> Visão geral da conta </a>
-			<a class="list-group-item" href="page-profile-address.html"> Meu endereço </a>
-			<a class="list-group-item" href="page-profile-orders.html"> Meus pedidos </a>
-			<a class="list-group-item" href="page-profile-wishlist.html"> Minha lista de desejos </a>
-			<a class="list-group-item" href="page-profile-seller.html"> Meus itens de venda </a>
-			<a class="list-group-item" href="page-profile-setting.html"> Configurações </a>
-			<a class="list-group-item" href="{% url 'logout' %}"> Sair </a>
-		</nav>
-	</aside> <!-- col.// -->
+	{% block menu-perfil %}
+	   {% include "usuarios/menu-perfil.html" %}
+	{% endblock %}
 	<main class="col-md-9">
 
 		<article class="card mb-3">
@@ -52,11 +44,16 @@
 				</figure>
 				<hr>
 				<p>
-					<i class="fa fa-map-marker text-muted"></i> &nbsp; Meu endereço:
+					<i class="fa fa-map-marker text-muted"></i> &nbsp; Meus endereços:
 					 <br>
-					{{ user.endereco.cidade.nome }}, {{ user.endereco.rua }},
-					{{ user.endereco.bairro }}, {{ user.endereco.numero}} &nbsp
-					<a href="#" class="btn-link"> Editar </a>
+					 {% for endereco in enderecos %}
+							{{ endereco.cidade.nome }}, {{ endereco.rua }},
+							{{ endereco.bairro }}, {{ endereco.numero}} &nbsp
+							<a href="#" class="btn-link"> Editar </a>
+							<br>
+							{% empty %}
+								<p> Você ainda não possui nenhum endereço </p>
+						{% endfor %}
 				</p>
 				<article class="card-group card-stat">
 					<figure class="card bg">
