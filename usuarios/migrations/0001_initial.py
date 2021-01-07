@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('is_staff', models.BooleanField(default=True, verbose_name='Membro da equipe')),
                 ('cpf', models.CharField(help_text='Obrigatório', max_length=11, unique=True, verbose_name='CPF')),
                 ('data_nascimento', models.DateField(help_text='Obrigatório', verbose_name='Data de nascimento')),
-                ('foto', stdimage.models.StdImageField(upload_to=usuarios.models.get_file_path, verbose_name='Foto')),
+                ('foto', stdimage.models.StdImageField(upload_to=usuarios.models.adicionar_imagem_perfil, verbose_name='Foto')),
                 ('endereco', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Endereço', to='usuarios.endereco')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('telefone', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='telefone', to='usuarios.telefone')),

@@ -1,17 +1,18 @@
-import uuid
+import os
+from uuid import uuid4
 
 from django.db import models
 from stdimage.models import StdImageField
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
-
 # Função para evitar duplicação de nomes de imagens, e renomear o nome da imagem com hash
-def get_file_path(_instance, filename):
+# Adicionei o método os.path.join para separar as imagens de perfil, e assim, criar novos diretórios para imagens de 
+# outros objetos, tais como produtos
+def adicionar_imagem_perfil(instance, filename):
     ext = filename.split('.')[-1]
-    filename = f'{uuid.uuid4()}.{ext}'
-    return filename
-
+    filename = '{}.{}'.format(uuid4().hex, ext)
+    return os.path.join('perfil/', filename)
 
 class Telefone(models.Model):
     numeroCelular = models.CharField('Telefone celular', max_length=30, help_text='Obrigatório')
@@ -102,8 +103,10 @@ class CustomUsuario(AbstractUser):
     telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone', null=True)
     cpf = models.CharField('CPF', max_length=11, help_text='Obrigatório')
     data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório', validators=[])
-    foto = StdImageField('Foto', upload_to=get_file_path,
-                         variations={'thumb': {'width': 400, 'height': 400, 'crop': True}})
+
+    # Problemas com o diretório e criação das fotos; está duplicando a mesma imagem com dois nomes diferentes
+    # retirei o método variation e deixei null=True
+    foto = StdImageField('Foto', upload_to=adicionar_imagem_perfil, null=True)
     endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
 
     USERNAME_FIELD = 'email'
