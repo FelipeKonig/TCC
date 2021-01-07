@@ -11,7 +11,7 @@
 <meta name="description" content="Bootstrap e-commerce html template similar to Alibaba">
 <meta name="keywords" content="Online template, shop, theme, template, html, css, bootstrap 4">
 
-<title>Website title - bootstrap alistyle html template</title>
+<title>Site do TCC</title>
 
 <link href="{% static 'ecommerce/images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
 
@@ -33,9 +33,6 @@
 <script src="{% static 'ecommerce/js/script.js' %}" type="text/javascript"></script>
 
 </head>
-<!-- REMOVE FOLLOWING LINK -->
-<a href="http://bootstrap-ecommerce.com/page-themes.html" class="btn btn-dark rounded-pill" style="font-size:13px; z-index:100; position: fixed; bottom:10px; right:10px;">Download theme</a>
-<!-- REMOVE  //END -->
 
 <header class="section-header">
 	<div class="container">
@@ -105,7 +102,7 @@
 			<div class="col-xl-4 col-lg-4 col-md-6">
 				<div class="widgets-wrap float-md-right">
 					<div class="widget-header mr-3">
-						<a href="#" class="widget-view">
+						<a href="{% url 'e-commerce:perfil_principal' %}" class="widget-view">
 							<div class="icon-area">
 								<i class="fa fa-user"></i>
 								<span class="notify">3</span>
@@ -127,7 +124,7 @@
 							<div class="icon-area">
 								<i class="fa fa-store"></i>
 							</div>
-							<small class="text"> Ordens </small>
+							<small class="text"> Pedidos </small>
 						</a>
 					</div>
 					<div class="widget-header">
@@ -167,8 +164,8 @@
 						<a href="page-shopping-cart.html">Shopping cart</a>
 						<a href="page-detail-product.html">Product detail</a>
 						<a href="page-content.html">Page content</a>
-						<a href="page-user-login.html">Page login</a>
-						<a href="page-user-register.html">Page register</a>
+						<a href="{% url 'usuarios:login' %}">Página de login</a>
+						<a href="{% url 'usuarios:cadastrousuario' %}">Página de registro</a>
 					</div>
 					<div class="col-6">
 						<a href="page-profile-main.html">Profile main</a>
@@ -226,7 +223,7 @@
 		<section class="footer-top padding-y-lg text-white">
 			<div class="row">
 				<aside class="col-md col-6">
-					<h6 class="title">Brands</h6>
+					<h6 class="title">Marcas</h6>
 					<ul class="list-unstyled">
 						<li> <a href="#">Adidas</a></li>
 						<li> <a href="#">Puma</a></li>
@@ -235,32 +232,32 @@
 					</ul>
 				</aside>
 				<aside class="col-md col-6">
-					<h6 class="title">Company</h6>
+					<h6 class="title">Empresa</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#">About us</a></li>
-						<li> <a href="#">Career</a></li>
-						<li> <a href="#">Find a store</a></li>
-						<li> <a href="#">Rules and terms</a></li>
-						<li> <a href="#">Sitemap</a></li>
+						<li> <a href="#">Sobre nós</a></li>
+						<li> <a href="#">Carreira</a></li>
+						<li> <a href="#">Sobre o site</a></li>
+						<li> <a href="#">Regras e termos</a></li>
+						<li> <a href="#">Mapa do site</a></li>
 					</ul>
 				</aside>
 				<aside class="col-md col-6">
-					<h6 class="title">Help</h6>
+					<h6 class="title">Ajuda</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#">Contact us</a></li>
-						<li> <a href="#">Money refund</a></li>
-						<li> <a href="#">Order status</a></li>
-						<li> <a href="#">Shipping info</a></li>
-						<li> <a href="#">Open dispute</a></li>
+						<li> <a href="#">Nosso contato</a></li>
+						<li> <a href="#">devolução de dinheiro</a></li>
+						<li> <a href="#">Status dos pedidos</a></li>
+						<li> <a href="#">Informação de Envio</a></li>
+						<!-- <li> <a href="#">Open dispute</a></li> -->
 					</ul>
 				</aside>
 				<aside class="col-md col-6">
-					<h6 class="title">Account</h6>
+					<h6 class="title">Conta</h6>
 					<ul class="list-unstyled">
-						<li> <a href="#"> User Login </a></li>
-						<li> <a href="#"> User register </a></li>
-						<li> <a href="#"> Account Setting </a></li>
-						<li> <a href="#"> My Orders </a></li>
+						<li> <a href="{% url 'usuarios:login' %}"> Login de usuário </a></li>
+						<li> <a href="{% url 'usuarios:cadastrousuario' %}"> Registro de usuário </a></li>
+						<li> <a href="#"> Configurações da conta </a></li>
+						<li> <a href="#"> Minhas encomendas </a></li>
 					</ul>
 				</aside>
 				<aside class="col-md">
@@ -277,8 +274,8 @@
 
 		<section class="footer-bottom text-center">
 
-				<p class="text-white">Privacy Policy - Terms of Use - User Information Legal Enquiry Guide</p>
-				<p class="text-muted"> &copy 2019 Company name, All rights reserved </p>
+				<p class="text-white">Política de privacidade - Termos de uso - Informações do usuário Guia de consulta jurídica</p>
+				<p class="text-muted"> &copy 2019 TCC, Todos os direitos reservados </p>
 				<br>
 		</section>
 	</div><!-- //container -->

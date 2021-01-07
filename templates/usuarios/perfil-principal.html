@@ -8,7 +8,7 @@
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg-gray">
 <div class="container">
-	<h2 class="title-page">My account</h2>
+	<h2 class="title-page">Minha conta</h2>
 </div> <!-- container //  -->
 </section>
 <!-- ========================= SECTION PAGETOP END// ========================= -->
@@ -20,13 +20,13 @@
 <div class="row">
 	<aside class="col-md-3">
 		<nav class="list-group">
-			<a class="list-group-item active" href="page-profile-main.html"> Account overview  </a>
-			<a class="list-group-item" href="page-profile-address.html"> My Address </a>
-			<a class="list-group-item" href="page-profile-orders.html"> My Orders </a>
-			<a class="list-group-item" href="page-profile-wishlist.html"> My wishlist </a>
-			<a class="list-group-item" href="page-profile-seller.html"> My Selling Items </a>
-			<a class="list-group-item" href="page-profile-setting.html"> Settings </a>
-			<a class="list-group-item" href="page-index-1.html"> Log out </a>
+			<a class="list-group-item active" href="{% url 'e-commerce:perfil_principal' %}"> Visão geral da conta </a>
+			<a class="list-group-item" href="page-profile-address.html"> Meu endereço </a>
+			<a class="list-group-item" href="page-profile-orders.html"> Meus pedidos </a>
+			<a class="list-group-item" href="page-profile-wishlist.html"> Minha lista de desejos </a>
+			<a class="list-group-item" href="page-profile-seller.html"> Meus itens de venda </a>
+			<a class="list-group-item" href="page-profile-setting.html"> Configurações </a>
+			<a class="list-group-item" href="{% url 'logout' %}"> Sair </a>
 		</nav>
 	</aside> <!-- col.// -->
 	<main class="col-md-9">
@@ -36,47 +36,51 @@
 
 				<figure class="icontext">
 						<div class="icon">
-							<img class="rounded-circle img-sm border" src="images/avatars/avatar3.jpg">
+							{% if not user.foto %}
+								<img class="rounded-circle img-sm" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
+								<input type="hidden" name="user icons png from pngtree.com" href='https://pngtree.com/so/user-icons'>
+								</input>
+							{% else %}
+								<img class="rounded-circle img-sm border" src="{{ user.foto.url }}">
+							{% endif %}
 						</div>
 						<div class="text">
-							<strong> Mr. Jackson Someone </strong> <br>
-							<p class="mb-2"> myloginname@gmail.com  </p>
-							<a href="#" class="btn btn-light btn-sm">Edit</a>
+							<strong> {{ user.first_name }} {{user.last_name }} </strong> <br>
+							<p class="mb-2"> {{ user.email }}  </p>
+							<a href="#" class="btn btn-light btn-sm">Editar</a>
 						</div>
 				</figure>
 				<hr>
 				<p>
-					<i class="fa fa-map-marker text-muted"></i> &nbsp; My address:
+					<i class="fa fa-map-marker text-muted"></i> &nbsp; Meu endereço:
 					 <br>
-					Tashkent city, Street name, Building 123, House 321 &nbsp
-					<a href="#" class="btn-link"> Edit</a>
+					{{ user.endereco.cidade.nome }}, {{ user.endereco.rua }},
+					{{ user.endereco.bairro }}, {{ user.endereco.numero}} &nbsp
+					<a href="#" class="btn-link"> Editar </a>
 				</p>
-
-
-
 				<article class="card-group card-stat">
 					<figure class="card bg">
 						<div class="p-3">
 							 <h4 class="title">38</h4>
-							<span>Orders</span>
+							<span>pedidos</span>
 						</div>
 					</figure>
 					<figure class="card bg">
 						<div class="p-3">
 							 <h4 class="title">5</h4>
-							<span>Wishlists</span>
+							<span>Lista de desejos</span>
 						</div>
 					</figure>
 					<figure class="card bg">
 						<div class="p-3">
 							 <h4 class="title">12</h4>
-							<span>Awaiting delivery</span>
+							<span>Aguardando entrega</span>
 						</div>
 					</figure>
 					<figure class="card bg">
 						<div class="p-3">
 							 <h4 class="title">50</h4>
-							<span>Delivered items</span>
+							<span>Produtos e serviços entregues</span>
 						</div>
 					</figure>
 				</article>
@@ -87,13 +91,14 @@
 
 		<article class="card  mb-3">
 			<div class="card-body">
-				<h5 class="card-title mb-4">Recent orders </h5>
+				<h5 class="card-title mb-4">Pedidos recentes </h5>
 
 				<div class="row">
 				<div class="col-md-6">
 					<figure class="itemside  mb-3">
-						<div class="aside"><img src="images/items/1.jpg" class="border img-sm"></div>
 						<figcaption class="info">
+							<!-- <div class="aside"><img src="images/items/1.jpg" class="border img-sm"></div> -->
+							<div class="aside"><img src="" class="border img-sm"></div>
 							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
 							<p>Great book name goes here </p>
 							<span class="text-success">Order confirmed </span>
@@ -102,7 +107,8 @@
 				</div> <!-- col.// -->
 				<div class="col-md-6">
 					<figure class="itemside  mb-3">
-						<div class="aside"><img src="images/items/2.jpg" class="border img-sm"></div>
+						<!-- <div class="aside"><img src="images/items/2.jpg" class="border img-sm"></div> -->
+						<div class="aside"><img src="" class="border img-sm"></div>
 						<figcaption class="info">
 							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
 							<p>How to be rich</p>
@@ -112,7 +118,8 @@
 				</div> <!-- col.// -->
 				<div class="col-md-6">
 					<figure class="itemside mb-3">
-						<div class="aside"><img src="images/items/3.jpg" class="border img-sm"></div>
+						<!-- <div class="aside"><img src="images/items/3.jpg" class="border img-sm"></div> -->
+						<div class="aside"><img src="" class="border img-sm"></div>
 						<figcaption class="info">
 							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
 							<p>Harry Potter book </p>
@@ -122,7 +129,7 @@
 				</div> <!-- col.// -->
 			</div> <!-- row.// -->
 
-			<a href="#" class="btn btn-outline-primary btn-block"> See all orders <i class="fa fa-chevron-down"></i>  </a>
+			<a href="#" class="btn btn-outline-primary btn-block"> Ver todos os pedidos <i class="fa fa-chevron-down"></i>  </a>
 			</div> <!-- card-body .// -->
 		</article> <!-- card.// -->
 
