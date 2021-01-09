@@ -13,7 +13,7 @@ from crispy_forms.layout import Layout, Row, Column
 
 from django.contrib.auth.forms import (
     UserCreationForm,
-    AuthenticationForm
+    AuthenticationForm, PasswordResetForm
 )
 from django import forms
 
@@ -126,3 +126,11 @@ class EnderecoForm1(forms.ModelForm):
         self.fields['bairro'].widget.attrs['placeholder'] = 'Insira o bairro'
         self.fields['complemento'].widget.attrs['placeholder'] = 'Insira o complemento'
         self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número'
+
+
+class ResetarSenhaForm(PasswordResetForm):
+    email = forms.EmailField(required=True, help_text='Obrigatório', label='Email', max_length=254)
+
+    def __init__(self, *args, **kwargs):
+        super(ResetarSenhaForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['placeholder'] = 'Insira seu e-mail'

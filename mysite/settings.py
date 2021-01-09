@@ -168,10 +168,18 @@ AUTH_USER_MODEL = 'usuarios.CustomUsuario'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-TIME_INPUT_FORMATS = ('%d/%m/%Y', )
+TIME_INPUT_FORMATS = ('%d/%m/%Y',)
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'beckersilva1999@gmail.com'
