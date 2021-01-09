@@ -12,5 +12,6 @@ urlpatterns = [
     path('login', CustomLoginView.as_view(), name='login'),
     path('perfil/', views.perfil_principal, name='perfil_principal'),
     path('perfil/endereco', views.perfil_endereco, name='perfil_endereco'),
-    # path('ajax/carregar-cidades/', carregar_cidades, name='ajax_carregar_cidades'),
+    path('perfil/endereco/adicionar', views.endereco_formulario_adicionar, name='perfil_endereco_adicionar'),
+    path('ajax/carregar-cidades/', views.carregar_cidades, name='ajax_carregar_cidades'),
 ]

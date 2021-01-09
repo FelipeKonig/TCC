@@ -22,9 +22,11 @@
 		{% block menu-perfil %}
 		   {% include "usuarios/menu-perfil.html" %}
 		{% endblock %}
-		<main class="col-md-9">
+	<main class="col-md-9">
 
-		<a href="#" class="btn btn-light mb-3"> <i class="fa fa-plus"></i> Adicionar novo endereço </a>
+		<a href="{% url 'usuarios:perfil_endereco_adicionar' %}" class="btn btn-light mb-3"> <i class="fa fa-plus"></i>
+			 Adicionar novo endereço
+		</a>
 
         <div class="row">
 					{% for endereco in enderecos %}
@@ -48,5 +50,7 @@
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 </body>
+
+<br><br><br><br><br><br>
 
 {% endblock %}

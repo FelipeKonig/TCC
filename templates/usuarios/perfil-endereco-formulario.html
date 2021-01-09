@@ -1,0 +1,132 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">Minha conta</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+	<div class="row">
+		{% block menu-perfil %}
+			 {% include "usuarios/menu-perfil.html" %}
+		{% endblock %}
+	<main class="col-md-9">
+	<div class="card mb-4">
+      <div class="card-body">
+      <h4 class="card-title mb-4">Novo endereço</h4>
+     	<form>
+		    <div class="form-row">
+					<div class="col form-group">
+						<label>Estado</label>
+							<select id="selecionar-estado" placeholder="Selecione seu estado" class="form-control" autofocus>
+								<option value="" disabled selected hidden>Selecione seu estado</option>
+								{% for indice, estado in estados.items %}
+									<option value="{{ estado.nome }} {{ estado.sigla }}">
+										{{ estado.nome }}
+									</option>
+								{% endfor %}
+							</select>
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label>Cidade</label>
+							<select id="selecionar-cidade" class="form-control">
+								<option value="" disabled selected hidden>Selecione sua cidade</option>
+							</select>
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+
+				<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Cep</label>
+				  <input type="text" class="form-control">
+				</div> <!-- form-group end.// -->
+				<div class="form-group col-md-6">
+				  <label>Bairro</label>
+				  <input type="text" class="form-control">
+				</div> <!-- form-group end.// -->
+			</div> <!-- form-row.// -->
+
+			<div class="form-row">
+				<div class="form-group col-lg-3">
+				  <label>Rua</label>
+				  <input type="text" class="form-control">
+				</div> <!-- form-group end.// -->
+				<div class="form-group col-md-3">
+					<label>Número</label>
+					<input type="text" class="form-control">
+				</div> <!-- form-group end.// -->
+				<div class="form-group col-md-6">
+				  <label>Complemento</label>
+				  <input type="text" class="form-control" placeholder="ex: casa">
+				</div> <!-- form-group end.// -->
+			</div> <!-- form-row.// -->
+
+				<button class="btn btn-primary ">Enviar</button>
+      </form>
+      </div> <!-- card-body.// -->
+			</main> <!-- col.// -->
+    </div> <!-- card .// -->
+	</div>
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+</body>
+
+<br><br><br><br><br><br>
+
+<script>
+
+	// Seleciona o select dos estados pelo id do select
+	$("#selecionar-estado").change(function() {
+
+		// pego o valor do option selecionado
+		var estado = $('#selecionar-estado').find(":selected").val()
+
+		// printa no console do navegador o estado selecionado
+		// console.log(estado);
+
+		// passo a url e informação desejada
+		$.ajax({
+			 url: '{% url "usuarios:ajax_carregar_cidades" %}',
+			 data: {
+			   'estado': estado
+			 },
+
+			 // caso o ajax ocorrer corretamente
+			 success: function (data) {
+
+				// printa no console os dados retornados
+			 	// console.log("buscou as cidades:");
+				// console.log(data);
+
+				// printa a quantidade de chaves do objeto 'cidades'
+				// console.log(Object.keys(data['cidades']).length);
+
+				// limpa as options do select cidades pelo id do select
+				$("#selecionar-cidade").empty();
+
+					for(var i=0; i < 	Object.keys(data['cidades']).length; i++ ){
+
+						// pega o objeto que está na chave [i]
+						var cidade = data['cidades'][i]
+						// console.log(cidade);
+
+						// adiciona o option no select cidades com o valor da variável
+						$('#selecionar-cidade').append(`<option value='${cidade}'>${cidade}</option>`);
+					}
+			  }
+			});
+	});
+</script>
+
+{% endblock %}

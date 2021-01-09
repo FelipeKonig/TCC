@@ -63,7 +63,7 @@ class Endereco(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
     complemento = models.CharField('Complemento', max_length=50, blank=True, null=True, help_text=' Não obrigatório')
     numero = models.CharField('Número', max_length=100, default='S/N', help_text='Obrigatório')
-    # Se for um para um, vários endereços não poderão estar no mesmo estado e/ou cidade
+    # Se for um para um, vários endereços não poderão estar no mesmo estado e/ou cidade(objeto)
     # estado = models.OneToOneField(Estado, on_delete=models.PROTECT)
     # cidade = models.OneToOneField(Cidade, on_delete=models.PROTECT)
     estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
