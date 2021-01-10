@@ -5,8 +5,7 @@ from django.core.exceptions import ValidationError
 
 from .models import (
     CustomUsuario,
-    Telefone,
-    Endereco
+    Telefone
 )
 
 from crispy_forms.helper import FormHelper
@@ -36,6 +35,12 @@ def validar_data_nascimento(value):
         raise ValidationError('A idade não pode ser menor que 18 anos')
 
 
+class cadastroPerfilUsuario(forms.ModelForm):
+    class Meta:
+        model = CustomUsuario
+        fields = ('')
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -62,9 +67,6 @@ class UsuarioLoginForm(AuthenticationForm):
 
 
 class CustomUsuarioCreationForm(UserCreationForm):
-    data_nascimento = forms.DateField(widget=DateInput, label='Data de nascimento', help_text='Obrigatório',
-                                      required=True, validators=[validar_data_nascimento])
-
     class Meta:
         model = CustomUsuario
         fields = ('first_name', 'last_name', 'email')
@@ -73,7 +75,6 @@ class CustomUsuarioCreationForm(UserCreationForm):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         user.username = self.cleaned_data['email']
-        user.data_nascimento = self.cleaned_data['data_nascimento']
 
         if commit:
             user.save()
@@ -88,7 +89,6 @@ class CustomUsuarioCreationForm(UserCreationForm):
                 Column('first_name', css_class='form-group col-md-6'),
                 Column('last_name', css_class='form-group col-md-6'),
                 Column('email', css_class='form-group col-md-6'),
-                Column('data_nascimento', css_class='form-group col-md-6'),
                 Column('password1', css_class='form-group col-md-6'),
                 Column('password2', css_class='form-group col-md-6'),
 
@@ -114,19 +114,6 @@ class TelefoneForm(forms.ModelForm):
         super(TelefoneForm, self).__init__(*args, **kwargs)
         self.fields['numeroFixo'].widget.attrs['placeholder'] = 'Insira o seu telefone fixo'
         self.fields['numeroCelular'].widget.attrs['placeholder'] = 'Insira o seu telefone celular'
-
-
-class EnderecoForm1(forms.ModelForm):
-    class Meta:
-        model = Endereco
-        fields = ('rua', 'bairro', 'complemento', 'numero', 'cep')
-
-    def __init__(self, *args, **kwargs):
-        super(EnderecoForm1, self).__init__(*args, **kwargs)
-        self.fields['rua'].widget.attrs['placeholder'] = 'Insira a rua'
-        self.fields['bairro'].widget.attrs['placeholder'] = 'Insira o bairro'
-        self.fields['complemento'].widget.attrs['placeholder'] = 'Insira o complemento'
-        self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número'
 
 
 class EmailTokenSenhaForm(PasswordResetForm):

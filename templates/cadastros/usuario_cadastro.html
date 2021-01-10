@@ -24,10 +24,7 @@
 						{{ form.last_name| as_crispy_field }}
 				</div>
 
-				<div class="form-group col-md-6">
-					{{ form.data_nascimento|as_crispy_field }}
-				</div>
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-12">
 					{{ form.email|as_crispy_field }}
 				</div>
 			</div>
@@ -83,7 +80,6 @@
 				})
 		  </script>
 		 {{ m }}
-		{% endif %}
 		{% endfor %}
 	{% endif %}
 {% endblock %}
