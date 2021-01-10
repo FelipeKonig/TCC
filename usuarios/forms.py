@@ -14,7 +14,7 @@ from crispy_forms.layout import Layout, Row, Column
 
 from django.contrib.auth.forms import (
     UserCreationForm,
-    AuthenticationForm, PasswordResetForm, SetPasswordForm
+    AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 )
 from django import forms
 
@@ -155,3 +155,38 @@ class ResetarSenhaForm(SetPasswordForm):
         required=True,
         help_text='Obrigatório'
     )
+
+
+class AlterarSenhaForm(PasswordChangeForm):
+    new_password1 = forms.CharField(
+        label="Nova senha",
+        widget=forms.PasswordInput(),
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+        required=True
+
+    )
+    new_password2 = forms.CharField(
+        label="Confirme sua senha",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={'placeholder': 'Digite novamente sua senha', 'class': 'password2'}
+        ),
+        required=True,
+        help_text='Obrigatório'
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(AlterarSenhaForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('password1', css_class='form-group col-md-6'),
+                Column('password2', css_class='form-group col-md-6'),
+                css_class='form-row'
+            )
+        )
+
+        self.fields['old_password'].widget.attrs['placeholder'] = 'Insira sua senha antiga'
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'Insira sua nova senha'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'Insira sua novamente sua nova senha'

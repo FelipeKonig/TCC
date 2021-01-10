@@ -59,8 +59,6 @@
 </body>
 	{% if messages %}
 		{% for m in messages %}
-
-		{% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
 			<li {% if m.tags %} class="{{ m.tags }}"{% endif %}>{{ m }}</li>
 		<script>
 				const Toast = Swal.mixin({

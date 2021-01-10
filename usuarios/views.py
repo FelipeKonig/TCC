@@ -1,7 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
     LoginView,
     PasswordResetView,
-    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+    PasswordChangeView
 )
 
 from django.shortcuts import render
@@ -10,7 +14,8 @@ from .forms import (
     CustomUsuarioCreationForm,
     UsuarioLoginForm,
     EmailTokenSenhaForm,
-    ResetarSenhaForm
+    ResetarSenhaForm,
+    AlterarSenhaForm
 
 )
 from .models import (
@@ -56,6 +61,14 @@ class ResetarSenha(PasswordResetConfirmView):
 class ResetarSenhaMensagemCompleta(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
 
+
+# ---------- Alteração de senha
+class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
+    login_url = '/usuarios/login'
+    form_class = AlterarSenhaForm
+    template_name = 'registration/password_change_form.html'
+    success_url = reverse_lazy('usuarios:alterarsenha')
+    success_message = 'Senha alterada com sucesso'
 
 # AJAX ----
 # Esta função pode ser apagada  ! -----

@@ -5,7 +5,8 @@ from .views import (
     EmailTokenSenha,
     MensagemResetarSenhaEmail,
     ResetarSenha,
-    ResetarSenhaMensagemCompleta
+    ResetarSenhaMensagemCompleta,
+    AlteracaoSenha
 )
 
 app_name = 'usuarios'
@@ -16,5 +17,6 @@ urlpatterns = [
     path('resetar-senha', EmailTokenSenha.as_view(), name='resetarsenha'),
     path('resetar-senha-sucesso-email', MensagemResetarSenhaEmail.as_view(), name='sucessoresetarsenha'),
     path('reset/<uidb64>/<token>', ResetarSenha.as_view(), name='novasenha'),
-    path('redifinicao-completa', ResetarSenhaMensagemCompleta.as_view(), name='redifinicaocompleta')
+    path('redifinicao-completa', ResetarSenhaMensagemCompleta.as_view(), name='redifinicaocompleta'),
+    path('alterar-senha', AlteracaoSenha.as_view(), name='alterarsenha'),
 ]
