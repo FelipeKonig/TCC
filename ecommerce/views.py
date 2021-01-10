@@ -6,9 +6,11 @@ import logging
 # Create your views here.
 logger = logging.getLogger(__name__)
 
+
 def home_page(request):
     return render(request, 'ecommerce/pagina-index.html')
 
-@login_required
+
+@login_required(login_url='/usuarios/login')
 def perfil_principal(request):
     return render(request, 'usuarios/perfil-principal.html')

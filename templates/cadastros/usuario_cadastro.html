@@ -24,10 +24,7 @@
 						{{ form.last_name| as_crispy_field }}
 				</div>
 
-				<div class="form-group col-md-6">
-					{{ form.data_nascimento|as_crispy_field }}
-				</div>
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-12">
 					{{ form.email|as_crispy_field }}
 				</div>
 			</div>
@@ -59,8 +56,6 @@
 </body>
 	{% if messages %}
 		{% for m in messages %}
-
-		{% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
 			<li {% if m.tags %} class="{{ m.tags }}"{% endif %}>{{ m }}</li>
 		<script>
 				const Toast = Swal.mixin({
@@ -85,7 +80,6 @@
 				})
 		  </script>
 		 {{ m }}
-		{% endif %}
 		{% endfor %}
 	{% endif %}
 {% endblock %}
