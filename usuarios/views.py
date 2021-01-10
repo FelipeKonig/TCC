@@ -1,14 +1,16 @@
 from django.contrib.auth.views import (
     LoginView,
     PasswordResetView,
-    PasswordResetDoneView
+    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 )
 
 from django.shortcuts import render
 from django.views.generic import CreateView
 from .forms import (
     CustomUsuarioCreationForm,
-    UsuarioLoginForm, ResetarSenhaForm
+    UsuarioLoginForm,
+    EmailTokenSenhaForm,
+    ResetarSenhaForm
 
 )
 from .models import (
@@ -34,18 +36,29 @@ class LoginCustomizado(LoginView, SuccessMessageMixin):
     success_message = 'Login realizado com sucesso'
 
 
-class ResetarSenha(PasswordResetView, SuccessMessageMixin):
+# ---------------- Redefinição de senha ----------------
+class EmailTokenSenha(PasswordResetView):
     success_url = reverse_lazy('usuarios:sucessoresetarsenha')
-    form_class = ResetarSenhaForm
+    form_class = EmailTokenSenhaForm
     template_name = 'registration/password_reset_form.html'
-    success_message = 'Redefinição de senha enviada com sucesso!'
 
 
 class MensagemResetarSenhaEmail(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
 
-# AJAX
+class ResetarSenha(PasswordResetConfirmView):
+    success_url = reverse_lazy('usuarios:redifinicaocompleta')
+    form_class = ResetarSenhaForm
+    template_name = 'registration/password_reset_confirm.html'
+
+
+class ResetarSenhaMensagemCompleta(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
+
+
+# AJAX ----
+# Esta função pode ser apagada  ! -----
 
 def carregar_cidades(request):
     estado_id = request.GET.get('estado')

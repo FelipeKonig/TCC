@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
 from .models import (
@@ -13,7 +14,7 @@ from crispy_forms.layout import Layout, Row, Column
 
 from django.contrib.auth.forms import (
     UserCreationForm,
-    AuthenticationForm, PasswordResetForm
+    AuthenticationForm, PasswordResetForm, SetPasswordForm
 )
 from django import forms
 
@@ -128,9 +129,29 @@ class EnderecoForm1(forms.ModelForm):
         self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número'
 
 
-class ResetarSenhaForm(PasswordResetForm):
+class EmailTokenSenhaForm(PasswordResetForm):
     email = forms.EmailField(required=True, help_text='Obrigatório', label='Email', max_length=254)
 
     def __init__(self, *args, **kwargs):
-        super(ResetarSenhaForm, self).__init__(*args, **kwargs)
+        super(EmailTokenSenhaForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = 'Insira seu e-mail'
+
+
+class ResetarSenhaForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="Nova senha",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Digite sua senha', 'class': 'password1'}),
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+        required=True
+
+    )
+    new_password2 = forms.CharField(
+        label="Confirme sua senha",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={'placeholder': 'Digite novamente sua senha', 'class': 'password2'}
+        ),
+        required=True,
+        help_text='Obrigatório'
+    )
