@@ -17,13 +17,6 @@
 		<form  method="POST" id="usuarioForm"  autocomplete="off" >
 				{% csrf_token %}
 			<div class="form-row">
-				<div class="form-group col-md-6">
-						{{ form.first_name| as_crispy_field }}
-				</div>
-				<div class="form-group col-md-6">
-						{{ form.last_name| as_crispy_field }}
-				</div>
-
 				<div class="form-group col-md-12">
 					{{ form.email|as_crispy_field }}
 				</div>

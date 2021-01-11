@@ -106,12 +106,11 @@ class CustomUsuario(AbstractUser):
 
     # Problemas com o diretório e criação das fotos; está duplicando a mesma imagem com dois nomes diferentes
     # retirei o método variation e deixei null=True
-    foto = StdImageField('Foto', upload_to=adicionar_imagem_perfil, null=True)
+    foto = StdImageField('Foto', upload_to=adicionar_imagem_perfil, variations={'thumb': {'width': 400, 'height': 400, 'crop': True}}, null=True)
     endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
-
     def __str__(self):
         return self.email
 

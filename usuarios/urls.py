@@ -6,7 +6,8 @@ from .views import (
     MensagemResetarSenhaEmail,
     ResetarSenha,
     ResetarSenhaMensagemCompleta,
-    AlteracaoSenha
+    AlteracaoSenha,
+    CriarPefilUsuario
 )
 
 app_name = 'usuarios'
@@ -19,4 +20,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', ResetarSenha.as_view(), name='novasenha'),
     path('redifinicao-completa', ResetarSenhaMensagemCompleta.as_view(), name='redifinicaocompleta'),
     path('alterar-senha', AlteracaoSenha.as_view(), name='alterarsenha'),
+    path('criar-perfil', CriarPefilUsuario.as_view(), name='criarperfil')
 ]
