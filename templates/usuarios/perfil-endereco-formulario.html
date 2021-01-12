@@ -24,54 +24,56 @@
 	<div class="card mb-4">
       <div class="card-body">
       <h4 class="card-title mb-4">Novo endereço</h4>
-     	<form>
+     	<form action="" method="post" class="needs-validation" novalidate>
+				{% csrf_token %}
 		    <div class="form-row">
 					<div class="col form-group">
 						<label>Estado</label>
-							<select id="selecionar-estado" placeholder="Selecione seu estado" class="form-control" autofocus>
+							<select id="estado" name="estado" placeholder="Selecione seu estado" class="form-control" required>
 								<option value="" disabled selected hidden>Selecione seu estado</option>
 								{% for indice, estado in estados.items %}
-									<option value="{{ estado.nome }} {{ estado.sigla }}">
+									<option value="{{ estado.nome }}|{{ estado.sigla }}">
 										{{ estado.nome }}
 									</option>
 								{% endfor %}
 							</select>
-					</div> <!-- form-group end.// -->
+					</div>
 					<div class="col form-group">
 						<label>Cidade</label>
-							<select id="selecionar-cidade" class="form-control">
+							<select id="cidade" name="cidade" class="form-control" required>
 								<option value="" disabled selected hidden>Selecione sua cidade</option>
 							</select>
-					</div> <!-- form-group end.// -->
-				</div> <!-- form-row.// -->
+					</div>
+				</div>
 
 				<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>Cep</label>
-				  <input type="text" class="form-control">
-				</div> <!-- form-group end.// -->
+				  <input id="cep" name="cep" type="text" class="form-control" placeholder="ex: 00000-000" required>
+					<small id="cep_msg" class="form-text text-muted"></small>
+				</div>
 				<div class="form-group col-md-6">
 				  <label>Bairro</label>
-				  <input type="text" class="form-control">
-				</div> <!-- form-group end.// -->
-			</div> <!-- form-row.// -->
+				  <input id="bairro" name="bairro" type="text" class="form-control" placeholder="ex: Jardim Esperança" required>
+				</div>
+			</div>
 
 			<div class="form-row">
 				<div class="form-group col-lg-3">
 				  <label>Rua</label>
-				  <input type="text" class="form-control">
-				</div> <!-- form-group end.// -->
+				  <input id="rua" name="rua" type="text" class="form-control" placeholder="ex: Saulo de Carvalho" required>
+				</div>
 				<div class="form-group col-md-3">
 					<label>Número</label>
-					<input type="text" class="form-control">
-				</div> <!-- form-group end.// -->
+					<input id="numero" name="numero" class="form-control"  type="number" min="1" placeholder="ex: 1234" required>
+				</div>
 				<div class="form-group col-md-6">
 				  <label>Complemento</label>
-				  <input type="text" class="form-control" placeholder="ex: casa">
-				</div> <!-- form-group end.// -->
-			</div> <!-- form-row.// -->
+				  <input id="complemento" name="complemento" type="text" class="form-control" placeholder="ex: casa">
+				</div>
+			</div>
 
-				<button class="btn btn-primary ">Enviar</button>
+				<button class="btn btn-primary" type="submit" value="OK">Enviar</button>
       </form>
       </div> <!-- card-body.// -->
 			</main> <!-- col.// -->
@@ -84,18 +86,28 @@
 
 <br><br><br><br><br><br>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
 <script>
 
+	// formatando o input do cep
+	$(document).ready(function () {
+			var $campo = $("#cep");
+			$campo.mask('00000-000', {reverse: true});
+	});
+
 	// Seleciona o select dos estados pelo id do select
-	$("#selecionar-estado").change(function() {
+	$("#estado").change(function() {
 
 		// pego o valor do option selecionado
-		var estado = $('#selecionar-estado').find(":selected").val()
+		var estado = $('#estado').find(":selected").val()
+
+		$('#cidade').append(`<option value="" disabled hidden>Carregando cidades</option>`);
 
 		// printa no console do navegador o estado selecionado
 		// console.log(estado);
 
-		// passo a url e informação desejada
+		// executo o ajax e passo a url e informação desejada
 		$.ajax({
 			 url: '{% url "usuarios:ajax_carregar_cidades" %}',
 			 data: {
@@ -113,7 +125,9 @@
 				// console.log(Object.keys(data['cidades']).length);
 
 				// limpa as options do select cidades pelo id do select
-				$("#selecionar-cidade").empty();
+				$("#cidade").empty();
+
+				$('#cidade').append('<option value="" disabled selected hidden>Selecione sua cidade</option>');
 
 					for(var i=0; i < 	Object.keys(data['cidades']).length; i++ ){
 
@@ -121,12 +135,105 @@
 						var cidade = data['cidades'][i]
 						// console.log(cidade);
 
-						// adiciona o option no select cidades com o valor da variável
-						$('#selecionar-cidade').append(`<option value='${cidade}'>${cidade}</option>`);
+						$('#cidade').append(`<option id="cidade" name="cidade" value='${cidade}'>${cidade} </option>`);
+
 					}
 			  }
 			});
 	});
+</script>
+
+<script>
+	$("#cidade").change(function() {
+		var estado = $('#estado').find(":selected").val()
+		var cidade = $('#cidade').find(":selected").val()
+
+		$.ajax({
+			 url: '{% url "usuarios:verificar_cidade_bd" %}',
+			 data: {
+				 'estado': estado,
+				 'cidade': cidade
+			 },
+				 success: function (data) {
+
+					 // printa os dados retornados pelo ajax caso queira ver no console
+					 // console.log(data);
+					 // console.log("estado:");
+					 // console.log(data['dicionario'][0]);
+					 // console.log("cidade:");
+					 // console.log(data['dicionario'][1]);
+
+					 var estado = $('#estado').find(":selected").val(data['dicionario'][0])
+					 var cidade = $('#cidade').find(":selected").val(data['dicionario'][1])
+
+				 }
+		});
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("#cep").keyup(function(){
+
+			var cep = this.value;
+
+			if(cep.length == 9){
+
+					$.ajax({
+						 url: '{% url "usuarios:verificar_cep" %}',
+						 data: {
+							 'cep': cep
+						 },
+							 success: function (data) {
+
+								 // printa os dados retornados pelo ajax caso queira ver no console
+								 // console.log(data);
+
+								 try{
+									 // retorna uma array dos pares de propriedade [chave, valor] com chave de string do próprio objeto
+									 var endereco = Object.entries(data['cep'][0])
+
+									 document.getElementById("cep").style.borderColor = 'lightGray';
+
+									 var rua = endereco[1];
+									 document.getElementById("rua").value = rua[1];
+
+									 var bairro = endereco[3];
+									 document.getElementById("bairro").value = bairro[1];
+
+								 }catch{
+									 document.getElementById("cep").value = '';
+									 document.getElementById("cep").style.borderColor = 'red';
+
+									 $("#cep_msg").text('Cep inválido');
+								 }
+							 }
+					});
+			}
+
+		});
+	});
+</script>
+
+<script>
+	// validar os campos do formulário
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
 </script>
 
 {% endblock %}

@@ -7,12 +7,12 @@ import logging
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView
 from .forms import (
     CustomUsuarioCreationForm,
-    UsuarioLoginForm
-
+    UsuarioLoginForm,
+    EnderecoForm
 )
 from .models import (
     CustomUsuario,
@@ -73,12 +73,25 @@ def endereco_formulario_adicionar(request):
         # adiciona as tuplas com os estados
         dicionario[indice] = estados
 
-    return render(request, 'usuarios/perfil-endereco-formulario.html',{ 'estados': dicionario })
+    if request.method == "POST":
+        form = EnderecoForm(request.POST)
+
+        if form.is_valid():
+            endereco = form.save(commit=False)
+            endereco.usuario = request.user
+            endereco.save()
+            return redirect('usuarios:perfil_endereco')
+    else:
+        form = EnderecoForm()
+
+    contexto = {'form': form, 'estados': dicionario }
+
+    return render(request, 'usuarios/perfil-endereco-formulario.html',contexto)
 
 # AJAX
 def carregar_cidades(request):
 
-    sigla = request.GET.get('estado').split()[-1]
+    sigla = request.GET.get('estado').split('|')[-1]
     logger.debug('sigla: {}'.format(sigla))
 
     cidades = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{}/municipios'.format(sigla)
@@ -97,3 +110,39 @@ def carregar_cidades(request):
 
     if request.is_ajax():
         return JsonResponse({'cidades': dicionario})
+
+# AJAX
+def verificar_cidade_bd(request):
+
+    sigla = request.GET.get('estado').split('|')[-1]
+    nome = request.GET.get('estado').split('|')[0]
+
+    buscar_estado = Estado.objects.get_or_create(nome = nome, sigla = sigla)
+    estado = Estado.objects.get(nome = nome, sigla = sigla)
+
+    buscar_cidade = Cidade.objects.get_or_create(nome = request.GET.get('cidade'), estado_id = estado.pk)
+    cidade = Cidade.objects.get(nome = request.GET.get('cidade'), estado_id = estado.pk)
+
+    dicionario = {}
+    dicionario[0] = estado.pk
+    dicionario[1] = cidade.pk
+
+    if request.is_ajax():
+        return JsonResponse({'dicionario': dicionario })
+
+# AJAX
+def verificar_cep(request):
+
+    cep = 'https://viacep.com.br/ws/{}/json/'.format(request.GET.get('cep'))
+    requisicao_cep = requests.get(cep)
+
+    try:
+        lista = requisicao_cep.json()
+    except ValueError:
+        logger.critical("Não encontrou o cep")
+
+    dicionario = {}
+    dicionario[0] = lista
+
+    if request.is_ajax():
+        return JsonResponse({'cep': dicionario })

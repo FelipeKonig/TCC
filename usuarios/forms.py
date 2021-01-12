@@ -120,16 +120,3 @@ class EnderecoForm(forms.ModelForm):
     class Meta:
         model = Endereco
         fields = ('estado', 'cidade','cep','rua', 'bairro', 'numero', 'complemento')
-
-    # def __init__(self, *args, **kwargs):
-    #     super(EnderecoForm, self).__init__(*args, **kwargs)
-    #     self.helper = FormHelper(self)
-    #     self.helper.form_method = 'post'
-    #     self.helper.attrs = {'novalidate': ''}
-    #     self.fields['estado'].widget.attrs['placeholder'] = 'Insira o estado'
-    #     self.fields['cidade'].widget.attrs['placeholder'] = 'Insira a cidade'
-    #     self.fields['bairro'].widget.attrs['placeholder'] = 'Insira o bairro'
-    #     self.fields['cep'].widget.attrs['placeholder'] = 'Insira o cep'
-    #     self.fields['rua'].widget.attrs['placeholder'] = 'Insira a rua'
-    #     self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número'
-    #     self.fields['complemento'].widget.attrs['placeholder'] = 'Insira o complemento'
