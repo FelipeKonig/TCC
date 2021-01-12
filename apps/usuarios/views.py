@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 
-
 from django.contrib.auth.views import (
     LoginView,
     PasswordResetView,
@@ -47,6 +46,7 @@ class CriarPefilUsuario(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form(CadastroPerfilUsuario)
+        empresa_selecionado = ""
 
         if form.is_valid():
             usuario_logado = CustomUsuario.objects.get(email=request.user)
@@ -59,37 +59,36 @@ class CriarPefilUsuario(LoginRequiredMixin, CreateView):
             numeroCelular = form.cleaned_data['numeroCelular']
             foto = form.cleaned_data['foto']
 
-            cpf_cortado_digitos_finais = str(cpf).split('-')
-            cpf_cortado_digitos_iniciais = cpf_cortado_digitos_finais[0].split('.')
-            cpf_sem_formatacao_mascara = ''
+            if cpf:
+                if len(cpf) == 14:
+                    cpf_cortado_digitos_finais = str(cpf).split('-')
+                    cpf_cortado_digitos_iniciais = cpf_cortado_digitos_finais[0].split('.')
+                    cpf_sem_formatacao_mascara = ''
 
-            for numero in cpf_cortado_digitos_iniciais:
-                cpf_sem_formatacao_mascara += numero
+                    for numero in cpf_cortado_digitos_iniciais:
+                        cpf_sem_formatacao_mascara += numero
 
-            cpf_sem_formatacao_mascara += cpf_cortado_digitos_finais[1]
+                    cpf_sem_formatacao_mascara += cpf_cortado_digitos_finais[1]
 
             telefone = Telefone.objects.create(numeroCelular=numeroCelular, numeroFixo=numeroFixo)
             usuario_logado.first_name = first_name
             usuario_logado.last_name = last_name
             usuario_logado.data_nascimento = data_nascimento
-            usuario_logado.cpf = cpf_sem_formatacao_mascara
             usuario_logado.foto = foto
             usuario_logado.telefone = telefone
 
+            if len(cpf) == 14:
+                usuario_logado.cpf = cpf_sem_formatacao_mascara
+            else:
+                usuario_logado.cpf = cpf
+
             usuario_logado.save()
-
-          #  if empresa_selecionado == 'nao':
             messages.success(request, 'Perfil cadastrado com sucesso!')
-              #  return redirect('usuarios:criarperfil')
-
-           # if empresa_selecionado == 'sim':
-             #   pass
-            print(form.cleaned_data)
             form = CadastroPerfilUsuario()
 
         context = {
             'form': form,
-            'empresaSelecionada': empresa_selecionado
+            'empresaSelecionada': empresa_selecionado,
         }
 
         return render(request, 'cadastros/usuario_perfil_cadastro.html', context)

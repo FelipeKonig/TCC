@@ -1,9 +1,12 @@
-from datetime import date
 from django.contrib.auth import password_validation
-from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django import forms
+
+from .validadoresForm import (
+    validar_cpf,
+    validar_data_nascimento
+)
 
 from .models import (
     CustomUsuario,
@@ -28,92 +31,12 @@ class DateInput(forms.DateInput):
         return super(DateInput, self).clean(value)
 
 
-def validar_data_nascimento(value):
-    data_atual = date.today()
-    data_atual_cortada = str(data_atual).split('-')
-    data_digitada_cortada = str(value).split('-')
-
-    ano_atual = int(data_atual_cortada[0])
-    ano_atual_digitado = int(data_digitada_cortada[0])
-
-    aux_calc_diferenca_ano = ano_atual - ano_atual_digitado
-
-    if aux_calc_diferenca_ano < 15:
-        raise ValidationError('A idade não pode ser menor que 18 anos')
-
-
-def validar_cpf(value):
-    valores_cpf_invalidos = {0: '00000000000', 1: '11111111111',
-                             2: '22222222222', 3: '33333333333',
-                             4: '44444444444', 5: '55555555555',
-                             6: '66666666666', 7: '77777777777',
-                             8: '88888888888', 9: '99999999999'
-                             }
-
-    cpf_cortado_digitos_finais = str(value).split('-')
-    cpf_cortado_digitos_iniciais = cpf_cortado_digitos_finais[0].split('.')
-    cpf_sem_formatacao = ''
-    for numero in cpf_cortado_digitos_iniciais:
-        cpf_sem_formatacao += numero
-
-    cpf_sem_formatacao += cpf_cortado_digitos_finais[1]
-
-    for key in valores_cpf_invalidos:
-        if cpf_sem_formatacao == valores_cpf_invalidos[key]:
-            raise ValidationError('CPF inválido')
-
-    valores_cpf_finais = {0: int(cpf_cortado_digitos_finais[1][0]), 1: int(cpf_cortado_digitos_finais[1][1])}
-
-    valores_cpf_iniciais = {0: int(cpf_cortado_digitos_iniciais[0][0]), 1: int(cpf_cortado_digitos_iniciais[0][1]),
-                            2: int(cpf_cortado_digitos_iniciais[0][2]), 3: int(cpf_cortado_digitos_iniciais[1][0]),
-                            4: int(cpf_cortado_digitos_iniciais[1][1]), 5: int(cpf_cortado_digitos_iniciais[1][2]),
-                            6: int(cpf_cortado_digitos_iniciais[2][0]), 7: int(cpf_cortado_digitos_iniciais[2][1]),
-                            8: int(cpf_cortado_digitos_iniciais[2][2]), 9: int(cpf_cortado_digitos_finais[1][0]),
-                            10: int(cpf_cortado_digitos_finais[1][1])
-                            }
-
-    soma_valores_cpf_primeiro_digito = 0
-    aux_peso = 10
-    i = 0
-    for key in valores_cpf_iniciais:
-        soma_valores_cpf_primeiro_digito += valores_cpf_iniciais[key] * aux_peso
-        aux_peso = aux_peso - 1
-        i = i + 1
-        if i == 9:
-            break
-
-    aux_multiplicao_peso_primeiro_digito = soma_valores_cpf_primeiro_digito * 10
-    resto_divisao_segundo_digito = aux_multiplicao_peso_primeiro_digito % 11
-
-    if resto_divisao_segundo_digito == valores_cpf_finais[0]:
-        valores_cpf_iniciais[9] = valores_cpf_finais[0]
-
-        aux_peso = 11
-        soma_valores_cpf_segundo_digito = 0
-        j = 0
-        for key in valores_cpf_iniciais:
-            soma_valores_cpf_segundo_digito += valores_cpf_iniciais[key] * aux_peso
-            aux_peso = aux_peso - 1
-            j = j + 1
-            if j == 10:
-                break
-
-        aux_multiplicao_peso_segundo_digito = soma_valores_cpf_segundo_digito * 10
-        resto_divisao_segundo_digito = aux_multiplicao_peso_segundo_digito % 11
-
-        if resto_divisao_segundo_digito != valores_cpf_finais[1]:
-            raise ValidationError('CPF inválido')
-
-    else:
-        raise ValidationError('CPF inválido')
-
-
 class CadastroPerfilUsuario(forms.ModelForm):
     data_nascimento = forms.DateField(widget=DateInput, label='Data de nascimento', help_text='Obrigatório',
                                       validators=[validar_data_nascimento])
-    cpf = forms.CharField(label='CPF', help_text='Obrigatório',
-                          max_length=14, validators=[validar_cpf],
-                          widget=forms.TextInput( attrs={'data-mask': "000.000.000-00"}))
+    cpf = forms.CharField(label='CPF', help_text='Não obrigatório',
+                          max_length=14, validators=[validar_cpf], required=False,
+                          widget=forms.TextInput(attrs={'data-mask': "000.000.000-00"}))
 
     empresa_selecionar = forms.ChoiceField(label='Deseja adicionar a sua empresa?', choices=CHOICES,
                                            widget=forms.RadioSelect)

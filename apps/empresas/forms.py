@@ -1,13 +1,13 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django import forms
-
 from apps.empresas.models import Empresa
+from .validadoresForm import validar_cnpj
 
 
 class CadastroEmpresa(forms.ModelForm):
     cnpj = forms.CharField(label='CNPJ', help_text='Obrigatório',
-                           max_length=14,
+                           max_length=18, validators=[validar_cnpj],
                            widget=forms.TextInput(attrs={'data-mask': "00.000.000/0000-00"}))
 
     class Meta:

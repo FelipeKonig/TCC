@@ -20,3 +20,10 @@ class Empresa(models.Model):
     inscricaoMunicipal = models.CharField('Inscrição Municipal', max_length=50, null=True, blank=True,
                                           help_text='Não obrigatório')
     logo = StdImageField('Logo da empresa', upload_to=adicionar_imagem_logo, null=True, help_text='Obrigatório')
+
+    class Meta:
+        verbose_name = 'Empresa'
+        verbose_name_plural = 'Empresas'
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.cnpj, self.razaoSocial, self.fantasia)
