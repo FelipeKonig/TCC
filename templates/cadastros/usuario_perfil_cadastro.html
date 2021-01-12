@@ -13,6 +13,7 @@
 <!-- ============================ COMPONENT REGISTER   ================================= -->
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
+		  {% if not messages %}
 		<header class="mb-4"><h4 class="card-title">Criar perfil</h4></header>
 		<form  method="POST" id="usuarioForm"  autocomplete="off" enctype="multipart/form-data" >
 				{% csrf_token %}
@@ -64,21 +65,62 @@
 
 			</div>
 			</form>
+		  {% endif %}
 		  {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+		  	{% for message in messages %}
+		       {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+				<h4 class="text-center mt-4">Seu perfil foi atualizado com sucesso
+				<img src="{% static 'ecommerce/images/sucesso.png' %}"/>
+				</h4>
+		  		{% if empresaSelecionada == 'nao' %}
+		            <a href="{% url 'e-commerce:home' %}" class="btn btn-primary btn-block">Ir para página principal</a>
+		            <a href="{% url 'e-commerce:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
+
+		  		{% elif empresaSelecionada == 'sim' %}
+		  			<br>
+		  			<h5>Agora o próximo passo é cadastrar a sua empresa!</h5>
+
+		            <a href="{% url 'empresas:criar_empresa' %}" class="btn btn-secondary btn-block">Cadastrar empresa</a>
+
+		         {% endif %}
+		     {% endif %}
+			{% endfor %}
+	{% endif %}
 	  </article>
 	</div>
-
-
 </section>
 
-<script src="{% static 'js/cadastroPerfil.js' %}"></script>
-
+<script src="{% static 'js/perfilUsuario.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
+
+	{% if messages %}
+		{% for m in messages %}
+		<script>
+				const Toast = Swal.mixin({
+				  toast: true,
+				  position: 'center',
+				  showConfirmButton: true,
+				  timer: 3000,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				  }
+				})
+
+				Toast.fire({
+				  icon: 'success',
+				  title: '{{m}}'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				  }
+				})
+		  </script>
+		 {{ m }}
+		{% endfor %}
+	{% endif %}
+
+
 {% endblock %}
 
