@@ -95,9 +95,9 @@ def endereco_formulario_adicionar(request):
 
     return render(request, 'usuarios/perfil-endereco-formulario.html',contexto)
 
-def deletar_endereco(request, pk):
+def deletar_endereco(request):
 
-    endereco = get_object_or_404(Endereco, pk=pk)
+    endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
     era_padrao = endereco.padrao
     endereco.padrao = False
     endereco.status = False
