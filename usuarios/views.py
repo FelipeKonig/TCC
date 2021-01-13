@@ -1,5 +1,5 @@
 # a biblioteca requests é o padrão para fazer solicitações HTTP em Python
-# utilizada no nosso caso para fazer a requisição da api do ibge
+# utilizada no nosso caso para fazer a requisição da api do ibge e do viaCep
 # obs: é necessário baixar ela no django, necessário baixar arquivos do requirements
 import requests
 import logging
@@ -39,12 +39,12 @@ class CustomLoginView(LoginView, SuccessMessageMixin):
 
 @login_required
 def perfil_principal(request):
-    enderecos = Endereco.objects.filter(usuario=request.user)
+    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
     return render(request, 'usuarios/perfil-principal.html', {'enderecos':enderecos})
 
 @login_required
 def perfil_endereco(request):
-    enderecos = Endereco.objects.filter(usuario=request.user)
+    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
     return render(request, 'usuarios/perfil-endereco.html', {'enderecos':enderecos})
 
 @login_required
@@ -79,7 +79,14 @@ def endereco_formulario_adicionar(request):
         if form.is_valid():
             endereco = form.save(commit=False)
             endereco.usuario = request.user
+
+            enderecos = Endereco.objects.filter(usuario=request.user)
+
+            if len(enderecos) == 0:
+                endereco.padrao = True
+
             endereco.save()
+
             return redirect('usuarios:perfil_endereco')
     else:
         form = EnderecoForm()
@@ -87,6 +94,26 @@ def endereco_formulario_adicionar(request):
     contexto = {'form': form, 'estados': dicionario }
 
     return render(request, 'usuarios/perfil-endereco-formulario.html',contexto)
+
+def deletar_endereco(request, pk):
+
+    endereco = get_object_or_404(Endereco, pk=pk)
+    era_padrao = endereco.padrao
+    endereco.padrao = False
+    endereco.status = False
+    endereco.save()
+
+    if era_padrao:
+        enderecos = Endereco.objects.filter(usuario=request.user, status=True)
+
+        if len(enderecos) > 0:
+            logger.debug(enderecos[0].pk)
+            endereco = get_object_or_404(Endereco, pk=enderecos[0].pk)
+            endereco.padrao = True
+            endereco.save()
+
+    return redirect('usuarios:perfil_endereco')
+
 
 # AJAX
 def carregar_cidades(request):

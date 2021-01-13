@@ -71,6 +71,13 @@ class Endereco(models.Model):
     rua = models.CharField('Rua', max_length=100, help_text='Obrigatório')
     cep = models.CharField('CEP', max_length=25, help_text='Obrigatório')
     bairro = models.CharField('Bairro', max_length=50, help_text='Obrigatório')
+    # Padrão seria o endereço escolhido para receber os pedidos para casos de houver mais de uma opção
+    padrao = models.BooleanField('Padrao', null=False, default=False)
+    status = models.BooleanField('Status', null=False, default=True)
+
+    class Meta:
+        verbose_name = 'Endereco'
+        verbose_name_plural = 'Enderecos'
 
     def __str__(self):
         return '{}, cep: {}, numero: {}'.format(self.usuario, self.cep, self.numero)
@@ -78,7 +85,6 @@ class Endereco(models.Model):
 
 class UsuarioManager(BaseUserManager):
     use_in_migrations = True  # Estamos avisando ao Django, que esse será o nosso modelo que usaremos em nosso banco
-
     # de dados
 
     def _create_user(self, email, password, **extra_fields):

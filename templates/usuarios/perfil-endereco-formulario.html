@@ -51,6 +51,9 @@
 					<label>Cep</label>
 				  <input id="cep" name="cep" type="text" class="form-control" placeholder="ex: 00000-000" required>
 					<small id="cep_msg" class="form-text text-muted"></small>
+					<a class="font-weight-bold" href="https://buscacepinter.correios.com.br/app/endereco/index.php?t" target="_blank">
+						Não sabe seu cep? Clique aqui
+					</a>
 				</div>
 				<div class="form-group col-md-6">
 				  <label>Bairro</label>
@@ -86,154 +89,8 @@
 
 <br><br><br><br><br><br>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-
-<script>
-
-	// formatando o input do cep
-	$(document).ready(function () {
-			var $campo = $("#cep");
-			$campo.mask('00000-000', {reverse: true});
-	});
-
-	// Seleciona o select dos estados pelo id do select
-	$("#estado").change(function() {
-
-		// pego o valor do option selecionado
-		var estado = $('#estado').find(":selected").val()
-
-		$('#cidade').append(`<option value="" disabled hidden>Carregando cidades</option>`);
-
-		// printa no console do navegador o estado selecionado
-		// console.log(estado);
-
-		// executo o ajax e passo a url e informação desejada
-		$.ajax({
-			 url: '{% url "usuarios:ajax_carregar_cidades" %}',
-			 data: {
-			   'estado': estado
-			 },
-
-			 // caso o ajax ocorrer corretamente
-			 success: function (data) {
-
-				// printa no console os dados retornados
-			 	// console.log("buscou as cidades:");
-				// console.log(data);
-
-				// printa a quantidade de chaves do objeto 'cidades'
-				// console.log(Object.keys(data['cidades']).length);
-
-				// limpa as options do select cidades pelo id do select
-				$("#cidade").empty();
-
-				$('#cidade').append('<option value="" disabled selected hidden>Selecione sua cidade</option>');
-
-					for(var i=0; i < 	Object.keys(data['cidades']).length; i++ ){
-
-						// pega o objeto que está na chave [i]
-						var cidade = data['cidades'][i]
-						// console.log(cidade);
-
-						$('#cidade').append(`<option id="cidade" name="cidade" value='${cidade}'>${cidade} </option>`);
-
-					}
-			  }
-			});
-	});
-</script>
-
-<script>
-	$("#cidade").change(function() {
-		var estado = $('#estado').find(":selected").val()
-		var cidade = $('#cidade').find(":selected").val()
-
-		$.ajax({
-			 url: '{% url "usuarios:verificar_cidade_bd" %}',
-			 data: {
-				 'estado': estado,
-				 'cidade': cidade
-			 },
-				 success: function (data) {
-
-					 // printa os dados retornados pelo ajax caso queira ver no console
-					 // console.log(data);
-					 // console.log("estado:");
-					 // console.log(data['dicionario'][0]);
-					 // console.log("cidade:");
-					 // console.log(data['dicionario'][1]);
-
-					 var estado = $('#estado').find(":selected").val(data['dicionario'][0])
-					 var cidade = $('#cidade').find(":selected").val(data['dicionario'][1])
-
-				 }
-		});
-	});
-</script>
-
-<script>
-	$(document).ready(function(){
-		$("#cep").keyup(function(){
-
-			var cep = this.value;
-
-			if(cep.length == 9){
-
-					$.ajax({
-						 url: '{% url "usuarios:verificar_cep" %}',
-						 data: {
-							 'cep': cep
-						 },
-							 success: function (data) {
-
-								 // printa os dados retornados pelo ajax caso queira ver no console
-								 // console.log(data);
-
-								 try{
-									 // retorna uma array dos pares de propriedade [chave, valor] com chave de string do próprio objeto
-									 var endereco = Object.entries(data['cep'][0])
-
-									 document.getElementById("cep").style.borderColor = 'lightGray';
-
-									 var rua = endereco[1];
-									 document.getElementById("rua").value = rua[1];
-
-									 var bairro = endereco[3];
-									 document.getElementById("bairro").value = bairro[1];
-
-								 }catch{
-									 document.getElementById("cep").value = '';
-									 document.getElementById("cep").style.borderColor = 'red';
-
-									 $("#cep_msg").text('Cep inválido');
-								 }
-							 }
-					});
-			}
-
-		});
-	});
-</script>
-
-<script>
-	// validar os campos do formulário
-	(function() {
-		'use strict';
-		window.addEventListener('load', function() {
-			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			var forms = document.getElementsByClassName('needs-validation');
-			// Loop over them and prevent submission
-			var validation = Array.prototype.filter.call(forms, function(form) {
-				form.addEventListener('submit', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
-						event.stopPropagation();
-					}
-					form.classList.add('was-validated');
-				}, false);
-			});
-		}, false);
-	})();
-</script>
+{% block formulario-endereco-jQuery %}
+	 {% include "usuarios/formulario-endereco-jQuery.html" %}
+{% endblock %}
 
 {% endblock %}
