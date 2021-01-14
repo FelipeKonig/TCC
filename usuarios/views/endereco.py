@@ -4,54 +4,30 @@
 import requests
 import logging
 
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import CreateView
-from .forms import (
-    CustomUsuarioCreationForm,
-    UsuarioLoginForm,
-    EnderecoForm
-)
-from .models import (
-    CustomUsuario,
-    Cidade,
-    Estado,
-    Telefone, Endereco
-)
-from django.urls import reverse_lazy
-from django.contrib.messages.views import SuccessMessageMixin
+
+# As importações relativas usam pontos iniciais. Um único ponto inicial indica
+# uma importação relativa, exemplo ".forms", começando com o pacote atual, que
+# antes era apenas a pasta 'usuarios'. Dois ou mais pontos iniciais indicam uma
+# importação relativa ao(s) pai(s) do pacote atual, que agora é 'usuarios/views'
+# por isso está 'from ..forms import..' e não 'from .forms import..' como antes
+from ..forms import EnderecoForm
+from ..models import Cidade, Estado, Endereco
 
 logger = logging.getLogger(__name__)
-
-class SignUpView(SuccessMessageMixin, CreateView):
-    success_url = reverse_lazy('usuarios:cadastrousuario')
-    form_class = CustomUsuarioCreationForm
-    template_name = 'cadastros/usuario_cadastro.html'
-    success_message = 'Cadastro realizado com sucesso'
-
-
-class CustomLoginView(LoginView, SuccessMessageMixin):
-    authentication_form = UsuarioLoginForm
-    template_name = 'registration/login.html'
-    success_message = 'Login realizado com sucesso'
-
-@login_required
-def perfil_principal(request):
-    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
-    return render(request, 'usuarios/perfil-principal.html', {'enderecos':enderecos})
 
 @login_required
 def perfil_endereco(request):
     enderecos = Endereco.objects.filter(usuario=request.user, status = True)
-    return render(request, 'usuarios/perfil-endereco.html', {'enderecos':enderecos})
+    return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos':enderecos})
 
 @login_required
 def endereco_formulario_adicionar(request):
 
     if request.method == "POST":
-        
+
         sigla = request.POST['estado'].split('|')[-1]
         nome = request.POST['estado'].split('|')[0]
 
@@ -64,8 +40,10 @@ def endereco_formulario_adicionar(request):
 
         # criando o formulario pelo dicionario pois os selects no template
         # não fornecem os objetos estado e cidade, apenas os respectivos nomes
-        # como o Endereco depende desses objetos para sua cria criação,
+        # como o Endereco depende desses objetos para sua criação,
         # logicamente estou buscando pela própria função
+        # obs: não preciso me preocupar com a busca dos objetos porque esta sendo
+        # criado automaticamente por ajax enquanto o formulario é preenchido
         novo_endereco = dict(
             estado = novo_estado,
             cidade = nova_cidade,
@@ -81,8 +59,8 @@ def endereco_formulario_adicionar(request):
             endereco = form.save(commit=False)
             endereco.usuario = request.user
 
+            #verifica se é o primeiro endereco, se sim torna-lo padrao
             enderecos = Endereco.objects.filter(usuario=request.user)
-
             if len(enderecos) == 0:
                 endereco.padrao = True
 
@@ -95,7 +73,7 @@ def endereco_formulario_adicionar(request):
     estados = buscar_estados_api()
     contexto = {'form': form, 'estados': estados }
 
-    return render(request, 'usuarios/perfil-endereco-formulario.html',contexto)
+    return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html',contexto)
 
 @login_required
 def deletar_endereco(request):
@@ -130,11 +108,10 @@ def editar_endereco(request):
     if len(request.POST) > 2:
 
         sigla = request.POST['estado'].split('|')[-1]
-        nome = request.POST['estado'].split('|')[0]
 
-        novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
-
-        if endereco.estado != novo_estado:
+        if endereco.estado.sigla != sigla:
+            nome = request.POST['estado'].split('|')[0]
+            novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
             endereco.estado = novo_estado
 
         if endereco.cidade.nome != request.POST['cidade']:
@@ -160,7 +137,7 @@ def editar_endereco(request):
         estados = buscar_estados_api()
         contexto = {'endereco':endereco, 'estados':estados, 'cidades':nome_cidades}
 
-        return render(request, 'usuarios/perfil-endereco-formulario-editar.html', contexto)
+        return render(request, 'usuarios/endereco/perfil-endereco-formulario-editar.html', contexto)
 
 
 @login_required

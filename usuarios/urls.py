@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpView, CustomLoginView, carregar_cidades
+from .views import SignUpView, CustomLoginView
 from .forms import UsuarioLoginForm
 
 app_name = 'usuarios'
