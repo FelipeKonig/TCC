@@ -61,7 +61,7 @@ class Endereco(models.Model):
     # Com uma chave estrangeira do usuario em Endereco é possível o mesmo usuario criar vários endereços no 1..n
     # Deixei default="" porque o django não esta permitindo fazer a migração, provavelmente porque já estava no banco
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
-    complemento = models.CharField('Complemento', max_length=50, blank=True, null=True, help_text=' Não obrigatório')
+    complemento = models.CharField('Complemento', max_length=50, blank=True, null=True, default="", help_text=' Não obrigatório')
     numero = models.CharField('Número', max_length=100, default='S/N', help_text='Obrigatório')
     # Se for um para um, vários endereços não poderão estar no mesmo estado e/ou cidade(objeto)
     # estado = models.OneToOneField(Estado, on_delete=models.PROTECT)
@@ -80,7 +80,12 @@ class Endereco(models.Model):
         verbose_name_plural = 'Enderecos'
 
     def __str__(self):
-        return '{}, cep: {}, numero: {}'.format(self.usuario, self.cep, self.numero)
+        return '{}, cep: {}, numero: {}; status: {}'.format(
+                self.usuario,
+                self.cep,
+                self.numero,
+                self.status
+            )
 
 
 class UsuarioManager(BaseUserManager):

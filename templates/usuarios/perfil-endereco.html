@@ -39,10 +39,21 @@
 														Padrão
 													</a>
 												{% else %}
-													<a href="#" class="btn btn-light enable"> <i class="fa fa-check"></i> Padrão </a>
+													<form action="{% url 'usuarios:definir_endereco_padrao' %}" method="post">
+														{% csrf_token %}
+														<button type="submit" class="btn btn-light enable" name="endereco" value="{{ endereco.pk }}">
+															<i class="fa fa-check"></i>
+															Padrão
+														</button>
+													</form>
 												{% endif %}
 													&nbsp;
-													<a href="#" class="btn btn-light"> <i class="fa fa-pen"></i> </a>
+													<form action="{% url 'usuarios:editar_endereco' %}"  method="post">
+														{% csrf_token %}
+														<button type="submit" class="btn btn-light" name="endereco" value="{{ endereco.pk }}">
+															<i class="fa fa-pen"></i>
+														</button>
+													</form>
 														&nbsp;
 														<form action="{% url 'usuarios:deletar_endereco' %}"  method="post">
 															{% csrf_token %}

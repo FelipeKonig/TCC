@@ -14,6 +14,8 @@
 		// pego o valor do option selecionado
 		var estado = $('#estado').find(":selected").val();
 
+		// limpa as options do select cidades pelo id do select
+		$("#cidade").empty();
 		$('#cidade').append(`<option value="" disabled selected hidden>Carregando cidades..</option>`);
 
 		// printa no console do navegador o estado selecionado
@@ -36,7 +38,6 @@
 				// printa a quantidade de chaves do objeto 'cidades'
 				// console.log(Object.keys(data['cidades']).length);
 
-				// limpa as options do select cidades pelo id do select
 				$("#cidade").empty();
 
 				$('#cidade').append('<option value="" disabled selected hidden>Selecione sua cidade</option>');
@@ -60,6 +61,9 @@
 		var estado = $('#estado').find(":selected").val();
 		var cidade = $('#cidade').find(":selected").val();
 
+		console.log("estado antes:");
+		console.log(estado);
+
 		$.ajax({
 			 url: '{% url "usuarios:verificar_cidade_bd" %}',
 			 data: {
@@ -70,13 +74,10 @@
 
 					 // printa os dados retornados pelo ajax caso queira ver no console
 					 // console.log(data);
-					 // console.log("estado:");
+					 // console.log("estado depois:");
 					 // console.log(data['dicionario'][0]);
 					 // console.log("cidade:");
 					 // console.log(data['dicionario'][1]);
-
-					 var estado = $('#estado').find(":selected").val(data['dicionario'][0]);
-					 var cidade = $('#cidade').find(":selected").val(data['dicionario'][1]);
 
 				 }
 		});
