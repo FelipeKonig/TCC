@@ -13,4 +13,4 @@ def home_page(request):
 
 @login_required(login_url='/usuarios/login')
 def perfil_principal(request):
-    return render(request, 'usuarios/perfil-principal.html')
+    return render(request, 'usuarios/dados_perfil_usuario.html')

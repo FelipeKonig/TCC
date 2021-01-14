@@ -4,5 +4,6 @@ from validate_docbr import CNPJ
 
 def validar_cnpj(value):
     cnpj = CNPJ()
-    if not cnpj.validate(value):
-        raise ValidationError('CNPJ inválido')
+    if cnpj:
+        if not cnpj.validate(value):
+            raise ValidationError('CNPJ inválido')

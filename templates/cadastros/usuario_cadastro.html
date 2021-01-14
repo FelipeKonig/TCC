@@ -49,7 +49,6 @@
 </body>
 	{% if messages %}
 		{% for m in messages %}
-			<li {% if m.tags %} class="{{ m.tags }}"{% endif %}>{{ m }}</li>
 		<script>
 				const Toast = Swal.mixin({
 				  toast: true,

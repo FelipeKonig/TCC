@@ -20,6 +20,7 @@ class Empresa(models.Model):
     inscricaoMunicipal = models.CharField('Inscrição Municipal', max_length=50, null=True, blank=True,
                                           help_text='Não obrigatório')
     logo = StdImageField('Logo da empresa', upload_to=adicionar_imagem_logo, null=True, help_text='Obrigatório')
+    status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
         verbose_name = 'Empresa'

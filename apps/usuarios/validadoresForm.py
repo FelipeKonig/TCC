@@ -13,13 +13,12 @@ def validar_data_nascimento(value):
 
     aux_calc_diferenca_ano = ano_atual - ano_atual_digitado
 
-    if aux_calc_diferenca_ano < 10 and aux_calc_diferenca_ano < 100:
+    if aux_calc_diferenca_ano < 10:
         raise ValidationError('A idade não pode ser menor que 10 anos')
 
 
 def validar_cpf(value):
     if value:
-        if len(value) == 14:
-            cpf = CPF()
-            if not cpf.validate(value):
-                raise ValidationError('CPF inválido')
+        cpf = CPF()
+        if not cpf.validate(value):
+            raise ValidationError('CPF inválido')
