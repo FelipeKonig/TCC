@@ -18,14 +18,14 @@ from ..models import Cidade, Estado, Endereco
 
 logger = logging.getLogger(__name__)
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def perfil_endereco(request):
 
     enderecos = Endereco.objects.filter(usuario=request.user, status = True)
 
     return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos':enderecos})
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def adicionar_endereco(request):
 
     if request.method == "POST":
@@ -61,7 +61,7 @@ def adicionar_endereco(request):
             endereco = form.save(commit=False)
             endereco.usuario = request.user
 
-            #verifica se é o primeiro endereco, se sim torna-lo padrao
+            # verifica se é o primeiro endereco, se sim torna-lo padrao
             enderecos = Endereco.objects.filter(usuario=request.user)
             if len(enderecos) == 0:
                 endereco.padrao = True
@@ -77,7 +77,7 @@ def adicionar_endereco(request):
 
     return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html',contexto)
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def deletar_endereco(request):
 
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
@@ -97,7 +97,7 @@ def deletar_endereco(request):
 
     return redirect('usuarios:perfil_endereco')
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def editar_endereco(request):
 
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
@@ -142,7 +142,7 @@ def editar_endereco(request):
         return render(request, 'usuarios/endereco/perfil-endereco-formulario-editar.html', contexto)
 
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def definir_endereco_padrao(request):
 
     enderecos = Endereco.objects.filter(usuario=request.user, padrao=True)
