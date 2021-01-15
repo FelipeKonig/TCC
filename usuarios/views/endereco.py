@@ -20,11 +20,13 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def perfil_endereco(request):
+
     enderecos = Endereco.objects.filter(usuario=request.user, status = True)
+
     return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos':enderecos})
 
 @login_required
-def endereco_formulario_adicionar(request):
+def adicionar_endereco(request):
 
     if request.method == "POST":
 
@@ -173,7 +175,9 @@ def verificar_cidade_bd(request):
     sigla = request.GET.get('estado').split('|')[-1]
     nome = request.GET.get('estado').split('|')[0]
 
+    # consulta '.objects.get_or_create' retorna tupla
     buscar_estado = Estado.objects.get_or_create(nome = nome, sigla = sigla)
+    # consulta '.objects.get' retorna objeto, como preciso da pk do respectivo objeto, faço nova consulta
     estado = Estado.objects.get(nome = nome, sigla = sigla)
 
     buscar_cidade = Cidade.objects.get_or_create(nome = request.GET.get('cidade'), estado_id = estado.pk)
@@ -242,8 +246,8 @@ def buscar_cidades_api(sigla):
 
     dicionario = {}
     for indice, cidades in enumerate(lista):
-
-        # apenas filtrando os dados do objeto em cidades para pegar apenas o nome
+        # apenas filtrando os dados do objeto em cidades para pegar apenas o nome,
+        # dessa forma facilita a manipulação dos dados com js
         dicionario[indice] = cidades.get('nome')
 
     return dicionario

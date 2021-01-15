@@ -6,6 +6,7 @@ django-crispy-forms==1.10.0
 django-stdimage==5.1.1
 idna==2.10
 importlib-metadata==2.1.1
+model-mommy==2.0.0
 mysqlclient==2.0.1
 Pillow==8.0.1
 pkg-resources==0.0.0
