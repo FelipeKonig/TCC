@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.db import models
 from stdimage import StdImageField
 
+from apps.empresas.validadoresForm import validar_cnpj
+
 
 def adicionar_imagem_logo(instance, filename):
     ext = filename.split('.')[-1]
@@ -14,7 +16,7 @@ def adicionar_imagem_logo(instance, filename):
 class Empresa(models.Model):
     razaoSocial = models.CharField('Razão social', max_length=60, help_text='Obrigatório')
     fantasia = models.CharField('Nome fantasia', max_length=60, help_text='Obrigatório')
-    cnpj = models.CharField('CNPJ', max_length=14, help_text='Obrigatório')
+    cnpj = models.CharField('CNPJ', max_length=18, help_text='Obrigatório', validators=[validar_cnpj])
     inscricaoEstadual = models.CharField('Inscrição Estadual', max_length=50, null=True, blank=True,
                                          help_text='Não obrigatório')
     inscricaoMunicipal = models.CharField('Inscrição Municipal', max_length=50, null=True, blank=True,

@@ -87,7 +87,7 @@
               </div>
               <div class="col-sm-3">
 
-            <a href="#" class="btn btn-secondary mb-3">Editar <i class="fa fa-pen"></i> </a>
+            <a href="#" onclick="editarEmpresa({{ empresa.id }})" class="btn btn-secondary mb-3">Editar <i class="fa fa-pen"></i> </a>
 
               <a href="#" class="btn btn-secondary mb-3" onclick="deletarEmpresa({{ empresa.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
               </div>
@@ -101,6 +101,7 @@
 
 </body>
 <script src="{% static 'js/mensagemDeletarEmpresa.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/editarEmpresa.js' %}" type="text/javascript"></script>
 
 {% if messages %}
 <ul class="messages">

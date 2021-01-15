@@ -6,13 +6,13 @@ from .validadoresForm import validar_cnpj
 
 
 class CadastroEmpresa(forms.ModelForm):
-    cnpj = forms.CharField(label='CNPJ', help_text='Obrigatório',
-                           max_length=18, validators=[validar_cnpj],
-                           widget=forms.TextInput(attrs={'data-mask': "00.000.000/0000-00"}))
+    #cnpj = forms.CharField(label='CNPJ', help_text='Obrigatório',
+     #                      max_length=18, validators=[validar_cnpj],
+     #                      widget=forms.TextInput(attrs={'data-mask': "00.000.000/0000-00"}))
 
     class Meta:
         model = Empresa
-        fields = ('razaoSocial', 'fantasia', 'inscricaoEstadual', 'inscricaoMunicipal', 'logo')
+        fields = ('razaoSocial', 'fantasia', 'inscricaoEstadual', 'inscricaoMunicipal', 'logo', 'cnpj')
 
     def __init__(self, *args, **kwargs):
         super(CadastroEmpresa, self).__init__(*args, **kwargs)
