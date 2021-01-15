@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
     LoginView,
@@ -7,26 +9,21 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView,
     PasswordChangeView
 )
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import CreateView
-from .forms import (
+from ..forms import (
     CustomUsuarioCreationForm,
     UsuarioLoginForm,
     EmailTokenSenhaForm,
     ResetarSenhaForm,
     AlterarSenhaForm
-
 )
-from .models import (
-    CustomUsuario,
-    Cidade,
-    Estado,
-    Telefone, Endereco
-)
+from ..models import CustomUsuario, Endereco
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 
+logger = logging.getLogger(__name__)
 
 class SignUp(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('usuarios:cadastrousuario')
@@ -40,7 +37,6 @@ class LoginCustomizado(LoginView, SuccessMessageMixin):
     template_name = 'registration/login.html'
     success_message = 'Login realizado com sucesso'
 
-
 # ---------------- Redefinição de senha ----------------
 class EmailTokenSenha(PasswordResetView):
     success_url = reverse_lazy('usuarios:sucessoresetarsenha')
@@ -51,16 +47,13 @@ class EmailTokenSenha(PasswordResetView):
 class MensagemResetarSenhaEmail(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
-
 class ResetarSenha(PasswordResetConfirmView):
     success_url = reverse_lazy('usuarios:redifinicaocompleta')
     form_class = ResetarSenhaForm
     template_name = 'registration/password_reset_confirm.html'
 
-
 class ResetarSenhaMensagemCompleta(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
-
 
 # ---------- Alteração de senha
 class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
@@ -70,10 +63,7 @@ class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView
     success_url = reverse_lazy('usuarios:alterarsenha')
     success_message = 'Senha alterada com sucesso'
 
-# AJAX ----
-# Esta função pode ser apagada  ! -----
-
-def carregar_cidades(request):
-    estado_id = request.GET.get('estado')
-    cidades = Cidade.objects.filter(estado_id=estado_id).all()
-    return render(request, 'cadastros/cidade_dropdown_list_options.html', {'cidades': cidades})
+@login_required(login_url='/usuarios/login')
+def perfil_principal(request):
+    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
+    return render(request, 'usuarios/perfil-principal.html', {'enderecos':enderecos})
