@@ -129,6 +129,21 @@ class CustomUsuarioCreationForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Insira sua senha novamente'
 
 
+<<<<<<< HEAD:apps/usuarios/forms.py
+=======
+class TelefoneForm(forms.ModelForm):
+    # numeroFixo = forms.CharField(required=False, help_text='Não obrigatório', label='Telefone fixo', max_length=30)
+
+    class Meta:
+        model = Telefone
+        fields = ('numero',)
+
+    def __init__(self, *args, **kwargs):
+        super(TelefoneForm, self).__init__(*args, **kwargs)
+        self.fields['tipo'].widget.attrs['placeholder'] = 'Insira o tipo do telefone'
+        self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número do telefone'
+
+>>>>>>> dda3065af2350bb402bb1ef1d4c1773066c3986e:usuarios/forms.py
 class EmailTokenSenhaForm(PasswordResetForm):
     email = forms.EmailField(required=True, help_text='Obrigatório', label='Email', max_length=254)
 
@@ -190,3 +205,9 @@ class AlterarSenhaForm(PasswordChangeForm):
         self.fields['old_password'].widget.attrs['placeholder'] = 'Insira sua senha antiga'
         self.fields['new_password1'].widget.attrs['placeholder'] = 'Insira sua nova senha'
         self.fields['new_password2'].widget.attrs['placeholder'] = 'Insira sua novamente sua nova senha'
+
+class EnderecoForm(forms.ModelForm):
+
+    class Meta:
+        model = Endereco
+        fields = ('estado', 'cidade','cep','rua', 'bairro', 'numero', 'complemento')
