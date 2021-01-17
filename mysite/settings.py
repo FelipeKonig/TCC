@@ -74,8 +74,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ecommerce',
-    'usuarios',
+    'apps.ecommerce',
+    'apps.usuarios',
+    'apps.empresas',
     'crispy_forms',
 ]
 

@@ -1,0 +1,139 @@
+{% extends 'usuarios/perfil-principal.html' %}
+{% load static %}
+
+{% block content %}
+	<main class="col-md-9">
+
+		<article class="card mb-3">
+			<div class="card-body">
+				{% if not usuario.status %}
+				<div>
+				<h5 class="text-center mt-4">
+					  <strong>
+					 Você precisa realizar o cadastro de seu perfil
+					  </strong>
+				 <img src="{% static 'ecommerce/images/atencao.png' %}"/>
+				 </h5>
+					<div class="d-flex justify-content-center">
+
+				<a href="{% url 'usuarios:criarperfil' %}" class="btn btn-secondary">Cadastrar perfil</a>
+					</div>
+				</div>
+				{% elif usuario.status %}
+				<figure class="icontext">
+						<div class="icon">
+							{% if not user.foto %}
+								<img class="rounded-circle img-sm" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
+								<input type="hidden" name="user icons png from pngtree.com" href='https://pngtree.com/so/user-icons'>
+								</input>
+							{% else %}
+								<img class="rounded-circle img-sm border" src="{{ user.foto.url }}">
+							{% endif %}
+						</div>
+						<div class="text">
+							<strong> {{ user.first_name }} {{user.last_name }} </strong> <br>
+							<p class="mb-2"> {{ user.email }}  </p>
+							<a href="#" class="btn btn-light btn-sm">Editar</a>
+							<a href="{% url 'usuarios:alterarsenha' %}" class="btn btn-secondary btn-block">Alterar senha</a>
+
+						</div>
+				</figure>
+				<hr>
+				<p>
+					<i class="fa fa-map-marker text-muted"></i> &nbsp; Meus endereços:
+					 <br>
+					 	{% for endereco in enderecos %}
+						<div class="form-inline">
+							{{ endereco.cidade.nome }}, {{ endereco.rua }},
+							{{ endereco.bairro }}, {{ endereco.numero}} &nbsp
+							<form action="{% url 'usuarios:editar_endereco' %}"  method="post">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-light btn-sm" name="endereco"
+									value="{{ endereco.pk }}" style="background-color:white; border-color:white;">
+									Editar
+								</button>
+							</form>
+							<br>
+							{% empty %}
+								<p> Você ainda não possui nenhum endereço </p>
+						</div>
+						{% endfor %}
+				</p>
+				<article class="card-group card-stat">
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">38</h4>
+							<span>pedidos</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">5</h4>
+							<span>Lista de desejos</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">12</h4>
+							<span>Aguardando entrega</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">50</h4>
+							<span>Produtos e serviços entregues</span>
+						</div>
+					</figure>
+				</article>
+
+
+			</div> <!-- card-body .// -->
+		</article> <!-- card.// -->
+
+		<article class="card  mb-3">
+			<div class="card-body">
+				<h5 class="card-title mb-4">Pedidos recentes </h5>
+
+				<div class="row">
+				<div class="col-md-6">
+					<figure class="itemside  mb-3">
+						<figcaption class="info">
+							<!-- <div class="aside"><img src="images/items/1.jpg" class="border img-sm"></div> -->
+							<div class="aside"><img src="" class="border img-sm"></div>
+							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+							<p>Great book name goes here </p>
+							<span class="text-success">Order confirmed </span>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<figure class="itemside  mb-3">
+						<!-- <div class="aside"><img src="images/items/2.jpg" class="border img-sm"></div> -->
+						<div class="aside"><img src="" class="border img-sm"></div>
+						<figcaption class="info">
+							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+							<p>How to be rich</p>
+							<span class="text-success">Departured</span>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<figure class="itemside mb-3">
+						<!-- <div class="aside"><img src="images/items/3.jpg" class="border img-sm"></div> -->
+						<div class="aside"><img src="" class="border img-sm"></div>
+						<figcaption class="info">
+							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+							<p>Harry Potter book </p>
+							<span class="text-success">Shipped  </span>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+			</div> <!-- row.// -->
+
+			<a href="#" class="btn btn-outline-primary btn-block"> Ver todos os pedidos <i class="fa fa-chevron-down"></i>  </a>
+			</div> <!-- card-body .// -->
+		</article> <!-- card.// -->
+	{% endif %}
+	</main>
+	<!-- card.// -->
+{% endblock %}
