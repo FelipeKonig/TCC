@@ -18,16 +18,16 @@ from ..models import Cidade, Estado, Endereco
 
 logger = logging.getLogger(__name__)
 
+
 @login_required(login_url='/usuarios/login')
 def perfil_endereco(request):
+    enderecos = Endereco.objects.filter(usuario=request.user, status=True)
 
-    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
+    return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos': enderecos})
 
-    return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos':enderecos})
 
 @login_required(login_url='/usuarios/login')
 def adicionar_endereco(request):
-
     if request.method == "POST":
 
         sigla = request.POST['estado'].split('|')[-1]
@@ -36,8 +36,8 @@ def adicionar_endereco(request):
         novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
 
         nova_cidade = Cidade.objects.get(
-            nome = request.POST['cidade'],
-            estado_id = novo_estado.pk
+            nome=request.POST['cidade'],
+            estado_id=novo_estado.pk
         )
 
         # criando o formulario pelo dicionario pois os selects no template
@@ -47,13 +47,13 @@ def adicionar_endereco(request):
         # obs: não preciso me preocupar com a busca dos objetos porque esta sendo
         # criado automaticamente por ajax enquanto o formulario é preenchido
         novo_endereco = dict(
-            estado = novo_estado,
-            cidade = nova_cidade,
-            cep = request.POST['cep'],
-            bairro = request.POST['bairro'],
-            rua = request.POST['rua'],
-            numero = request.POST['numero'],
-            complemento = request.POST['complemento']
+            estado=novo_estado,
+            cidade=nova_cidade,
+            cep=request.POST['cep'],
+            bairro=request.POST['bairro'],
+            rua=request.POST['rua'],
+            numero=request.POST['numero'],
+            complemento=request.POST['complemento']
         )
         form = EnderecoForm(novo_endereco)
 
@@ -73,13 +73,13 @@ def adicionar_endereco(request):
         form = EnderecoForm()
 
     estados = buscar_estados_api()
-    contexto = {'form': form, 'estados': estados }
+    contexto = {'form': form, 'estados': estados}
 
-    return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html',contexto)
+    return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html', contexto)
+
 
 @login_required(login_url='/usuarios/login')
 def deletar_endereco(request):
-
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
     era_padrao = endereco.padrao
     endereco.padrao = False
@@ -97,9 +97,9 @@ def deletar_endereco(request):
 
     return redirect('usuarios:perfil_endereco')
 
+
 @login_required(login_url='/usuarios/login')
 def editar_endereco(request):
-
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
 
     # se os atributos do Post forem acima de 2 itens, ele fará a edição
@@ -118,8 +118,8 @@ def editar_endereco(request):
 
         if endereco.cidade.nome != request.POST['cidade']:
             nova_cidade = Cidade.objects.get(
-                nome = request.POST['cidade'],
-                estado_id = endereco.estado.pk
+                nome=request.POST['cidade'],
+                estado_id=endereco.estado.pk
             )
             endereco.cidade = nova_cidade
 
@@ -137,14 +137,13 @@ def editar_endereco(request):
         cidades = buscar_cidades_api(endereco.estado.sigla)
         nome_cidades = list(cidades.values())
         estados = buscar_estados_api()
-        contexto = {'endereco':endereco, 'estados':estados, 'cidades':nome_cidades}
+        contexto = {'endereco': endereco, 'estados': estados, 'cidades': nome_cidades}
 
         return render(request, 'usuarios/endereco/perfil-endereco-formulario-editar.html', contexto)
 
 
 @login_required(login_url='/usuarios/login')
 def definir_endereco_padrao(request):
-
     enderecos = Endereco.objects.filter(usuario=request.user, padrao=True)
 
     if len(enderecos) > 0:
@@ -158,9 +157,9 @@ def definir_endereco_padrao(request):
 
     return redirect('usuarios:perfil_endereco')
 
+
 # AJAX
 def carregar_cidades(request):
-
     sigla = request.GET.get('estado').split('|')[-1]
     logger.debug('sigla: {}'.format(sigla))
 
@@ -169,30 +168,28 @@ def carregar_cidades(request):
     if request.is_ajax():
         return JsonResponse({'cidades': cidades})
 
+
 # AJAX
 def verificar_cidade_bd(request):
-
     sigla = request.GET.get('estado').split('|')[-1]
     nome = request.GET.get('estado').split('|')[0]
 
     # consulta '.objects.get_or_create' retorna tupla
-    buscar_estado = Estado.objects.get_or_create(nome = nome, sigla = sigla)
+    buscar_estado = Estado.objects.get_or_create(nome=nome, sigla=sigla)
     # consulta '.objects.get' retorna objeto, como preciso da pk do respectivo objeto, faço nova consulta
-    estado = Estado.objects.get(nome = nome, sigla = sigla)
+    estado = Estado.objects.get(nome=nome, sigla=sigla)
 
-    buscar_cidade = Cidade.objects.get_or_create(nome = request.GET.get('cidade'), estado_id = estado.pk)
-    cidade = Cidade.objects.get(nome = request.GET.get('cidade'), estado_id = estado.pk)
+    buscar_cidade = Cidade.objects.get_or_create(nome=request.GET.get('cidade'), estado_id=estado.pk)
+    cidade = Cidade.objects.get(nome=request.GET.get('cidade'), estado_id=estado.pk)
 
-    dicionario = {}
-    dicionario[0] = estado.pk
-    dicionario[1] = cidade.pk
+    dicionario = {0: estado.pk, 1: cidade.pk}
 
     if request.is_ajax():
-        return JsonResponse({'dicionario': dicionario })
+        return JsonResponse({'dicionario': dicionario})
+
 
 # AJAX
 def verificar_cep(request):
-
     cep = 'https://viacep.com.br/ws/{}/json/'.format(request.GET.get('cep'))
     requisicao_cep = requests.get(cep)
 
@@ -201,14 +198,13 @@ def verificar_cep(request):
     except ValueError:
         logger.critical("Não encontrou o cep")
 
-    dicionario = {}
-    dicionario[0] = lista
+    dicionario = {0: lista}
 
     if request.is_ajax():
-        return JsonResponse({'cep': dicionario })
+        return JsonResponse({'cep': dicionario})
+
 
 def buscar_estados_api():
-
     # busca na api do ibge os estados por ordem de nome
     # obs:Você pode copiar e colar o link no navegador para ver o arquivo Json gerado
     estados = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome'
@@ -234,8 +230,8 @@ def buscar_estados_api():
 
     return dicionario
 
-def buscar_cidades_api(sigla):
 
+def buscar_cidades_api(sigla):
     cidades = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{}/municipios'.format(sigla)
     requisicao_cidades = requests.get(cidades)
 

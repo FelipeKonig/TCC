@@ -1,8 +1,9 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 
-from usuarios.views.usuario import *
-from usuarios.views.endereco import *
+from ..views.usuario import *
+from ..views.endereco import *
+
 
 class test_urls(SimpleTestCase):
 
@@ -13,11 +14,11 @@ class test_urls(SimpleTestCase):
         url = reverse('usuarios:cadastrousuario')
         # caso queira ver as informações que cada url está recebendo
         # print(resolve(url))
-        self.assertEquals(resolve(url).func.view_class, SignUpView)
+        self.assertEquals(resolve(url).func.view_class, SignUp)
 
     def test_usuario_cadastro_url(self):
         url = reverse('usuarios:login')
-        self.assertEquals(resolve(url).func.view_class, CustomLoginView)
+        self.assertEquals(resolve(url).func.view_class, LoginCustomizado)
 
     def test_perfil_usuario_url(self):
         url = reverse('usuarios:perfil_principal')

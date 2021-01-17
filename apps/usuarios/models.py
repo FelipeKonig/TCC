@@ -29,6 +29,8 @@ class Telefone(models.Model):
     tipo = models.CharField('Tipo', max_length=7, help_text='Obrigatório', default="")
     # numeroCelular = models.CharField('Telefone celular', blank=True, max_length=30, help_text='Não obrigatório')
     numero = models.CharField('Telefone fixo', max_length=30, help_text='Obrigatório', default="")
+    padrao = models.BooleanField('Padrao', null=False, default=False)
+    status = models.BooleanField('Status', null=False, default=True)
 
     class Meta:
         verbose_name = 'Telefone'
@@ -132,6 +134,7 @@ class CustomUsuario(AbstractUser):
     last_name = models.CharField('Último nome', max_length=100, help_text='Obrigatório')
     email = models.EmailField('E-mail', unique=True, help_text='Obrigatório')
     is_staff = models.BooleanField('Membro da equipe', default=True)
+    status = models.BooleanField('Ativo?', default=False)
 
     # Se a chave estrangeira ficar no usuario, não vai ser possível fazer com que ele tenha vários endereços
     # telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone', null=True)
@@ -142,15 +145,12 @@ class CustomUsuario(AbstractUser):
     # Problemas com o diretório e criação das fotos; está duplicando a mesma imagem com dois nomes diferentes
     # retirei o método variation e deixei null=True
     foto = StdImageField('Foto', upload_to=adicionar_imagem_perfil, null=True)
-<<<<<<< HEAD:apps/usuarios/models.py
-    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
+    #endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
     empresa = models.OneToOneField(Empresa, on_delete=models.CASCADE, null=True)
-=======
 
     # Se a chave estrangeira ficar no usuario, não vai ser possível fazer com que ele tenha vários endereços
     # endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
 
->>>>>>> dda3065af2350bb402bb1ef1d4c1773066c3986e:usuarios/models.py
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 

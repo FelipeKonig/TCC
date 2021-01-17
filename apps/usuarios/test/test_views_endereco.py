@@ -5,6 +5,7 @@ import json
 from ..models import *
 from model_mommy import mommy
 
+
 class TestViews(TestCase):
 
     @classmethod
@@ -13,11 +14,11 @@ class TestViews(TestCase):
         cls.estado = mommy.make(Estado, nome='Santa Catarina', sigla='SC')
         cls.cidade = mommy.make(Cidade, nome='Canoinhas', estado=cls.estado)
         cls.endereco = mommy.make(Endereco,
-            estado=cls.estado,
-            cidade=cls.cidade,
-            usuario=cls.usuario,
-            padrao=True,
-            status=True)
+                                  estado=cls.estado,
+                                  cidade=cls.cidade,
+                                  usuario=cls.usuario,
+                                  padrao=True,
+                                  status=True)
 
     def test_perfil_endereco(self):
         usuario = CustomUsuario.objects.get(id=self.usuario.pk)

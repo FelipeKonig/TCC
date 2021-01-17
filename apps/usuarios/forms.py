@@ -5,11 +5,11 @@ from django import forms
 
 from .validadoresForm import (
     validar_cpf,
-    validar_data_nascimento
+    validar_data_nascimento,
 )
 
 from .models import (
-    CustomUsuario,
+    CustomUsuario, Endereco,
 )
 
 from django.contrib.auth.forms import (
@@ -20,8 +20,12 @@ from django.contrib.auth.forms import (
     PasswordChangeForm
 )
 
-CHOICES = [('sim', 'Sim'),
-           ('nao', 'Não')]
+CHOICES_EMPRESA_ADICIONAR = [('sim', 'Sim'),
+                             ('nao', 'Não')]
+
+CHOICES_TIPO_TELEFONE = [('tipo', 'Selecione'),
+                        ('celular', 'Celular'),
+                         ('fixo', 'Fixo')]
 
 
 class DateInput(forms.DateInput):
@@ -38,17 +42,13 @@ class CadastroPerfilUsuario(forms.ModelForm):
                           max_length=14, validators=[validar_cpf], required=False,
                           widget=forms.TextInput(attrs={'data-mask': "000.000.000-00"}))
 
-    empresa_selecionar = forms.ChoiceField(label='Deseja adicionar a sua empresa?', choices=CHOICES,
+    empresa_selecionar = forms.ChoiceField(label='Deseja adicionar a sua empresa?', choices=CHOICES_EMPRESA_ADICIONAR,
                                            widget=forms.RadioSelect)
 
-    numeroFixo = forms.CharField(required=False, help_text='Não obrigatório',
-                                 label='Telefone fixo', max_length=30,
-                                 widget=forms.TextInput(attrs={'data-mask': "(00) 0000-0000"}))
+    numeroTelefone = forms.CharField(label='Telefone', required=True, help_text='Origatório')
 
-    numeroCelular = forms.CharField(required=True, help_text='Obrigatório',
-                                    label='Telefone celular', max_length=30,
-                                    widget=forms.TextInput(attrs={'data-mask': "(00) 00000-0009"}))
-
+    telefone_selecionar = forms.ChoiceField(label='Selecione o tipo de telefone', choices=CHOICES_TIPO_TELEFONE,
+                                            widget=forms.Select)
     foto = forms.ImageField(label='Foto do perfil')
 
     class Meta:
@@ -64,8 +64,6 @@ class CadastroPerfilUsuario(forms.ModelForm):
                 Column('last_name', css_class='form-group col-md-6'),
                 Column('cpf', css_class='form-group col-md-6'),
                 Column('data_nascimento', css_class='form-group col-md-6'),
-                Column('numeroFixo', css_class='form-group col-md-6'),
-                Column('numeroCelular', css_class='form-group col-md-6'),
 
                 css_class='form-row'
             )
@@ -74,8 +72,6 @@ class CadastroPerfilUsuario(forms.ModelForm):
         self.fields['first_name'].widget.attrs['placeholder'] = 'Insira seu primeiro nome'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Insira seu segundo nome'
         self.fields['cpf'].widget.attrs['placeholder'] = 'Insira seu cpf'
-        self.fields['numeroFixo'].widget.attrs['placeholder'] = 'Insira seu telefone fixo'
-        self.fields['numeroCelular'].widget.attrs['placeholder'] = 'Insira seu telefone celular'
 
 
 class UsuarioLoginForm(AuthenticationForm):
@@ -129,8 +125,7 @@ class CustomUsuarioCreationForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Insira sua senha novamente'
 
 
-<<<<<<< HEAD:apps/usuarios/forms.py
-=======
+'''
 class TelefoneForm(forms.ModelForm):
     # numeroFixo = forms.CharField(required=False, help_text='Não obrigatório', label='Telefone fixo', max_length=30)
 
@@ -142,8 +137,9 @@ class TelefoneForm(forms.ModelForm):
         super(TelefoneForm, self).__init__(*args, **kwargs)
         self.fields['tipo'].widget.attrs['placeholder'] = 'Insira o tipo do telefone'
         self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número do telefone'
+ '''
 
->>>>>>> dda3065af2350bb402bb1ef1d4c1773066c3986e:usuarios/forms.py
+
 class EmailTokenSenhaForm(PasswordResetForm):
     email = forms.EmailField(required=True, help_text='Obrigatório', label='Email', max_length=254)
 
@@ -206,8 +202,8 @@ class AlterarSenhaForm(PasswordChangeForm):
         self.fields['new_password1'].widget.attrs['placeholder'] = 'Insira sua nova senha'
         self.fields['new_password2'].widget.attrs['placeholder'] = 'Insira sua novamente sua nova senha'
 
-class EnderecoForm(forms.ModelForm):
 
+class EnderecoForm(forms.ModelForm):
     class Meta:
         model = Endereco
-        fields = ('estado', 'cidade','cep','rua', 'bairro', 'numero', 'complemento')
+        fields = ('estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento')

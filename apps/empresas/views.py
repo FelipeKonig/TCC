@@ -51,9 +51,12 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
         form = super().get_form(CadastroEmpresa)
         empresa = self.request.user.empresa
         query_set = consulta_Empresa(empresa)
+        usuario_logado = CustomUsuario.objects.get(email=request.user)
+
         context = {
             'form': form,
-            'empresa': query_set
+            'empresa': query_set,
+            'usuario': usuario_logado
         }
         return render(request, 'empresas/empresa_cadastro.html', context)
 
@@ -70,24 +73,6 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
 
             if cnpj:
                 if len(cnpj) == 18:
-                    ## cnpj_cortado_digitos_finais = str(cnpj).split('-')
-                    # cnpj_cortado_digitos_iniciais = cnpj_cortado_digitos_finais[0].split('.')
-                    #  cnpj_cortado_digitos_meio = ''
-                    #  cnpj_sem_formatacao = ''
-                    #   tamanho_lista_digito_inicial = len(cnpj_cortado_digitos_iniciais)
-
-                    #   for i in range(0, tamanho_lista_digito_inicial, 1):
-                    #    if i != 2:
-                    #       cnpj_sem_formatacao = cnpj_sem_formatacao + cnpj_cortado_digitos_iniciais[i]
-                    #     elif i == 2:
-                    #        cnpj_cortado_digitos_meio = cnpj_cortado_digitos_iniciais[i].split('/')
-
-                    #    tamanho_lista_digito_meio = len(cnpj_cortado_digitos_meio)
-                    #
-                    #     for i in range(0, tamanho_lista_digito_meio, 1):
-                    #     cnpj_sem_formatacao += cnpj_cortado_digitos_meio[i]
-
-                    #   cnpj_sem_formatacao += cnpj_cortado_digitos_finais[1]
                     cnpj = cnpj_sem_formatacao(cnpj)
                 else:
                     messages.error(request, 'CNPJ inválido')

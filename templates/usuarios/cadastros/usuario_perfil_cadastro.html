@@ -11,9 +11,13 @@
 <section class="section-content padding-y">
 
 <!-- ============================ COMPONENT REGISTER   ================================= -->
-	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+	<div class="card mx-auto" style="max-width:550px; margin-top:40px;">
       <article class="card-body">
 		  {% if not messages %}
+
+		  	{% if not usuario.status %}
+
+
 		<header class="mb-4"><h4 class="card-title">Criar perfil</h4></header>
 		<form  method="POST" id="usuarioForm"  autocomplete="off" enctype="multipart/form-data" >
 				{% csrf_token %}
@@ -40,23 +44,24 @@
 					<div class="form-group col-md-6">
 						{{ form.cpf|as_crispy_field }}
 					</div>
+				<div class="form-group col-md-6">
+						{{ form.empresa_selecionar|as_crispy_field }}
+					</div>
 
 
-				<div class="form-group col-md-6">
-					{{ form.numeroFixo|as_crispy_field }}
-				</div>
-				<div class="form-group col-md-6">
-					{{ form.numeroCelular|as_crispy_field }}
-				</div>
 				</div>
 
 			<div class="form-row">
 
+				<div class="form-group  col-md-6">
+					{{ form.telefone_selecionar|as_crispy_field }}
+				</div>
 
-				<div class="form-group">
-						{{ form.empresa_selecionar|as_crispy_field }}
-					</div>
+				<div class="form-group  col-md-6">
+					{{ form.numeroTelefone|as_crispy_field }}
+				</div>
 			</div>
+
 
 			<div class="form-row">
 
@@ -65,7 +70,24 @@
 
 			</div>
 			</form>
+
+		  	{% elif usuario.status %}
+		 		 <h5 class="text-center mt-4">
+					  <strong>
+					 Você já realizou o cadastro do perfil
+					  </strong>
+				 <img src="{% static 'ecommerce/images/atencao.png' %}"/>
+				 </h5>
+
+
+		  			<br>
+		  		    <a href="{% url 'e-commerce:home' %}" class="btn btn-primary btn-block">Ir para página principal</a>
+		            <a href="{% url 'usuarios:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
+
+		  	{% endif %}
 		  {% endif %}
+
+
 		  {% if messages %}
 		  	{% for message in messages %}
 		       {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -74,7 +96,7 @@
 				</h4>
 		  		{% if empresaSelecionada == 'nao' %}
 		            <a href="{% url 'e-commerce:home' %}" class="btn btn-primary btn-block">Ir para página principal</a>
-		            <a href="{% url 'e-commerce:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
+		            <a href="{% url 'usuarios:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
 
 		  		{% elif empresaSelecionada == 'sim' %}
 		  			<br>

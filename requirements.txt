@@ -23,10 +23,7 @@ pytz==2020.4
 requests==2.25.1
 six==1.15.0
 sqlparse==0.4.1
-<<<<<<< HEAD
 static3==0.7.0
 validate-docbr==1.8.2
-=======
 urllib3==1.26.2
 zipp==3.4.0
->>>>>>> dda3065af2350bb402bb1ef1d4c1773066c3986e
