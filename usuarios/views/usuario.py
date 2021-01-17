@@ -25,6 +25,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 logger = logging.getLogger(__name__)
 
+
 class SignUp(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('usuarios:cadastrousuario')
     form_class = CustomUsuarioCreationForm
@@ -37,6 +38,7 @@ class LoginCustomizado(LoginView, SuccessMessageMixin):
     template_name = 'registration/login.html'
     success_message = 'Login realizado com sucesso'
 
+
 # ---------------- Redefinição de senha ----------------
 class EmailTokenSenha(PasswordResetView):
     success_url = reverse_lazy('usuarios:sucessoresetarsenha')
@@ -47,13 +49,16 @@ class EmailTokenSenha(PasswordResetView):
 class MensagemResetarSenhaEmail(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
+
 class ResetarSenha(PasswordResetConfirmView):
     success_url = reverse_lazy('usuarios:redifinicaocompleta')
     form_class = ResetarSenhaForm
     template_name = 'registration/password_reset_confirm.html'
 
+
 class ResetarSenhaMensagemCompleta(PasswordResetCompleteView):
     template_name = 'registration/password_reset_complete.html'
+
 
 # ---------- Alteração de senha
 class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
@@ -63,7 +68,8 @@ class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView
     success_url = reverse_lazy('usuarios:alterarsenha')
     success_message = 'Senha alterada com sucesso'
 
+
 @login_required(login_url='/usuarios/login')
 def perfil_principal(request):
-    enderecos = Endereco.objects.filter(usuario=request.user, status = True)
-    return render(request, 'usuarios/perfil-principal.html', {'enderecos':enderecos})
+    enderecos = Endereco.objects.filter(usuario=request.user, status=True)
+    return render(request, 'usuarios/perfil-principal.html', {'enderecos': enderecos})

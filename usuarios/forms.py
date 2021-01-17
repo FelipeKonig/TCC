@@ -35,12 +35,6 @@ def validar_data_nascimento(value):
         raise ValidationError('A idade não pode ser menor que 18 anos')
 
 
-class cadastroPerfilUsuario(forms.ModelForm):
-    class Meta:
-        model = CustomUsuario
-        fields = ('')
-
-
 class DateInput(forms.DateInput):
     input_type = 'date'
 

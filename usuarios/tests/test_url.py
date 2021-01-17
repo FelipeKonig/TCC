@@ -4,6 +4,9 @@ from django.urls import reverse, resolve
 from usuarios.views.usuario import *
 from usuarios.views.endereco import *
 
+from TCC.usuarios.views import definir_endereco_padrao
+
+
 class test_urls(SimpleTestCase):
 
     # testando todas as urls verificando pela função da view
