@@ -44,6 +44,15 @@ def cnpj_sem_formatacao(cnpj):
     return aux_cnpj_sem_formatacao
 
 
+@login_required(login_url='/usuarios/login')
+def deletar_empresa(request, pk):
+    empresa = get_object_or_404(Empresa, id=pk)
+    empresa.status = False
+    empresa.save()
+    messages.success(request, 'Empresa deletada com sucesso!')
+    return redirect('empresas:listar_empresas')
+
+
 class CriarEmpresa(LoginRequiredMixin, CreateView):
     login_url = '/usuarios/login'
 
@@ -113,15 +122,6 @@ class ListarEmpresa(LoginRequiredMixin, ListView):
         empresa = self.request.user.empresa
         query_set = consulta_Empresa(empresa)
         return query_set
-
-
-@login_required(login_url='/usuarios/login')
-def deletar_empresa(request, pk):
-    empresa = get_object_or_404(Empresa, id=pk)
-    empresa.status = False
-    empresa.save()
-    messages.success(request, 'Empresa deletada com sucesso!')
-    return redirect('empresas:listar_empresas')
 
 
 class EditarEmpresa(LoginRequiredMixin, UpdateView):
