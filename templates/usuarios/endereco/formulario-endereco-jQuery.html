@@ -60,31 +60,6 @@
 </script>
 
 <script>
-	$("#cidade").change(function() {
-		var estado = $('#estado').find(":selected").val();
-		var cidade = $('#cidade').find(":selected").val();
-
-		$.ajax({
-			 url: '{% url "usuarios:verificar_cidade_bd" %}',
-			 data: {
-				 'estado': estado,
-				 'cidade': cidade
-			 },
-				 success: function (data) {
-
-					 // printa os dados retornados pelo ajax caso queira ver no console
-					 // console.log(data);
-					 // console.log("estado:");
-					 // console.log(data['dicionario'][0]);
-					 // console.log("cidade:");
-					 // console.log(data['dicionario'][1]);
-
-				 }
-		});
-	});
-</script>
-
-<script>
 	$(document).ready(function(){
 		$("#cep").keyup(function(){
 
@@ -115,6 +90,22 @@
 									 var bairro = endereco[3];
 									 document.getElementById("bairro").value = bairro[1];
 
+									 var estado = $('#estado').find(":selected").val();
+
+									 if(estado === ""){
+										 var sigla_estado = endereco[5];
+										 var estado = verifica_estado(sigla_estado[1]);
+										 // console.log(estado);
+
+										 var cidade = endereco[4];
+
+										 $("#estado").empty();
+										 $("#cidade").empty();
+
+										 $('#estado').append(`<option id="estado" name="estado" value='${estado}|${sigla_estado[1]}'>${estado} </option>`);
+										 $('#cidade').append(`<option id="cidade" name="cidade" value='${cidade[1]}'>${cidade[1]} </option>`);
+									 }
+
 								 }catch{
 									 document.getElementById("cep").style.borderColor = 'red';
 
@@ -123,7 +114,42 @@
 							 }
 					});
 			}
+			function verifica_estado(sigla){
+				let estados = [
+					{ uf: 'AL', unidade_federativa: 'Alagoas' },
+					{ uf: 'AC', unidade_federativa: 'Acre' },
+					{ uf: 'AP', unidade_federativa: 'Amapá' },
+					{ uf: 'AM', unidade_federativa: 'Amazonas' },
+					{ uf: 'BA', unidade_federativa: 'Bahia' },
+					{ uf: 'CE', unidade_federativa: 'Ceará' },
+					{ uf: 'DF', unidade_federativa: 'Distrito Federal' },
+					{ uf: 'ES', unidade_federativa: 'Espírito Santo' },
+					{ uf: 'GO', unidade_federativa: 'Goías' },
+					{ uf: 'MA', unidade_federativa: 'Maranhão' },
+					{ uf: 'MT', unidade_federativa: 'Mato Grosso' },
+					{ uf: 'MS', unidade_federativa: 'Mato Grosso do Sul' },
+					{ uf: 'MG', unidade_federativa: 'Minas Gerais' },
+					{ uf: 'PA', unidade_federativa: 'Pará' },
+					{ uf: 'PB', unidade_federativa: 'Paraíba' },
+					{ uf: 'PR', unidade_federativa: 'Paraná' },
+					{ uf: 'PE', unidade_federativa: 'Pernambuco' },
+					{ uf: 'PI', unidade_federativa: 'Piauí' },
+					{ uf: 'RJ', unidade_federativa: 'Rio de Janeiro' },
+					{ uf: 'RN', unidade_federativa: 'Rio Grande do Norte' },
+					{ uf: 'RS', unidade_federativa: 'Rio Grande do Sul' },
+					{ uf: 'RO', unidade_federativa: 'Rondônia' },
+					{ uf: 'RR', unidade_federativa: 'Roraíma' },
+					{ uf: 'SC', unidade_federativa: 'Santa Catarina' },
+					{ uf: 'SP', unidade_federativa: 'São Paulo' },
+					{ uf: 'SE', unidade_federativa: 'Sergipe' },
+					{ uf: 'TO', unidade_federativa: 'Tocantins' },
+				];
 
+				var estado = estados.find(objeto => objeto.uf === sigla);
+				console.log(estado);
+				// console.log(estado.unidade_federativa);
+				return estado.unidade_federativa;
+			}
 		});
 	});
 </script>

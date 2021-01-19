@@ -26,7 +26,11 @@ class CustomLoginView(LoginView, SuccessMessageMixin):
     template_name = 'registration/login.html'
     success_message = 'Login realizado com sucesso'
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def perfil_principal(request):
     enderecos = Endereco.objects.filter(usuario=request.user, status = True)
     return render(request, 'usuarios/perfil-principal.html', {'enderecos':enderecos})
+
+@login_required(login_url='/usuarios/login')
+def perfil_configuracao(request):
+    return render(request, 'usuarios/perfil-configuracao.html')

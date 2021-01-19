@@ -1,6 +1,3 @@
-# a biblioteca requests é o padrão para fazer solicitações HTTP em Python
-# utilizada no nosso caso para fazer a requisição da api do ibge e do viaCep
-# obs: é necessário baixar ela no django, necessário baixar arquivos do requirements
 import requests
 import logging
 
@@ -8,44 +5,28 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-# As importações relativas usam pontos iniciais. Um único ponto inicial indica
-# uma importação relativa, exemplo ".forms", começando com o pacote atual, que
-# antes era apenas a pasta 'usuarios'. Dois ou mais pontos iniciais indicam uma
-# importação relativa ao(s) pai(s) do pacote atual, que agora é 'usuarios/views'
-# por isso está 'from ..forms import..' e não 'from .forms import..' como antes
 from ..forms import EnderecoForm
 from ..models import Cidade, Estado, Endereco
 
 logger = logging.getLogger(__name__)
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def perfil_endereco(request):
 
     enderecos = Endereco.objects.filter(usuario=request.user, status = True)
 
     return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos':enderecos})
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def adicionar_endereco(request):
 
     if request.method == "POST":
 
-        sigla = request.POST['estado'].split('|')[-1]
-        nome = request.POST['estado'].split('|')[0]
+        logger.debug(request.POST['complemento'])
+        dicionario = verificar_estado_cidade_bd(request.POST['estado'], request.POST['cidade'])
+        novo_estado = dicionario[0]
+        nova_cidade = dicionario[1]
 
-        novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
-
-        nova_cidade = Cidade.objects.get(
-            nome = request.POST['cidade'],
-            estado_id = novo_estado.pk
-        )
-
-        # criando o formulario pelo dicionario pois os selects no template
-        # não fornecem os objetos estado e cidade, apenas os respectivos nomes
-        # como o Endereco depende desses objetos para sua criação,
-        # logicamente estou buscando pela própria função
-        # obs: não preciso me preocupar com a busca dos objetos porque esta sendo
-        # criado automaticamente por ajax enquanto o formulario é preenchido
         novo_endereco = dict(
             estado = novo_estado,
             cidade = nova_cidade,
@@ -77,7 +58,7 @@ def adicionar_endereco(request):
 
     return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html',contexto)
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def deletar_endereco(request):
 
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
@@ -97,16 +78,11 @@ def deletar_endereco(request):
 
     return redirect('usuarios:perfil_endereco')
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def editar_endereco(request):
 
     endereco = get_object_or_404(Endereco, pk=request.POST['endereco'])
 
-    # se os atributos do Post forem acima de 2 itens, ele fará a edição
-    # isso porque também é feito um Post para acessar o template de edição
-    # para manter a confidencialidade dos dados durante a requisição
-    # caso fosse uma requisição get para o template, seria possível visualizar
-    # a pk de endereço através do navegador
     if len(request.POST) > 2:
 
         sigla = request.POST['estado'].split('|')[-1]
@@ -127,6 +103,8 @@ def editar_endereco(request):
         endereco.bairro = request.POST['bairro']
         endereco.rua = request.POST['rua']
         endereco.numero = request.POST['numero']
+
+        logger.debug(request.POST['complemento'])
         endereco.complemento = request.POST['complemento']
 
         endereco.save()
@@ -142,7 +120,7 @@ def editar_endereco(request):
         return render(request, 'usuarios/endereco/perfil-endereco-formulario-editar.html', contexto)
 
 
-@login_required
+@login_required(login_url='/usuarios/login')
 def definir_endereco_padrao(request):
 
     enderecos = Endereco.objects.filter(usuario=request.user, padrao=True)
@@ -170,27 +148,6 @@ def carregar_cidades(request):
         return JsonResponse({'cidades': cidades})
 
 # AJAX
-def verificar_cidade_bd(request):
-
-    sigla = request.GET.get('estado').split('|')[-1]
-    nome = request.GET.get('estado').split('|')[0]
-
-    # consulta '.objects.get_or_create' retorna tupla
-    buscar_estado = Estado.objects.get_or_create(nome = nome, sigla = sigla)
-    # consulta '.objects.get' retorna objeto, como preciso da pk do respectivo objeto, faço nova consulta
-    estado = Estado.objects.get(nome = nome, sigla = sigla)
-
-    buscar_cidade = Cidade.objects.get_or_create(nome = request.GET.get('cidade'), estado_id = estado.pk)
-    cidade = Cidade.objects.get(nome = request.GET.get('cidade'), estado_id = estado.pk)
-
-    dicionario = {}
-    dicionario[0] = estado.pk
-    dicionario[1] = cidade.pk
-
-    if request.is_ajax():
-        return JsonResponse({'dicionario': dicionario })
-
-# AJAX
 def verificar_cep(request):
 
     cep = 'https://viacep.com.br/ws/{}/json/'.format(request.GET.get('cep'))
@@ -207,6 +164,28 @@ def verificar_cep(request):
     if request.is_ajax():
         return JsonResponse({'cep': dicionario })
 
+def verificar_estado_cidade_bd(estado, cidade):
+
+    sigla = estado.split('|')[-1]
+    nome = estado.split('|')[0]
+
+    logger.debug(estado)
+    logger.debug(nome)
+
+    # consulta '.objects.get_or_create' retorna tupla
+    buscar_estado = Estado.objects.get_or_create(nome = nome, sigla = sigla)
+    # consulta '.objects.get' retorna objeto, como preciso da pk do respectivo objeto, faço nova consulta
+    estado = Estado.objects.get(nome = nome, sigla = sigla)
+
+    buscar_cidade = Cidade.objects.get_or_create(nome = cidade, estado_id = estado.pk)
+    cidade = Cidade.objects.get(nome = cidade, estado_id = estado.pk)
+
+    dicionario = {}
+    dicionario[0] = estado
+    dicionario[1] = cidade
+
+    return dicionario
+
 def buscar_estados_api():
 
     # busca na api do ibge os estados por ordem de nome
@@ -216,21 +195,19 @@ def buscar_estados_api():
     # indica que quero obter os dados dessa requisição através do método .get()
     requisicao_estados = requests.get(estados)
 
+    dicionario = {}
+
     try:
         # indica que quero desserializar, no caso,
         # transformar as informações str para um dicionário através do método .json()
         lista = requisicao_estados.json()
+
+        for indice, estados in enumerate(lista):
+            # adiciona as tuplas com os estados
+            dicionario[indice] = estados
+
     except ValueError:
         logger.critical("Não encontrou os estados")
-
-    dicionario = {}
-
-    # enumerate é usado em loops for ou ser convertido em uma lista de tuplas usando o método list()
-    # ou seja, através do enumerate cria tuplas dos estados de acordo com o indice
-    # se olhar o arquivo completo acessando o link acima fica mais fácil de entender o motivo
-    for indice, estados in enumerate(lista):
-        # adiciona as tuplas com os estados
-        dicionario[indice] = estados
 
     return dicionario
 
@@ -239,15 +216,16 @@ def buscar_cidades_api(sigla):
     cidades = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{}/municipios'.format(sigla)
     requisicao_cidades = requests.get(cidades)
 
+    dicionario = {}
+
     try:
         lista = requisicao_cidades.json()
+
+        for indice, cidades in enumerate(lista):
+            # apenas filtrando os dados do objeto em cidades para pegar apenas o nome,
+            # dessa forma facilita a manipulação dos dados com js
+            dicionario[indice] = cidades.get('nome')
     except ValueError:
         logger.critical("Não encontrou as cidades")
-
-    dicionario = {}
-    for indice, cidades in enumerate(lista):
-        # apenas filtrando os dados do objeto em cidades para pegar apenas o nome,
-        # dessa forma facilita a manipulação dos dados com js
-        dicionario[indice] = cidades.get('nome')
 
     return dicionario

@@ -39,7 +39,7 @@
 						<div class="text">
 							<strong> {{ user.first_name }} {{user.last_name }} </strong> <br>
 							<p class="mb-2"> {{ user.email }}  </p>
-							<a href="#" class="btn btn-light btn-sm">Editar</a>
+							<a href="{% url 'usuarios:perfil_configuracao' %}" class="btn btn-light btn-sm">Editar</a>
 						</div>
 				</figure>
 				<hr>
