@@ -42,7 +42,7 @@ def adicionar_endereco(request):
             endereco = form.save(commit=False)
             endereco.usuario = request.user
 
-            #verifica se é o primeiro endereco, se sim torna-lo padrao
+            # verifica se é o primeiro endereco, se sim torna-lo padrao
             enderecos = Endereco.objects.filter(usuario=request.user)
             if len(enderecos) == 0:
                 endereco.padrao = True

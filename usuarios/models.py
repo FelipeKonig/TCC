@@ -132,7 +132,7 @@ class CustomUsuario(AbstractUser):
     # telefone = models.ForeignKey(Telefone, on_delete=models.CASCADE, related_name='telefone', null=True)
 
     cpf = models.CharField('CPF', max_length=11, help_text='Obrigatório')
-    data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório', validators=[])
+    data_nascimento = models.DateField('Data de nascimento', help_text='Obrigatório', null=True)
 
     # Problemas com o diretório e criação das fotos; está duplicando a mesma imagem com dois nomes diferentes
     # retirei o método variation e deixei null=True
@@ -142,7 +142,7 @@ class CustomUsuario(AbstractUser):
     # endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'data_nascimento']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email
