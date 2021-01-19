@@ -2,6 +2,7 @@ from model_mommy import mommy
 from django.test import TestCase
 
 from ..models import Empresa
+
 from ..views import (
     CriarEmpresa,
     EditarEmpresa,
@@ -9,10 +10,11 @@ from ..views import (
     deletar_empresa
 
 )
+
 from django.urls import reverse, resolve
 
 
-class test_urls(TestCase):
+class Test_Urls(TestCase):
 
     def setUp(self):
         self.empresa = mommy.make(Empresa)
