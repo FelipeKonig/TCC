@@ -43,16 +43,18 @@
 				 <div class="form-row">
 					 <div class="col form-group">
 						 <label>Email</label>
-						 <input type="email" class="form-control" value="{{ user.email}}">
+						 <input type="email" class="form-control" value="{{ user.email }}">
 					 </div> <!-- form-group end.// -->
-					 <div class="form-group col-md-6">
-						 <label>Telefone</label>
-						 <input type="text" class="form-control" value="+123456789">
-					 </div> <!-- form-group end.// -->
+						{% for telefone in telefones %}
+						 <div class="form-group col-md-6">
+							 <label>Telefone</label>
+							 <input type="text" class="form-control" value="{{ telefone.numero }}">
+						 </div> <!-- form-group end.// -->
+						{% endfor%}
 				 </div> <!-- form-row.// -->
 
 				 <button class="btn btn-primary">Salvar</button>
-				 <button class="btn btn-light">Alterar senha</button>
+				 <a href="{% url 'usuarios:alterarsenha' %}" class="btn btn-secondary btn-small">Alterar senha</a>
 
 				 <br><br><br><br><br><br>
 

@@ -18,13 +18,12 @@
 <div class="container">
 
 <div class="row">
-	{% block menu-perfil %}
-	   {% include "usuarios/menu-perfil.html" %}
-	{% endblock %}
-	<main class="col-md-9">
+ <!-- col.// -->
+                {% block menu %}
+                    {% include 'usuarios/menu-perfil.html' %}
+                {% endblock %}
 
-		<article class="card mb-3">
-			<div class="card-body">
+		   {% block content %}
 
 				<figure class="icontext">
 						<div class="icon">
@@ -39,13 +38,12 @@
 						<div class="text">
 							<strong> {{ user.first_name }} {{user.last_name }} </strong> <br>
 							<p class="mb-2"> {{ user.email }}  </p>
-<<<<<<< HEAD
+
 							<a href="{% url 'usuarios:perfil_configuracao' %}" class="btn btn-light btn-sm">Editar</a>
-=======
+
 							<a href="#" class="btn btn-light btn-sm">Editar</a>
 							<a href="{% url 'usuarios:alterarsenha' %}" class="btn btn-secondary btn-block">Alterar senha</a>
 
->>>>>>> 61cdd2069c62d2b251ed3b2175f9ae8e533d7fdb
 						</div>
 				</figure>
 				<hr>
@@ -95,56 +93,10 @@
 						</div>
 					</figure>
 				</article>
+	     {% endblock %}
 
 
-			</div> <!-- card-body .// -->
-		</article> <!-- card.// -->
-
-		<article class="card  mb-3">
-			<div class="card-body">
-				<h5 class="card-title mb-4">Pedidos recentes </h5>
-
-				<div class="row">
-				<div class="col-md-6">
-					<figure class="itemside  mb-3">
-						<figcaption class="info">
-							<!-- <div class="aside"><img src="images/items/1.jpg" class="border img-sm"></div> -->
-							<div class="aside"><img src="" class="border img-sm"></div>
-							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
-							<p>Great book name goes here </p>
-							<span class="text-success">Order confirmed </span>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-				<div class="col-md-6">
-					<figure class="itemside  mb-3">
-						<!-- <div class="aside"><img src="images/items/2.jpg" class="border img-sm"></div> -->
-						<div class="aside"><img src="" class="border img-sm"></div>
-						<figcaption class="info">
-							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
-							<p>How to be rich</p>
-							<span class="text-success">Departured</span>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-				<div class="col-md-6">
-					<figure class="itemside mb-3">
-						<!-- <div class="aside"><img src="images/items/3.jpg" class="border img-sm"></div> -->
-						<div class="aside"><img src="" class="border img-sm"></div>
-						<figcaption class="info">
-							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
-							<p>Harry Potter book </p>
-							<span class="text-success">Shipped  </span>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-			</div> <!-- row.// -->
-
-			<a href="#" class="btn btn-outline-primary btn-block"> Ver todos os pedidos <i class="fa fa-chevron-down"></i>  </a>
-			</div> <!-- card-body .// -->
-		</article> <!-- card.// -->
-
-	</main> <!-- col.// -->
+	 <!-- col.// -->
 </div>
 
 </div> <!-- container .//  -->

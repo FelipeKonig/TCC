@@ -1,0 +1,147 @@
+{% extends 'ecommerce/base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+	<div class="card mx-auto" style="max-width:550px; margin-top:40px;">
+      <article class="card-body">
+		  {% if not messages %}
+
+		  	{% if not usuario.status %}
+
+
+		<header class="mb-4"><h4 class="card-title">Criar perfil</h4></header>
+		<form  method="POST" id="usuarioForm"  autocomplete="off" enctype="multipart/form-data" >
+				{% csrf_token %}
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					{{ form.first_name|as_crispy_field }}
+				</div>
+
+				<div class="form-group col-md-6">
+					{{ form.last_name|as_crispy_field }}
+				</div>
+
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					{{ form.data_nascimento|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-6">
+					{{ form.foto|as_crispy_field }}
+				</div>
+			</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						{{ form.cpf|as_crispy_field }}
+					</div>
+				<div class="form-group col-md-6">
+						{{ form.empresa_selecionar|as_crispy_field }}
+					</div>
+
+
+				</div>
+
+			<div class="form-row">
+
+				<div class="form-group  col-md-6">
+					{{ form.telefone_selecionar|as_crispy_field }}
+				</div>
+
+				<div class="form-group  col-md-6">
+					{{ form.numeroTelefone|as_crispy_field }}
+				</div>
+			</div>
+
+
+			<div class="form-row">
+
+
+				<button type="submit" class="btn btn-primary btn-block"> Salvar  </button>
+
+			</div>
+			</form>
+
+		  	{% elif usuario.status %}
+		 		 <h5 class="text-center mt-4">
+					  <strong>
+					 Você já realizou o cadastro do perfil
+					  </strong>
+				 <img src="{% static 'ecommerce/images/atencao.png' %}"/>
+				 </h5>
+
+
+		  			<br>
+		  		    <a href="{% url 'e-commerce:home' %}" class="btn btn-primary btn-block">Ir para página principal</a>
+		            <a href="{% url 'usuarios:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
+
+		  	{% endif %}
+		  {% endif %}
+
+
+		  {% if messages %}
+		  	{% for message in messages %}
+		       {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+				<h4 class="text-center mt-4">Seu perfil foi atualizado com sucesso
+				<img src="{% static 'ecommerce/images/sucesso.png' %}"/>
+				</h4>
+		  		{% if empresaSelecionada == 'nao' %}
+		            <a href="{% url 'e-commerce:home' %}" class="btn btn-primary btn-block">Ir para página principal</a>
+		            <a href="{% url 'usuarios:perfil_principal' %}" class="btn btn-secondary btn-block">Ir para meu perfil</a>
+
+		  		{% elif empresaSelecionada == 'sim' %}
+		  			<br>
+		  			<h5>Agora o próximo passo é cadastrar a sua empresa!</h5>
+
+		            <a href="{% url 'empresas:criar_empresa' %}" class="btn btn-secondary btn-block">Cadastrar empresa</a>
+
+		         {% endif %}
+		     {% endif %}
+			{% endfor %}
+	{% endif %}
+	  </article>
+	</div>
+</section>
+
+<script src="{% static 'js/perfilUsuario.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+
+	{% if messages %}
+		{% for m in messages %}
+		<script>
+				const Toast = Swal.mixin({
+				  toast: true,
+				  position: 'center',
+				  showConfirmButton: true,
+				  timer: 3000,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				  }
+				})
+
+				Toast.fire({
+				  icon: 'success',
+				  title: '{{m}}'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				  }
+				})
+		  </script>
+		{% endfor %}
+	{% endif %}
+
+
+{% endblock %}
+
