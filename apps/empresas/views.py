@@ -14,7 +14,7 @@ from apps.usuarios.models import CustomUsuario
 
 
 # Metodo para retornar se existe uma empresa ativa ou não
-def consulta_Empresa(empresa):
+def consulta_empresa(empresa):
     if empresa is None:
         query_set = Empresa.objects.none()
     else:
@@ -59,7 +59,7 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
     def get(self, request, *args, **kwargs):
         form = super().get_form(CadastroEmpresa)
         empresa = self.request.user.empresa
-        query_set = consulta_Empresa(empresa)
+        query_set = consulta_empresa(empresa)
         usuario_logado = CustomUsuario.objects.get(email=request.user)
 
         context = {
@@ -106,9 +106,6 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
             'form': form
         }
 
-        if messages:
-            context['m'] = messages
-
         return render(request, 'empresas/empresa_cadastro.html', context)
 
 
@@ -120,7 +117,7 @@ class ListarEmpresa(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         empresa = self.request.user.empresa
-        query_set = consulta_Empresa(empresa)
+        query_set = consulta_empresa(empresa)
         return query_set
 
 

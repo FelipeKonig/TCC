@@ -1,0 +1,195 @@
+{% extends 'usuarios/perfil-principal.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+	<main class="col-md-9">
+
+
+
+		{% if not usuario.status %}
+          <div>
+              <h5 class="text-center mt-4">
+                  <strong>
+					 Você precisa realizar o cadastro de seu perfil para adicionar a sua empresa
+                  </strong>
+                  <img src="{% static 'ecommerce/images/atencao.png' %}"/>
+                  </h5>
+					<div class="d-flex justify-content-center">
+
+				<a href="{% url 'usuarios:criarperfil' %}" class="btn btn-secondary">Cadastrar perfil</a>
+					</div>
+				</div>
+
+		{% elif usuario.status %}
+
+
+		<article class="card">
+			<div class="card-body">
+						{% if resultado_busca_vitrine == 0 %}
+ 			<div>
+              <h5 class="text-center mt-4">
+                  <strong>
+					 Você precisa realizar o cadastro de sua vitrine
+                  </strong>
+                  <img src="{% static 'ecommerce/images/atencao.png' %}"/>
+                  </h5>
+					<div class="d-flex justify-content-center">
+
+				<a href="{% url 'vitrines:criar_vitrine' %}" class="btn btn-primary">Cadastrar vitrine</a>
+					</div>
+				</div>
+
+	<hr>
+						{% else %}
+						<div class="text">
+							<strong>Nome da vitrine:</strong> {{ vitrine.nome }} <br>
+							<strong>Descrição:</strong> {{ vitrine.descricao }}
+
+						</div>
+				<br>
+				<a href="#" onclick="editarVitrine({{ vitrine.id }})" class="btn btn-secondary mb-3">Editar <i class="fa fa-pen"></i> </a>
+				<a href="#" class="btn btn-secondary mb-3" onclick="deletarVitrine({{ vitrine.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
+
+						<hr>
+
+
+		<div class="row">
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<img src="images/items/1.jpg">
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">Hot sale unisex New Design Shirt for sport polo shirts latest design</a>
+								<div class="price-wrap mb-3">
+									<span class="price">$32.00-$40.00</span>
+									<small class="text-muted">/per item</small>
+								</div> <!-- price-wrap.// -->
+								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
+								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+
+								<hr>
+								<a href="#" class="btn btn-success btn-block">  Promote </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<img src="images/items/2.jpg">
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">High Quality Winter PU Rain Jacket with Padding for Men's outdoor</a>
+								<div class="price-wrap mb-3">
+									<span class="price">$41.00-$50.00</span>
+									<small class="text-muted">/per item</small>
+								</div> <!-- price-wrap.// -->
+								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
+								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+
+								<hr>
+								<a href="#" class="btn btn-success btn-block">  Promote </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<img src="images/items/1.jpg">
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
+								<div class="price-wrap mb-3">
+									<span class="price">$32.00-$40.00</span>
+									<small class="text-muted">/per item</small>
+								</div> <!-- price-wrap.// -->
+								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
+								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+
+								<hr>
+								<a href="#" class="btn btn-success btn-block">  Promote </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<img src="images/items/4.jpg">
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
+								<div class="price-wrap mb-3">
+									<span class="price">$32.00-$40.00</span>
+									<small class="text-muted">/per item</small>
+								</div> <!-- price-wrap.// -->
+								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
+								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+
+								<hr>
+								<a href="#" class="btn btn-success btn-block">  Promote </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<img src="images/items/5.jpg">
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
+								<div class="price-wrap mb-3">
+									<span class="price">$32.00-$40.00</span>
+									<small class="text-muted">/per item</small>
+								</div> <!-- price-wrap.// -->
+								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
+								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+
+								<hr>
+								<a href="#" class="btn btn-success btn-block">  Promote </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+
+			</div> <!-- row .//  -->
+
+			</div>
+			{% endif %}
+			<!-- card-body.// -->
+			{% endif %}
+		</article>
+
+
+	</main> <!-- col.// -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+<script src="{% static 'js/editarVitrine.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/deletarVitrine.js' %}" type="text/javascript"></script>
+
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% if messages %}
+    {% for m in messages %}
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        {{ message }}
+        <script>
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Sucesso',
+              text:'{{ m }}',
+              showConfirmButton: true,
+              confirmButtonColor: '#000080',
+            })
+        </script>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endblock %}
+
+
