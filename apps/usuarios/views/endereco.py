@@ -113,7 +113,6 @@ def editar_endereco(request):
         endereco.rua = request.POST['rua']
         endereco.numero = request.POST['numero']
 
-        logger.debug(request.POST['complemento'])
         endereco.complemento = request.POST['complemento']
 
         endereco.save()
@@ -191,7 +190,7 @@ def verificar_estado_cidade_bd(estado, cidade):
     dicionario[1] = cidade
 
     return dicionario
-    
+
 
 def buscar_estados_api():
     # busca na api do ibge os estados por ordem de nome

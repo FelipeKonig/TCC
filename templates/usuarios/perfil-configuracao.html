@@ -3,8 +3,6 @@
 
 {% block body %}
 
-<link href="{% static 'css/stylesUsuarioConfiguracao.css' %}" rel="stylesheet" type="text/css"/>
-
 <body>
 
 <!-- ========================= SECTION PAGETOP ========================= -->
@@ -18,57 +16,185 @@
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 <div class="container">
+	<div class="row">
+		{% block menu-perfil %}
+			 {% include "usuarios/menu-perfil.html" %}
+		{% endblock %}
+		<main class="col-md-9">
 
-<div class="row">
-	{% block menu-perfil %}
-		 {% include "usuarios/menu-perfil.html" %}
-	{% endblock %}
-	<main class="col-md-9">
+		<div class="card">
+	    <div class="card-body">
+			<form class="form-class" name="editar_perfil" action="{% url 'usuarios:perfil_configuracao' %}"
+				onsubmit="return validateForm()" method="post">
+				{% csrf_token %}
+	     <div class="row">
+				 <div class="col-lg-8">
+						 <div class="form-row">
+							 <div class="col-md form-group">
+								 <label>Nome</label>
+								 <input type="text" name="nome" class="form-control" value="{{ user.first_name }}">
+							 </div> <!-- form-group end.// -->
+							 <div class="col form-group">
+								 <label>Sobrenome</label>
+								 <input type="text" name="sobrenome" class="form-control" value="{{user.last_name}}">
+							 </div> <!-- form-group end.// -->
+						 </div> <!-- form-row.// -->
 
-	<div class="card">
-    <div class="card-body">
-     <form class="row">
-			 <div class="col-md-8">
-				 <div class="form-row">
-					 <div class="col-md form-group">
-						 <label>Nome</label>
-						 <input type="text" class="form-control" value="{{ user.first_name }}">
-					 </div> <!-- form-group end.// -->
-					 <div class="col form-group">
-						 <label>Sobrenome</label>
-						 <input type="text" class="form-control" value="{{user.last_name}}">
-					 </div> <!-- form-group end.// -->
-				 </div> <!-- form-row.// -->
+						 <div class="form-row">
+							 <div class="col form-group">
+								 <label>Email</label>
+								 <input type="email" name="email" class="form-control" value="{{ user.email }}">
+							 </div> <!-- form-group end.// -->
+							 {% if telefones.count == 1 %}
+							 <div class="form-group col-md-6">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone</label>
+										 </div>
+										 <div class="col-md-4">
+											 <select name="tipo_telefone">
+												 {% if telefones.0.tipo == 'fixo' %}
+													 <option value="fixo" selected>fixo</option>
+													 <option value="celular">celular</option>
+												 {% else %}
+													 <option value="fixo">fixo</option>
+													 <option value="celular" selected>celular</option>
+												 {% endif %}
+											 </select>
+										 </div>
+										 <div class="col-md-8">
+											 <input type="text" name="numero_telefone" class="form-control" value="{{ telefones.0.numero }}">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 <div class="form-group col-md-6">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone alternativo</label>
+										 </div>
+										 <div class="col-md-4">
+											 <select name="tipo_telefone2">
+												 <option value="fixo" selected>fixo</option>
+												 <option value="celular">celular</option>
+											 </select>
+										 </div>
+										 <div class="col-md-8">
+											 <input type="text" name="numero_telefone2" class="form-control" value="">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 {% elif telefones.count == 2 %}
+							 <div class="form-group col-md-6">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone</label>
+										 </div>
+										 <div class="col-lg-4">
+											 <select name="tipo_telefone">
+												 {% if telefones.0.tipo == 'fixo' %}
+													 <option value="fixo" selected>fixo</option>
+													 <option value="celular">celular</option>
+												 {% else %}
+													 <option value="fixo">fixo</option>
+													 <option value="celular" selected>celular</option>
+												 {% endif %}
+											 </select>
+										 </div>
+										 <div class="col-lg-8">
+											 <input type="text" name="numero_telefone" class="form-control" value="{{ telefones.0.numero }}">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 <div class="form-group col-md-6 col-sm-12">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone alternativo</label>
+										 </div>
+										 <div class="col-lg-4 ">
+											 <select name="tipo_telefone2">
+												 {% if telefones.1.tipo == 'fixo' %}
+													 <option value="fixo" selected>fixo</option>
+													 <option value="celular">celular</option>
+												 {% else %}
+													 <option value="fixo">fixo</option>
+													 <option value="celular" selected>celular</option>
+												 {% endif %}
+											 </select>
+										 </div>
+										 <div class="col-lg-8">
+											 <input type="text" name="numero_telefone2" class="form-control" value="{{ telefones.1.numero }}">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 {% else %}
+							 <div class="form-group col-md-6">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone</label>
+										 </div>
+										 <div class="col-md-4">
+											 <select name="tipo_telefone">
+												 <option value="fixo" selected>fixo</option>
+												 <option value="celular">celular</option>
+											 </select>
+										 </div>
+										 <div class="col-md-8">
+											 <input type="text" name="numero_telefone" class="form-control" value="">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 <div class="form-group col-md-6">
+								 <div class="container">
+									 <div class="row">
+										 <div class="col-md-12">
+											 <label>Telefone alternativo</label>
+										 </div>
+										 <div class="col-md-4">
+											 <select name="tipo_telefone2">
+												 <option value="fixo" selected>fixo</option>
+												 <option value="celular">celular</option>
+											 </select>
+										 </div>
+										 <div class="col-md-8">
+											 <input type="text" name="numero_telefone2" class="form-control" value="">
+										 </div>
+									 </div>
+								 </div>
+							 </div> <!-- form-group end.// -->
+							 {% endif %}
+						 </div> <!-- form-row.// -->
 
-				 <div class="form-row">
-					 <div class="col form-group">
-						 <label>Email</label>
-						 <input type="email" class="form-control" value="{{ user.email }}">
-					 </div> <!-- form-group end.// -->
-						{% for telefone in telefones %}
-						 <div class="form-group col-md-6">
-							 <label>Telefone</label>
-							 <input type="text" class="form-control" value="{{ telefone.numero }}">
-						 </div> <!-- form-group end.// -->
-						{% endfor%}
-				 </div> <!-- form-row.// -->
+						 <button class="btn btn-primary mt-4" type="submit">Salvar</button>
+						 <a href="{% url 'usuarios:alterarsenha' %}" class="btn btn-secondary btn-small mt-4">Alterar senha</a>
 
-				 <button class="btn btn-primary">Salvar</button>
-				 <a href="{% url 'usuarios:alterarsenha' %}" class="btn btn-secondary btn-small">Alterar senha</a>
-
-				 <br><br><br><br><br><br>
-
-				 </div>
-			 	</form>
-      </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
-	</main> <!-- col.// -->
-</div>
-
+					 </div>
+					 <!-- <div class="col-md-2 border">
+							 <img src="{{ user.foto.url }}" class="img-md rounded-circle">
+					 </div> -->
+				 	</form>
+					<br><br><br><br><br><br>
+	      </div> <!-- card-body.// -->
+	    </div> <!-- card .// -->
+		</main> <!-- col.// -->
+	</div>
 </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 </body>
+
+{% block formulario-endereco-jQuery %}
+	 {% include "usuarios/formulario-editar-perfil-jQuery.html" %}
+{% endblock %}
 
 {% endblock %}

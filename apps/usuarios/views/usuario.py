@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -5,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.files.storage import FileSystemStorage
 
 from django.contrib.auth.views import (
     LoginView,
@@ -26,15 +29,26 @@ from ..forms import (
 
 from ..models import (
     CustomUsuario,
-    Telefone, Endereco
+    Telefone, Endereco,
+    adicionar_imagem_perfil
 )
 
+logger = logging.getLogger(__name__)
 
 @login_required(login_url='/usuarios/login')
 def perfil_principal(request):
+
     enderecos = Endereco.objects.filter(usuario=request.user, status=True)
     telefones = Telefone.objects.filter(usuario=request.user, status=True)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
+
+    if request.method == 'POST' and request.FILES['foto']:
+        usuario = CustomUsuario.objects.get(email=request.user)
+        nova_foto = request.FILES['foto']
+        fs = FileSystemStorage()
+        uploaded_file_url = fs.url(nova_foto)
+        usuario.foto = nova_foto
+        usuario.save()
 
     context = {
         'enderecos': enderecos,
@@ -46,7 +60,60 @@ def perfil_principal(request):
 @login_required(login_url='/usuarios/login')
 def perfil_configuracao(request):
 
+    if request.method == 'POST':
+
+        telefones = Telefone.objects.filter(usuario=request.user, status=True)
+        usuario = request.user
+        usuario.first_name = request.POST['nome']
+        usuario.last_name = request.POST['sobrenome']
+        usuario.email = request.POST['email']
+
+        if request.POST['numero_telefone'] != '':
+            # se o usuario não ter deletado o único número dele
+            if len(telefones) > 0:
+                if telefones[0].tipo != request.POST['tipo_telefone'] or telefones[0].numero != request.POST['numero_telefone']:
+
+                    atualizar_telefone = Telefone.objects.get(
+                        usuario=usuario,
+                        tipo=telefones[0].tipo,
+                        numero=telefones[0].numero
+                    )
+                    atualizar_telefone.numero = request.POST['numero_telefone']
+                    atualizar_telefone.tipo = request.POST['tipo_telefone']
+                    atualizar_telefone.save()
+            else:
+                telefone = Telefone.objects.create(
+                usuario=usuario,
+                tipo=request.POST['tipo_telefone'],
+                numero=request.POST['numero_telefone']
+                )
+                atualizar_telefone.save()
+
+            if request.POST['numero_telefone2'] != '':
+                if len(telefones) > 1:
+                    if telefones[1].tipo != request.POST['tipo_telefone2'] or telefones[1].numero != request.POST['numero_telefone2']:
+
+                        atualizar_telefone = Telefone.objects.get(
+                            usuario=usuario,
+                            tipo=telefones[1].tipo,
+                            numero=telefones[1].numero
+                        )
+                        atualizar_telefone.numero = request.POST['numero_telefone2']
+                        atualizar_telefone.tipo = request.POST['tipo_telefone2']
+                        atualizar_telefone.save()
+                else:
+                    telefone = Telefone.objects.create(
+                        usuario=usuario,
+                        tipo=request.POST['tipo_telefone2'],
+                        numero=request.POST['numero_telefone2']
+                    )
+                    messages.success(request, 'Perfil atualizado!')
+                    atualizar_telefone.save()
+
+        usuario.save()
+    # atualizando os telefones
     telefones = Telefone.objects.filter(usuario=request.user, status=True)
+
     return render(request, 'usuarios/perfil-configuracao.html', {'telefones':telefones})
 
 # ---------------- Cadastro usuário ----------------

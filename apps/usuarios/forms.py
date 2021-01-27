@@ -203,8 +203,8 @@ class AlterarSenhaForm(PasswordChangeForm):
         self.fields['new_password1'].widget.attrs['placeholder'] = 'Insira sua nova senha'
         self.fields['new_password2'].widget.attrs['placeholder'] = 'Insira sua novamente sua nova senha'
 
-
 class EnderecoForm(forms.ModelForm):
+
     class Meta:
         model = Endereco
         fields = ('estado', 'cidade', 'cep', 'rua', 'bairro', 'numero', 'complemento')
