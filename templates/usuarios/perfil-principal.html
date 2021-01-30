@@ -19,9 +19,15 @@
 
 <div class="row">
  <!-- col.// -->
-                {% block menu %}
-                    {% include 'usuarios/menu-perfil.html' %}
-                {% endblock %}
+ 			{% if perfil_usuario %}
+	      {% block menu %}
+	        {% include 'usuarios/menu-perfil.html' %}
+				{% endblock %}
+			{% else %}
+				{% block menu-empresa %}
+					{% include 'empresas/menu-perfil-empresa.html' %}
+				{% endblock %}
+			{% endif %}
 
 		   {% block content %}
 

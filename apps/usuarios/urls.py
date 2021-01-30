@@ -3,8 +3,6 @@ from django.urls import path
 from .views import usuario
 from .views import endereco
 
-from . import views
-
 app_name = 'usuarios'
 
 urlpatterns = [

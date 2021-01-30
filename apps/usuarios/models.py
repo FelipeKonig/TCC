@@ -61,6 +61,7 @@ class Cidade(models.Model):
 
 class Endereco(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
+    empresa = models.ForeignKey(Empresa,on_delete=models.CASCADE, null=True, default="")
     complemento = models.CharField('Complemento', max_length=50, blank=True, null=True, default="", help_text=' Não obrigatório')
     numero = models.CharField('Número', max_length=100, default='S/N', help_text='Obrigatório')
     estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
@@ -76,12 +77,21 @@ class Endereco(models.Model):
         verbose_name_plural = 'Enderecos'
 
     def __str__(self):
-        return '{}, cep: {}, numero: {}; status: {}'.format(
-                self.usuario,
-                self.cep,
-                self.numero,
-                self.status
+        if self.empresa is None:
+            return '{}, cep: {}, numero: {}; status: {}'.format(
+                    self.usuario,
+                    self.cep,
+                    self.numero,
+                    self.status
             )
+        else:
+            return '{}, razão social: {} cep: {}, numero: {}; status: {}'.format(
+                    self.usuario,
+                    self.empresa.razaoSocial,
+                    self.cep,
+                    self.numero,
+                    self.status
+                )
 
 
 class UsuarioManager(BaseUserManager):

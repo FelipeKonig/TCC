@@ -4,24 +4,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (
     CreateView,
-    ListView,
     UpdateView,
 )
-from .forms import CadastroEmpresa
+from ..forms import CadastroEmpresa
 
-from .models import Empresa
-from ..usuarios.models import Telefone, Endereco
+from ..models import Empresa
+from ...usuarios.models import Telefone, Endereco
 from apps.usuarios.models import CustomUsuario
-
-
-# Metodo para retornar se existe uma empresa ativa ou não
-def consulta_Empresa(empresa):
-    if empresa is None:
-        query_set = Empresa.objects.none()
-    else:
-        query_set = Empresa.objects.filter(cnpj=empresa.cnpj, status=True)
-    return query_set
-
 
 def cnpj_sem_formatacao(cnpj):
     cnpj_cortado_digitos_finais = str(cnpj).split('-')
@@ -43,6 +32,22 @@ def cnpj_sem_formatacao(cnpj):
 
     aux_cnpj_sem_formatacao += cnpj_cortado_digitos_finais[1]
     return aux_cnpj_sem_formatacao
+
+@login_required(login_url='/usuarios/login')
+def empresa_perfil(request):
+
+    empresa = request.user.empresa
+    enderecos = Endereco.objects.filter(usuario=request.user, empresa=empresa, status=True)
+    # telefones = Telefone.objects.filter(usuario=request.user, status=True)
+    usuario_logado = CustomUsuario.objects.get(email=request.user)
+
+    contexto = {
+        'empresa': empresa,
+        'enderecos': enderecos,
+        # 'telefones': telefones,
+        'usuario': usuario_logado
+    }
+    return render(request,'empresas/empresa_perfil.html', contexto)
 
 
 class CriarEmpresa(LoginRequiredMixin, CreateView):
@@ -106,19 +111,6 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
             context['m'] = messages
 
         return render(request, 'empresas/empresa_cadastro.html', context)
-
-
-class ListarEmpresa(LoginRequiredMixin, ListView):
-    login_url = '/usuarios/login'
-    model = Empresa
-    template_name = 'empresas/empresa_listar.html'
-    context_object_name = 'empresas'
-
-    def get_queryset(self):
-        empresa = self.request.user.empresa
-        query_set = consulta_Empresa(empresa)
-        return query_set
-
 
 @login_required(login_url='/usuarios/login')
 def deletar_empresa(request, pk):

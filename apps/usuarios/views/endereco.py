@@ -13,51 +13,34 @@ logger = logging.getLogger(__name__)
 
 @login_required(login_url='/usuarios/login')
 def perfil_endereco(request):
-    enderecos = Endereco.objects.filter(usuario=request.user, status=True)
+    enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
 
     return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos': enderecos})
 
 
 @login_required(login_url='/usuarios/login')
 def adicionar_endereco(request):
+
     if request.method == "POST":
 
-        dicionario = verificar_estado_cidade_bd(request.POST['estado'], request.POST['cidade'])
-        novo_estado = dicionario[0]
-        nova_cidade = dicionario[1]
-
-        sigla = request.POST['estado'].split('|')[-1]
-        nome = request.POST['estado'].split('|')[0]
-
-        novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
-
-        nova_cidade = Cidade.objects.get(
-            nome=request.POST['cidade'],
-            estado_id=novo_estado.pk
+        endereco = verificar_endereco_adicionar(request.POST['estado'],
+            request.POST['cidade'],
+            request.POST['cep'],
+            request.POST['bairro'],
+            request.POST['rua'],
+            request.POST['numero'],
+            request.POST['complemento']
         )
 
-        novo_endereco = dict(
-            estado=novo_estado,
-            cidade=nova_cidade,
-            cep=request.POST['cep'],
-            bairro=request.POST['bairro'],
-            rua=request.POST['rua'],
-            numero=request.POST['numero'],
-            complemento=request.POST['complemento']
-        )
-        form = EnderecoForm(novo_endereco)
-
-        if form.is_valid():
-            endereco = form.save(commit=False)
+        if endereco != '':
             endereco.usuario = request.user
 
             # verifica se é o primeiro endereco, se sim torna-lo padrao
-            enderecos = Endereco.objects.filter(usuario=request.user)
+            enderecos = Endereco.objects.filter(usuario=request.user,empresa=None, status=True)
             if len(enderecos) == 0:
                 endereco.padrao = True
 
             endereco.save()
-
             return redirect('usuarios:perfil_endereco')
     else:
         form = EnderecoForm()
@@ -65,7 +48,7 @@ def adicionar_endereco(request):
     estados = buscar_estados_api()
     contexto = {'form': form, 'estados': estados}
 
-    return render(request, 'usuarios/endereco/perfil-endereco-formulario-adicionar.html', contexto)
+    return render(request, 'usuarios/endereco/perfil-endereco-adicionar.html', contexto)
 
 
 @login_required(login_url='/usuarios/login')
@@ -77,7 +60,7 @@ def deletar_endereco(request):
     endereco.save()
 
     if era_padrao:
-        enderecos = Endereco.objects.filter(usuario=request.user, status=True)
+        enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
 
         # se o endereço deletado era padrão e houver outro, trocar automaticamente
         if len(enderecos) > 0:
@@ -94,28 +77,15 @@ def editar_endereco(request):
 
     if len(request.POST) > 2:
 
-        sigla = request.POST['estado'].split('|')[-1]
-
-        if endereco.estado.sigla != sigla:
-            nome = request.POST['estado'].split('|')[0]
-            novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
-            endereco.estado = novo_estado
-
-        if endereco.cidade.nome != request.POST['cidade']:
-            nova_cidade = Cidade.objects.get(
-                nome=request.POST['cidade'],
-                estado_id=endereco.estado.pk
-            )
-            endereco.cidade = nova_cidade
-
-        endereco.cep = request.POST['cep']
-        endereco.bairro = request.POST['bairro']
-        endereco.rua = request.POST['rua']
-        endereco.numero = request.POST['numero']
-
-        endereco.complemento = request.POST['complemento']
-
-        endereco.save()
+        endereco = verificar_endereco_editar(request.POST['endereco'],
+            request.POST['estado'],
+            request.POST['cidade'],
+            request.POST['cep'],
+            request.POST['bairro'],
+            request.POST['rua'],
+            request.POST['numero'],
+            request.POST['complemento']
+        )
 
         return redirect('usuarios:perfil_endereco')
 
@@ -125,7 +95,7 @@ def editar_endereco(request):
         estados = buscar_estados_api()
         contexto = {'endereco': endereco, 'estados': estados, 'cidades': nome_cidades}
 
-        return render(request, 'usuarios/endereco/perfil-endereco-formulario-editar.html', contexto)
+        return render(request, 'usuarios/endereco/perfil-endereco-editar.html', contexto)
 
 
 @login_required(login_url='/usuarios/login')
@@ -168,6 +138,67 @@ def verificar_cep(request):
 
     if request.is_ajax():
         return JsonResponse({'cep': dicionario})
+
+def verificar_endereco_adicionar(estado,cidade,cep,bairro,rua,numero,complemento):
+
+    dicionario = verificar_estado_cidade_bd(estado, cidade)
+    novo_estado = dicionario[0]
+    nova_cidade = dicionario[1]
+
+    sigla = estado.split('|')[-1]
+    nome = estado.split('|')[0]
+
+    novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
+
+    nova_cidade = Cidade.objects.get(
+        nome=cidade,
+        estado_id=novo_estado.pk
+    )
+
+    novo_endereco = dict(
+        estado=novo_estado,
+        cidade=nova_cidade,
+        cep=cep,
+        bairro=bairro,
+        rua=rua,
+        numero=numero,
+        complemento=complemento
+    )
+    form = EnderecoForm(novo_endereco)
+
+    if form.is_valid():
+        endereco = form.save(commit=False)
+
+        return endereco
+    else:
+        return ''
+
+def verificar_endereco_editar(endereco,estado,cidade,cep,bairro,rua,numero,complemento):
+
+    endereco = get_object_or_404(Endereco, pk=endereco)
+
+    sigla = estado.split('|')[-1]
+
+    if endereco.estado.sigla != sigla:
+        nome = estado.split('|')[0]
+        novo_estado = Estado.objects.get(nome=nome, sigla=sigla)
+        endereco.estado = novo_estado
+
+    if endereco.cidade.nome != cidade:
+        nova_cidade = Cidade.objects.get(
+            nome=cidade,
+            estado_id=endereco.estado.pk
+        )
+        endereco.cidade = nova_cidade
+
+    endereco.cep = cep
+    endereco.bairro = bairro
+    endereco.rua = rua
+    endereco.numero = numero
+
+    endereco.complemento = complemento
+
+    endereco.save()
 
 def verificar_estado_cidade_bd(estado, cidade):
 

@@ -29,8 +29,7 @@ from ..forms import (
 
 from ..models import (
     CustomUsuario,
-    Telefone, Endereco,
-    adicionar_imagem_perfil
+    Telefone, Endereco
 )
 
 logger = logging.getLogger(__name__)
@@ -38,7 +37,7 @@ logger = logging.getLogger(__name__)
 @login_required(login_url='/usuarios/login')
 def perfil_principal(request):
 
-    enderecos = Endereco.objects.filter(usuario=request.user, status=True)
+    enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
     telefones = Telefone.objects.filter(usuario=request.user, status=True)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
 
@@ -53,7 +52,8 @@ def perfil_principal(request):
     context = {
         'enderecos': enderecos,
         'telefones': telefones,
-        'usuario':usuario_logado
+        'usuario':usuario_logado,
+        'perfil_usuario':True
     }
     return render(request, 'usuarios/dados_perfil_usuario.html', context)
 
@@ -221,13 +221,3 @@ class AlteracaoSenha(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView
     template_name = 'registration/password_change_form.html'
     success_url = reverse_lazy('usuarios:alterarsenha')
     success_message = 'Senha alterada com sucesso'
-
-# class ListarUsuario(LoginRequiredMixin, ListView):
-#   login_url = 'usuarios/login'
-#  model = CustomUsuario
-# template_name = 'usuarios/perfil-principal.html'
-# context_object_name = 'enderecos'
-
-# def get_queryset(self):
-#   query_set = Endereco.objects.filter(usuario=self.request.user, status=True)
-#  return query_set

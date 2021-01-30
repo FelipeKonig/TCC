@@ -1,0 +1,37 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">Minha conta</h2>
+</div>
+</section>
+
+<section class="section-content padding-y">
+	<div class="row">
+		{% block menu-perfil %}
+			 {% include "usuarios/menu-perfil.html" %}
+		{% endblock %}
+
+		{% block formulario-endereco %}
+			 {% include "usuarios/endereco/endereco-formulario-editar.html" %}
+		{% endblock %}
+
+    </div> <!-- card .// -->
+	</div>
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+</body>
+
+<br><br><br><br><br><br>
+
+{% block formulario-endereco-jQuery %}
+	 {% include "usuarios/endereco/formulario-endereco-jQuery.html" %}
+{% endblock %}
+
+{% endblock %}

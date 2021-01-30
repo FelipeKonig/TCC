@@ -1,0 +1,79 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">Minha conta</h2>
+</div>
+</section>
+
+<section class="section-content padding-y">
+	<div class="container">
+
+	<div class="row">
+    {% block menu-empresa %}
+      {% include 'empresas/menu-perfil-empresa.html' %}
+    {% endblock %}
+	<main class="col-md-9">
+		<a href="{% url 'empresas:empresa_endereco_adicionar' %}" class="btn btn-light mb-3 mt-2"> <i class="fa fa-plus"></i>
+			 Adicionar novo endereço
+		</a>
+        <div class="row">
+					{% for endereco in enderecos %}
+	            <div class="col-md-6">
+	                <article class="box mb-4">
+	                    <h6>{{ endereco.cidade.nome }}, {{ endereco.estado.nome }}</h6>
+	                    <p>{{ endereco.bairro }} <br> {{ endereco.rua }}, {{ endereco.numero }}  </p>
+												<div class="form-inline">
+												{% if endereco.padrao %}
+													<a href="#" class="btn btn-light enable" style="border-color: green;">
+														<i class="fa fa-check" style="color: green;"></i>
+														Padrão
+													</a>
+												{% else %}
+													<form action="{% url 'empresas:definir_endereco_padrao' %}" method="post">
+														{% csrf_token %}
+														<button type="submit" class="btn btn-light enable" name="endereco" value="{{ endereco.pk }}">
+															<i class="fa fa-check"></i>
+															Padrão
+														</button>
+													</form>
+												{% endif %}
+													&nbsp;
+													<form action="{% url 'empresas:editar_endereco' %}"  method="post">
+														{% csrf_token %}
+														<button type="submit" class="btn btn-light" name="endereco" value="{{ endereco.pk }}">
+															<i class="fa fa-pen"></i>
+														</button>
+													</form>
+														&nbsp;
+														<form action="{% url 'empresas:deletar_endereco' %}"  method="post">
+															{% csrf_token %}
+															<button type="submit" class="btn btn-light" name="endereco" value="{{ endereco.pk }}">
+																<i class="text-danger fa fa-trash"></i>
+															</button>
+														</form>
+													</div>
+	                </article>
+	            </div>  <!-- col.// -->
+          {% empty %}
+							<p> &nbsp; Sua empresa ainda não possui nenhum endereço </p>
+					{% endfor %}
+        </div> <!-- row.// -->
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+</body>
+
+<br><br><br><br><br><br>
+
+{% endblock %}
