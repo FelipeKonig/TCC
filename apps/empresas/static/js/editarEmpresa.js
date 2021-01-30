@@ -12,17 +12,17 @@ function editarEmpresa(){
         }).then((result) => {
           if (result.isConfirmed) {
               token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-              id = document.getElementsByName("campo")[0].value;
+              id = document.getElementsByName("campoEditar")[0].value;
 
             $.ajax({
                 type: 'POST',
-                url: '/empresas/edicao-empresa/',
+                url: '/empresas/editar-empresa/',
                 data: {
                     csrfmiddlewaretoken: token,
                     id: id
                 },
                 success: function(result){
-                    window.location.href = "/empresas/edicao-empresa/";
+                    window.location.href = "/empresas/editar-empresa/";
                 }
             });
 

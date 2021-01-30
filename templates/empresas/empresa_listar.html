@@ -89,12 +89,14 @@
 
                   <form method="POST" autocomplete="off">
                       {% csrf_token %}
-                      <input  type="hidden"  name="campo" value="{{ empresa.id }}">
+                      <input  type="hidden"  name="campoEditar" value="{{ empresa.id }}">
                       <a href="#" onclick="editarEmpresa()" class="btn btn-secondary mb-3" value="{{ empresa.id }}" id="editar" name="editar">Editar <i class="fa fa-pen"></i> </a>
                   </form>
-
-
-              <a href="#" class="btn btn-secondary mb-3" onclick="deletarEmpresa({{ empresa.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
+                  <form method="POST" autocomplete="off">
+                      {% csrf_token %}
+                      <input  type="hidden"  name="campoDeletar" value="{{ empresa.id }}">
+                      <a href="#" class="btn btn-secondary mb-3" onclick="deletarEmpresa({{ empresa.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
+                  </form>
               </div>
           </div>
       </div>
