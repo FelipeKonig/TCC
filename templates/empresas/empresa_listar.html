@@ -85,6 +85,8 @@
               <div class="w-100">
                  <hr>
               </div>
+
+              <div class="row">
               <div class="col-sm-3">
 
                   <form method="POST" autocomplete="off">
@@ -92,11 +94,16 @@
                       <input  type="hidden"  name="campoEditar" value="{{ empresa.id }}">
                       <a href="#" onclick="editarEmpresa()" class="btn btn-secondary mb-3" value="{{ empresa.id }}" id="editar" name="editar">Editar <i class="fa fa-pen"></i> </a>
                   </form>
-                  <form method="POST" autocomplete="off">
+
+              </div>
+               <div class="col-sm-3">
+                  <form method="POST" autocomplete="off" class="col-sm-3">
                       {% csrf_token %}
                       <input  type="hidden"  name="campoDeletar" value="{{ empresa.id }}">
                       <a href="#" class="btn btn-secondary mb-3" onclick="deletarEmpresa({{ empresa.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
                   </form>
+               </div>
+                   </div>
               </div>
           </div>
       </div>

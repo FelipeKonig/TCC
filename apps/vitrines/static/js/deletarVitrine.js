@@ -11,7 +11,22 @@ function deletarVitrine(id){
           reverseButtons: true
         }).then((result) => {
           if (result.isConfirmed) {
-                window.location.href = "/vitrines/deletar-vitrine/"+id;
+              token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+              id = document.getElementsByName("campoID")[0].value;
+
+              console.log('token', token)
+              console.log('id', id)
+             $.ajax({
+                type: 'POST',
+                url: '/vitrines/deletar-vitrine/',
+                data: {
+                    csrfmiddlewaretoken: token,
+                    id: id
+                },
+                success: function(result){
+                    window.location.href = "/vitrines/deletar-vitrine/";
+                }
+            });
           }
         })
 

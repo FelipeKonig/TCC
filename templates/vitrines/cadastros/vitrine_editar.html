@@ -70,6 +70,7 @@
 	{% if messages %}
 		{% for m in messages %}
 		<script>
+			{% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 				const Toast = Swal.mixin({
 				  toast: true,
 				  position: 'center',
@@ -83,12 +84,13 @@
 				})
 
 				Toast.fire({
-				  icon: 'success',
+				  icon: 'error',
 				  title: '{{m}}'
 				}).then((result) => {
 				  if (result.isConfirmed) {
 				  }
 				})
+			    {% endif %}
 		  </script>
 		{% endfor %}
 	{% endif %}
