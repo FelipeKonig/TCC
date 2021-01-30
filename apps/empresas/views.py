@@ -2,15 +2,19 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
 from django.views.generic import (
     CreateView,
     ListView,
     UpdateView,
 )
-from .forms import CadastroEmpresa
+from .forms import CadastroEmpresa, EditarEmpresaForm
 
 from .models import Empresa
 from apps.usuarios.models import CustomUsuario
+
+recuperar_id_empresa_editar = {}
+from validate_docbr import CNPJ
 
 
 # Metodo para retornar se existe uma empresa ativa ou não
@@ -172,3 +176,68 @@ class EditarEmpresa(LoginRequiredMixin, UpdateView):
         }
 
         return render(request, 'empresas/empresa_cadastro.html', context)
+
+
+@login_required(login_url='/usuarios/login')
+def edicao_empresa(request):
+    usuario = CustomUsuario.objects.get(email=request.user)
+    form = EditarEmpresaForm(request.POST or None)
+
+    if len(request.POST) == 2:
+        if not recuperar_id_empresa_editar:
+            recuperar_id_empresa_editar['id'] = request.POST.get('id')
+    empresa = retornar_empresa()
+    print(empresa)
+
+    if str(request.method) == 'POST':
+        if len(request.POST) > 2:
+            form = EditarEmpresaForm(request.POST, instance=empresa)
+            cnpj = CNPJ()
+
+            aux_cnpj = request.POST.get('cnpj')
+            resultado_validacao = cnpj.validate(aux_cnpj)
+
+            if not resultado_validacao:
+                messages.error(request, 'CNPJ inválido')
+
+            if form.is_valid():
+                razaoSocial = form.cleaned_data['razaoSocial']
+                nomeFantasia = form.cleaned_data['fantasia']
+                inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
+                inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
+                cnpj = form.cleaned_data['cnpj']
+
+                if cnpj:
+                    if len(cnpj) == 18:
+                        cnpj = cnpj_sem_formatacao(cnpj)
+                    else:
+                        messages.error(request, 'CNPJ inválido')
+                else:
+                    messages.error(request, 'CNPJ inválido')
+
+                empresa.razaoSocial = razaoSocial
+                empresa.fantasia = nomeFantasia
+                empresa.inscricaoEstadual = inscricaoEstadual
+                empresa.inscricaoMunicipal = inscricaoMunicipal
+                empresa.cnpj = cnpj
+
+                empresa.save()
+                messages.success(request, 'Empresa editada com sucesso!')
+                return redirect('empresas:listar_empresas')
+
+    form = EditarEmpresaForm(instance=empresa)
+
+    context = {
+        'usuario': usuario,
+        'form': form,
+        'editar': 'editar'
+
+    }
+
+    return render(request, 'empresas/empresa_cadastro.html', context)
+
+
+def retornar_empresa():
+    if recuperar_id_empresa_editar:
+        empresa = get_object_or_404(Empresa, pk=recuperar_id_empresa_editar['id'])
+        return empresa

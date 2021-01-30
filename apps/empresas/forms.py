@@ -30,5 +30,33 @@ class CadastroEmpresa(forms.ModelForm):
         self.fields['razaoSocial'].widget.attrs['placeholder'] = 'Insira a razão social'
         self.fields['fantasia'].widget.attrs['placeholder'] = 'Insira o nome fantasia'
         self.fields['cnpj'].widget.attrs['placeholder'] = 'Insira o CNPJ'
-        self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira seu telefone fixo'
-        self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira seu telefone celular'
+        self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira a inscrição estadual'
+        self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira a inscrição municipal'
+
+
+class EditarEmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
+        fields = ('razaoSocial', 'fantasia', 'inscricaoEstadual', 'inscricaoMunicipal', 'cnpj')
+
+    def __init__(self, *args, **kwargs):
+        super(EditarEmpresaForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('razaoSocial', css_class='form-group col-md-6'),
+                Column('fantasia', css_class='form-group col-md-6'),
+                Column('cnpj', css_class='form-group col-md-6'),
+                Column('inscricaoEstadual', css_class='form-group col-md-6'),
+                Column('inscricaoMunicipal', css_class='form-group col-md-6'),
+                css_class='form-row'
+            )
+        )
+        self.fields['razaoSocial'].widget.attrs['placeholder'] = 'Insira a razão social'
+        self.fields['fantasia'].widget.attrs['placeholder'] = 'Insira o nome fantasia'
+        self.fields['cnpj'].widget.attrs['placeholder'] = 'Insira o CNPJ'
+        self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira a inscrição estadual'
+        self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira a inscrição municipal'
+
+
+

@@ -4,7 +4,8 @@ from .views import (
     CriarEmpresa,
     ListarEmpresa,
     deletar_empresa,
-    EditarEmpresa
+    EditarEmpresa,
+    edicao_empresa
 )
 
 app_name = 'empresas'
@@ -14,4 +15,5 @@ urlpatterns = [
     path('minha-empresa/', ListarEmpresa.as_view(), name='listar_empresas'),
     path('deletar-empresa/<int:pk>', deletar_empresa, name='deletar_empresa'),
     path('editar-empresa/<int:pk>', EditarEmpresa.as_view(), name='editar_empresa'),
+    path('edicao-empresa/', edicao_empresa, name='edicao_empresa')
 ]

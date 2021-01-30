@@ -37,6 +37,16 @@
                     {% endif %}
                 </h4>
 
+          {% if messages %}
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger " role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+    {% endfor %}
+{% endif %}
+
               <form  method="POST" autocomplete="off" enctype="multipart/form-data" >
                   {% csrf_token %}
                   <div class="form-row">
@@ -59,7 +69,11 @@
                         {{ form.inscricaoMunicipal|as_crispy_field }}
                       </div>
                       <div class="form-group col-md-6">
-                        {{ form.logo|as_crispy_field }}
+                      </div>
+                      <div class="form-group col-md-6">
+                         {% if not editar == 'editar' %}
+                            {{ form.logo|as_crispy_field }}
+                         {% endif %}
                       </div>
 
                   </div>
@@ -84,6 +98,11 @@
 
                 {% endif %}
 
+
+          {% if messages %}
+
+{% endif %}
+
       </div>
     </div>
 </section>
@@ -95,6 +114,8 @@
 	{% if messages %}
 		{% for m in messages %}
 		<script>
+
+
 			{% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 
 				const Toast = Swal.mixin({
@@ -111,7 +132,7 @@
 
 				Toast.fire({
 				  icon: 'error',
-				  title: '{{m}}'
+				  title: 'Erro ao enviar formulário!\n'+'{{m}}'
 				}).then((result) => {
 				  if (result.isConfirmed) {
 				  }
