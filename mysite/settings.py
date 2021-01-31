@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.empresas',
     'apps.vitrines',
+    'apps.produtos',
     'crispy_forms',
 ]
 
