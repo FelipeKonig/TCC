@@ -1,6 +1,16 @@
+import os
+from uuid import uuid4
+
 from django.db import models
+from stdimage import StdImageField
 
 from mysite import settings
+
+
+def adicionar_imagem_logo(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = '{}.{}'.format(uuid4().hex, ext)
+    return os.path.join('fotoProduto/', filename)
 
 
 class Categoria(models.Model):
@@ -18,6 +28,7 @@ class Produto(models.Model):
     vendedor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, default="")
     descricao = models.CharField('Descrição', max_length=450)
     quantidade = models.IntegerField('Quantidade')
+    imagem = StdImageField('Imagem do produto', upload_to=adicionar_imagem_logo, help_text='Obrigatório')
 
     class Meta:
         verbose_name = 'Produto'

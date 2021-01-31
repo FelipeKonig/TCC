@@ -48,16 +48,19 @@
 
 						</div>
 				<br>
-
+				<div class="row">
 				<form method="POST" autocomplete="off">
 					{% csrf_token %}
 					<input  type="hidden"  name="campoID" value="{{ vitrine.id }}">
-					<a href="#" onclick="editarVitrine()" class="btn btn-secondary mb-3">Editar <i class="fa fa-pen"></i> </a>
-					<a href="#" class="btn btn-secondary mb-3" onclick="deletarVitrine({{ vitrine.id }})"> Deletar <i class="text-danger fa fa-trash"></i>  </a>
+
+					<a href="#" onclick="editarVitrine()" class="btn btn-secondary mb-3">Editar vitrine <i class="fa fa-pen"></i> </a>
+						<a href="#" class="btn btn-secondary mb-3" onclick="deletarVitrine({{ vitrine.id }})"> Deletar vitrine <i class="text-danger fa fa-trash"></i>  </a>
 				</form>
+					<div class="col-sm" style="padding-left:490px">
+				<a href="{% url 'produtos:criar_produto' %}" class="btn btn-secondary mb-3" > Adicionar produto <i class="fa fa-plus"></i>  </a>
+              	</div>
+               </div>
 						<hr>
-
-
 		<div class="row">
 				<div class="col-md-4">
 					<figure class="card card-product-grid">

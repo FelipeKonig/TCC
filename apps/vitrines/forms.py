@@ -7,8 +7,6 @@ from apps.vitrines.models import Vitrine
 
 
 class CadastroVitrine(forms.ModelForm):
-    # descricao = forms.CharField(label='Descrição', widget=forms.Textarea(), help_text='Obrigatório', max_length=200)
-
     class Meta:
         model = Vitrine
         fields = ('nome', 'descricao')
