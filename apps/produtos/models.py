@@ -24,10 +24,10 @@ class SubCategoria(models.Model):
 
 class Produto(models.Model):
     nome = models.CharField('Nome', max_length=250, help_text='Obrigatório')
-    preco = models.DecimalField('Preço', max_digits=10, decimal_places=2)
+    preco = models.DecimalField('Preço', max_digits=10, decimal_places=2, help_text='Obrigatório')
     vendedor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, default="")
-    descricao = models.CharField('Descrição', max_length=450)
-    quantidade = models.IntegerField('Quantidade')
+    descricao = models.CharField('Descrição', max_length=450, help_text='Obrigatório')
+    quantidade = models.IntegerField('Quantidade', help_text='Obrigatório')
     imagem = StdImageField('Imagem do produto', upload_to=adicionar_imagem_logo, help_text='Obrigatório')
 
     class Meta:

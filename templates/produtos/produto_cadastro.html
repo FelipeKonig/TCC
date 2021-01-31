@@ -52,7 +52,6 @@
                       </div>
                       <div class="form-group col-md-6">
                         {{ form.preco|as_crispy_field }}
-                          Valor: <input type="text" name="money"  id="money" />
 
                       </div>
                   </div>
@@ -70,38 +69,51 @@
                       </div>
 
                   <div class="form-group  col-md-6">
-                      <label>Categoria</label>
+                      <label>Categoria*</label>
 
                         <select name="categoria" id="categoria" class="form-control" required>
                             <option value="" disabled selected hidden>Selecione sua categoria</option>
 
                             {% for indice, categoria in categorias.items %}
                                 {% if categoria.name == 'Mais Categorias' %}
-                                   <option value="Outras Categorias">Outras Categorias</option>
+                                   <option value="{{ categoria.id }}">Outras Categorias</option>
                                 {% else %}
                                   <option value="{{ categoria.id }}">{{ categoria.name }}</option>
 
                                 {% endif %}
                             {% endfor %}
                         </select>
+                      <small id="hint_id_categoria" class="form-text text-muted">Obrigatório</small>
+
                       </div>
 
                                     <div class="form-group col-md-6">
                                    <label>Subcategoria</label>
-								<select id="subcategoria" name="subcategoria" class="form-control" required>
+								<select id="subcategoria" name="subcategoria" class="form-control">
 									<option value="" disabled selected hidden>Selecione a subcategoria</option>
 								</select>
+                                        <small id="hint_id_subcategoria" class="form-text text-muted">Não obrigatório</small>
                  </div>
 
                       <div class="form-group col-md-12">
                         {{ form.descricao|as_crispy_field }}
                       </div>
+
+                      <div class="form-group col-md-12">
+                        {{ form.caracteristica|as_crispy_field }}
+                      </div>
                   </div>
 
                   <div class="form-group">
-                      <button type="submit" class="btn btn-primary"> Salvar </button>
+
+                      <a href="{% url 'vitrines:minha_vitrine' %}" class="btn btn-secondary">Voltar para vitrine
+                        <i class="fas fa-arrow-circle-left"></i>
+                      </a>
+                       <button type="submit" class="btn btn-primary"> Salvar </button>
                   </div>
               </form>
+
+
 
 
                   {% endif %}

@@ -19,18 +19,16 @@ def retorna_categorias():
     return dicionario
 
 
-
 class CriarProdutoForm(forms.ModelForm):
-
-  #  subCategoria = forms.CharField(label='Subcategoria', required=False, max_length=250)
-    #categoria = forms.ChoiceField(choices=(retorna_categorias()))
+    caracteristica = forms.CharField(label='Características do produto', help_text='Obrigatório', max_length=450, required=True, widget=forms.Textarea)
 
     class Meta:
         model = Produto
         fields = ('nome', 'preco', 'descricao', 'quantidade', 'imagem')
 
         widgets = {
-            'descricao': Textarea(attrs={'cols': 60, 'rows': 10})
+            'descricao': Textarea(attrs={'cols': 60, 'rows': 10}),
+            'caracteristica': Textarea(attrs={'cols': 60, 'rows': 10})
         }
 
     def __init__(self, *args, **kwargs):
@@ -45,8 +43,8 @@ class CriarProdutoForm(forms.ModelForm):
                 css_class='form-row'
             )
         )
-
         self.fields['nome'].widget.attrs['placeholder'] = 'Insira o nome do produto'
         self.fields['preco'].widget.attrs['placeholder'] = 'Insira o preço do produto'
         self.fields['descricao'].widget.attrs['placeholder'] = 'Insira a descrição do produto'
         self.fields['quantidade'].widget.attrs['placeholder'] = 'Insira a quantidade do produto'
+        self.fields['caracteristica'].widget.attrs['placeholder'] = 'Insira as características do produto'
