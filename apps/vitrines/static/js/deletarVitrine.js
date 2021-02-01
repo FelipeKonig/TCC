@@ -1,4 +1,4 @@
-function deletarVitrine(id){
+function deletarVitrine(){
         Swal.fire({
           title: 'Atenção!',
           text: "Tem certeza que deseja deletar a sua vitrine?",

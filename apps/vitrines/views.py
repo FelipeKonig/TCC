@@ -4,9 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.views.generic import (
-    CreateView, UpdateView
+    CreateView,
 )
 
+from apps.produtos.models import Produto
 from apps.usuarios.models import CustomUsuario
 from apps.vitrines.forms import CadastroVitrine
 from apps.vitrines.models import Vitrine
@@ -30,10 +31,7 @@ def deletar_vitrine(request):
 
     if not recuperar_id_deletar_vitrine['vitrine'].status:
         messages.success(request, 'Vitrine deletada com sucesso!')
-    # vitrine = get_object_or_404(Vitrine, id=pk)
-    # vitrine.status = False
-    # vitrine.save()
-    # messages.success(request, 'Vitrine deletada com sucesso!')
+
     return redirect('vitrines:minha_vitrine')
 
 
@@ -49,10 +47,15 @@ def listar_vitrine(request):
         tamanho_resultado_query_set = len(query_set)
 
     vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
+    produtos = Produto.objects.filter(vitrine=vitrine, vendedor=usuario_logado, status=True)
+    #No resultado query_set verifico se já existe uma vitrine ou não, caso ele já existe,
+    #redireciono e mostro os dados da vitrine, caso contrário o usuário deverá cadastrar a sua vitrine
+
     context = {
         'usuario': usuario_logado,
         'vitrine': vitrine,
         'resultado_busca_vitrine': tamanho_resultado_query_set,
+        'produtos': produtos
 
     }
 

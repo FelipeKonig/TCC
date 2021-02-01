@@ -1,7 +1,8 @@
 import requests
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from apps.produtos.forms import CriarProdutoForm
 from apps.produtos.models import (
@@ -16,6 +17,9 @@ import logging
 from apps.vitrines.models import Vitrine
 
 logger = logging.getLogger(__name__)
+
+recuperar_id_editar_produto = {}
+recuperar_id_deletar_produto = {}
 
 
 def retorna_categorias():
@@ -106,7 +110,8 @@ class CriarProduto(LoginRequiredMixin, CreateView):
             try:
                 caracteristica_bd = Caracteristica.objects.get(descricao=caracteristica, topico=topico, produto=produto)
             except Caracteristica.DoesNotExist:
-                caracteristica_bd = Caracteristica.objects.create(descricao=caracteristica, topico=topico, produto=produto)
+                caracteristica_bd = Caracteristica.objects.create(descricao=caracteristica, topico=topico,
+                                                                  produto=produto)
 
             if not verificar_subcategoria_vazia:
                 subcategoria_bd.save()
@@ -163,3 +168,18 @@ def buscar_categoria(id):
         logger.critical("Não encontrou as subcategorias")
 
     return lista['name']
+
+
+@login_required(login_url='/usuarios/login')
+def deletar_produto(request):
+
+    if len(request.POST) == 2:
+        produto = get_object_or_404(Produto, pk=request.POST.get('id'))
+        recuperar_id_deletar_produto['produto'] = produto
+        produto.status = False
+        produto.save()
+
+    if not recuperar_id_deletar_produto['produto'].status:
+        messages.success(request, 'Produto deletado com sucesso!')
+
+    return redirect('vitrines:minha_vitrine')

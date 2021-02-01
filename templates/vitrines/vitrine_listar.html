@@ -42,6 +42,9 @@
 
 	<hr>
 						{% else %}
+				<h4 class="card-title mb-5">
+					Minha vitrine
+				</h4>
 						<div class="text">
 							<strong>Nome da vitrine:</strong> {{ vitrine.nome }} <br>
 							<strong>Descrição:</strong> {{ vitrine.descricao }}
@@ -54,113 +57,48 @@
 					<input  type="hidden"  name="campoID" value="{{ vitrine.id }}">
 
 					<a href="#" onclick="editarVitrine()" class="btn btn-secondary mb-3">Editar vitrine <i class="fa fa-pen"></i> </a>
-						<a href="#" class="btn btn-secondary mb-3" onclick="deletarVitrine({{ vitrine.id }})"> Deletar vitrine <i class="text-danger fa fa-trash"></i>  </a>
+						<a href="#" class="btn btn-secondary mb-3" onclick="deletarVitrine()"> Deletar vitrine <i class="text-danger fa fa-trash"></i>  </a>
 				</form>
 					<div class="col-sm" style="padding-left:490px">
 				<a href="{% url 'produtos:criar_produto' %}" class="btn btn-secondary mb-3" > Adicionar produto <i class="fa fa-plus"></i>  </a>
               	</div>
                </div>
 						<hr>
+			    <h4 class="card-title mb-5">
+					Meus produtos
+				</h4>
 		<div class="row">
+
+
+			{% for produto in produtos %}
 				<div class="col-md-4">
 					<figure class="card card-product-grid">
-						<div class="img-wrap">
-							<img src="images/items/1.jpg">
-						</div> <!-- img-wrap.// -->
-						<figcaption class="info-wrap">
-								<a href="#" class="title mb-2">Hot sale unisex New Design Shirt for sport polo shirts latest design</a>
+							<div class="img-wrap">
+								<img src="{{ produto.imagem.url }}">
+							</div>
+							<figcaption class="info-wrap">
+								<a href="#" class="title mb-2">Nome do produto: {{ produto.nome }}</a>
 								<div class="price-wrap mb-3">
-									<span class="price">$32.00-$40.00</span>
-									<small class="text-muted">/per item</small>
-								</div> <!-- price-wrap.// -->
-								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
-								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
+									<span class="price">Preço: {{ produto.preco }}</span>
+									<small class="text-muted">/por item</small>
+								</div>
+								<div class="price-wrap mb-3">
+									<span>Quantidade: {{ produto.quantidade }}</span>
+								</div>
+								<form method="POST" autocomplete="off">
+									{% csrf_token %}
+									<input  type="hidden"  name="campoIDProduto{{ produto.id }}" value="{{ produto.id }}">
+									<a href="#" class="btn btn-outline-primary mb-3">  Editar <i class="fa fa-pen"></i></a>
+									<a href="#" class="btn btn-outline-danger mb-3" onclick="deletarProduto({{ produto.id }})"> Deletar <i class="fa fa-trash"></i>  </a>
+								</form>
 
 								<hr>
-								<a href="#" class="btn btn-success btn-block">  Promote </a>
-						</figcaption>
+								<a href="#" class="btn btn-success btn-block">Detalhes <i class="fa fa-info-circle"></i></a>
+
+							</figcaption>
 					</figure>
-				</div> <!-- col.// -->
-
-				<div class="col-md-4">
-					<figure class="card card-product-grid">
-						<div class="img-wrap">
-							<img src="images/items/2.jpg">
-						</div> <!-- img-wrap.// -->
-						<figcaption class="info-wrap">
-								<a href="#" class="title mb-2">High Quality Winter PU Rain Jacket with Padding for Men's outdoor</a>
-								<div class="price-wrap mb-3">
-									<span class="price">$41.00-$50.00</span>
-									<small class="text-muted">/per item</small>
-								</div> <!-- price-wrap.// -->
-								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
-								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
-
-								<hr>
-								<a href="#" class="btn btn-success btn-block">  Promote </a>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-
-				<div class="col-md-4">
-					<figure class="card card-product-grid">
-						<div class="img-wrap">
-							<img src="images/items/1.jpg">
-						</div> <!-- img-wrap.// -->
-						<figcaption class="info-wrap">
-								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
-								<div class="price-wrap mb-3">
-									<span class="price">$32.00-$40.00</span>
-									<small class="text-muted">/per item</small>
-								</div> <!-- price-wrap.// -->
-								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
-								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
-
-								<hr>
-								<a href="#" class="btn btn-success btn-block">  Promote </a>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-
-				<div class="col-md-4">
-					<figure class="card card-product-grid">
-						<div class="img-wrap">
-							<img src="images/items/4.jpg">
-						</div> <!-- img-wrap.// -->
-						<figcaption class="info-wrap">
-								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
-								<div class="price-wrap mb-3">
-									<span class="price">$32.00-$40.00</span>
-									<small class="text-muted">/per item</small>
-								</div> <!-- price-wrap.// -->
-								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
-								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
-
-								<hr>
-								<a href="#" class="btn btn-success btn-block">  Promote </a>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
-
-				<div class="col-md-4">
-					<figure class="card card-product-grid">
-						<div class="img-wrap">
-							<img src="images/items/5.jpg">
-						</div> <!-- img-wrap.// -->
-						<figcaption class="info-wrap">
-								<a href="#" class="title mb-2">Cheap and Best demo clothe with latest Fashion styles for Men</a>
-								<div class="price-wrap mb-3">
-									<span class="price">$32.00-$40.00</span>
-									<small class="text-muted">/per item</small>
-								</div> <!-- price-wrap.// -->
-								<a href="#" class="btn btn-outline-primary"> <i class="fa fa-pen"></i> Edit </a>
-								<a href="#" class="btn btn-primary"> <i class="fa fa-eye"></i> View  </a>
-
-								<hr>
-								<a href="#" class="btn btn-success btn-block">  Promote </a>
-						</figcaption>
-					</figure>
-				</div> <!-- col.// -->
+				</div>
+			{% endfor %}
 
 			</div> <!-- row .//  -->
 
@@ -176,6 +114,7 @@
 </body>
 <script src="{% static 'js/editarVitrine.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/deletarVitrine.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/deletarProduto.js' %}" type="text/javascript"></script>
 
 
 <!-- ========================= SECTION CONTENT END// ========================= -->

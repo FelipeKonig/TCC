@@ -44,6 +44,8 @@ class Produto(models.Model):
     imagem = StdImageField('Imagem do produto', upload_to=adicionar_imagem_logo, help_text='Obrigatório')
     categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, default='', null=True)
     vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.CASCADE, default='', null=True)
+    status = models.BooleanField('Ativo?', default=True)
+
 
     class Meta:
         verbose_name = 'Produto'
