@@ -20,6 +20,7 @@ def retorna_categorias():
 
 
 class CriarProdutoForm(forms.ModelForm):
+    topico = forms.CharField(label='Tópico', required=True, help_text='Obrigatório', max_length=200)
     caracteristica = forms.CharField(label='Características do produto', help_text='Obrigatório', max_length=450, required=True, widget=forms.Textarea)
 
     class Meta:
@@ -48,3 +49,4 @@ class CriarProdutoForm(forms.ModelForm):
         self.fields['descricao'].widget.attrs['placeholder'] = 'Insira a descrição do produto'
         self.fields['quantidade'].widget.attrs['placeholder'] = 'Insira a quantidade do produto'
         self.fields['caracteristica'].widget.attrs['placeholder'] = 'Insira as características do produto'
+        self.fields['topico'].widget.attrs['placeholder'] = 'Insira o tópico do produto'
