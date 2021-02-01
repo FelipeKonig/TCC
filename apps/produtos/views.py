@@ -1,4 +1,5 @@
 import requests
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
@@ -113,6 +114,11 @@ class CriarProduto(LoginRequiredMixin, CreateView):
             categoria_bd.save()
             caracteristica_bd.save()
             produto.save()
+            messages.success(request, 'Produto cadastrado com sucesso!')
+            return redirect('vitrines:minha_vitrine')
+
+        else:
+            messages.error(request, 'Erro ao enviar formulário!')
 
         context = {
             'form': form,

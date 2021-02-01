@@ -12,7 +12,7 @@ from apps.vitrines.forms import CadastroVitrine
 from apps.vitrines.models import Vitrine
 
 recuperar_id_editar_vitrine = {}
-recuperar_id_editar_vitrine = {}
+recuperar_id_deletar_vitrine = {}
 
 
 def consulta_vitrine(usuario):
@@ -22,14 +22,13 @@ def consulta_vitrine(usuario):
 
 @login_required(login_url='/usuarios/login')
 def deletar_vitrine(request):
-    print('Deletar:', request.POST)
     if len(request.POST) == 2:
         vitrine = get_object_or_404(Vitrine, pk=request.POST.get('id'))
-        recuperar_id_editar_vitrine['vitrine'] = vitrine
+        recuperar_id_deletar_vitrine['vitrine'] = vitrine
         vitrine.status = False
         vitrine.save()
 
-    if not recuperar_id_editar_vitrine['vitrine'].status:
+    if not recuperar_id_deletar_vitrine['vitrine'].status:
         messages.success(request, 'Vitrine deletada com sucesso!')
     # vitrine = get_object_or_404(Vitrine, id=pk)
     # vitrine.status = False
