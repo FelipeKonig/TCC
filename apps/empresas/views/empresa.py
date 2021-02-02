@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -35,6 +36,14 @@ def cnpj_sem_formatacao(cnpj):
 
 @login_required(login_url='/usuarios/login')
 def empresa_perfil(request):
+
+    if request.method == 'POST' and request.FILES['foto']:
+        empresa = Empresa.objects.get(pk=request.user.empresa.pk)
+        nova_logo = request.FILES['foto']
+        fs = FileSystemStorage()
+        uploaded_file_url = fs.url(nova_logo)
+        empresa.logo = nova_logo
+        empresa.save()
 
     empresa = request.user.empresa
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=empresa, status=True)
