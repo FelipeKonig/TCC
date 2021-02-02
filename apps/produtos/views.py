@@ -171,8 +171,47 @@ def buscar_categoria(id):
 
 
 @login_required(login_url='/usuarios/login')
-def deletar_produto(request):
+def editar_produto(request):
+    print(request.POST)
+    if len(request.POST) == 2:
+        if not recuperar_id_editar_produto:
+            recuperar_id_editar_produto['id'] = request.POST.get('id')
 
+    produto = retornar_produto()
+    usuario_logado = CustomUsuario.objects.get(email=request.user)
+
+    if str(request.method) == 'POST':
+        if len(request.POST) > 2:
+            form = CriarProdutoForm(request, instance=produto)
+            if form.is_valid():
+                print(form.cleaned_data)
+
+
+    dict_categorias = retorna_categorias()
+    subcategoria_produto = SubCategoria.objects.filter(status=True, categoria=produto.categoria)
+    caracteristica = Caracteristica.objects.filter(status=True, produto=produto).first()
+    print(caracteristica)
+    form = CriarProdutoForm(instance=produto)
+    form.fields['caracteristica'].initial = caracteristica.descricao
+    form.fields['topico'].initial = caracteristica.topico
+
+    print('SubCategoria:', subcategoria_produto)
+
+    context = {
+        'form': form,
+        'usuario': usuario_logado,
+        'categorias': dict_categorias,
+        'subcategoria_produto': subcategoria_produto,
+        'categoria_produto': produto.categoria,
+        'editar': 'editar',
+        'caracteristica': caracteristica
+    }
+
+    return render(request, 'produtos/produto_editar.html', context)
+
+
+@login_required(login_url='/usuarios/login')
+def deletar_produto(request):
     if len(request.POST) == 2:
         produto = get_object_or_404(Produto, pk=request.POST.get('id'))
         recuperar_id_deletar_produto['produto'] = produto
@@ -183,3 +222,9 @@ def deletar_produto(request):
         messages.success(request, 'Produto deletado com sucesso!')
 
     return redirect('vitrines:minha_vitrine')
+
+
+def retornar_produto():
+    if recuperar_id_editar_produto:
+        produto = get_object_or_404(Produto, pk=recuperar_id_editar_produto['id'])
+        return produto

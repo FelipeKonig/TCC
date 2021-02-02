@@ -88,7 +88,7 @@
 								<form method="POST" autocomplete="off">
 									{% csrf_token %}
 									<input  type="hidden"  name="campoIDProduto{{ produto.id }}" value="{{ produto.id }}">
-									<a href="#" class="btn btn-outline-primary mb-3">  Editar <i class="fa fa-pen"></i></a>
+									<a href="#" class="btn btn-outline-primary mb-3" onclick="editarProduto({{ produto.id }})">  Editar <i class="fa fa-pen"></i></a>
 									<a href="#" class="btn btn-outline-danger mb-3" onclick="deletarProduto({{ produto.id }})"> Deletar <i class="fa fa-trash"></i>  </a>
 								</form>
 
@@ -115,6 +115,8 @@
 <script src="{% static 'js/editarVitrine.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/deletarVitrine.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/deletarProduto.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/editarProduto.js' %}" type="text/javascript"></script>
+
 
 
 <!-- ========================= SECTION CONTENT END// ========================= -->

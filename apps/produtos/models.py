@@ -14,6 +14,7 @@ def adicionar_imagem_logo(instance, filename):
 
 class Categoria(models.Model):
     nome = models.CharField('Nome', max_length=200, help_text='Obrigatório')
+    status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -26,6 +27,7 @@ class Categoria(models.Model):
 class SubCategoria(models.Model):
     nome = models.CharField('Nome', max_length=200, help_text='Não obrigatório')
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, null=True, default="")
+    status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
         verbose_name = 'Subcategoria'
@@ -46,7 +48,6 @@ class Produto(models.Model):
     vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.CASCADE, default='', null=True)
     status = models.BooleanField('Ativo?', default=True)
 
-
     class Meta:
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
@@ -59,6 +60,7 @@ class Caracteristica(models.Model):
     topico = models.CharField('Tópico', max_length=200)
     descricao = models.CharField('Descrição', max_length=450)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, default="")
+    status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
         verbose_name = 'Característica'
