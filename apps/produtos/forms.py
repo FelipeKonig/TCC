@@ -50,3 +50,36 @@ class CriarProdutoForm(forms.ModelForm):
         self.fields['quantidade'].widget.attrs['placeholder'] = 'Insira a quantidade do produto'
         self.fields['caracteristica'].widget.attrs['placeholder'] = 'Insira as características do produto'
         self.fields['topico'].widget.attrs['placeholder'] = 'Insira o tópico do produto'
+
+
+class EditarProduto(forms.ModelForm):
+    topico = forms.CharField(label='Tópico', required=True, help_text='Obrigatório', max_length=200)
+    caracteristica = forms.CharField(label='Características do produto', help_text='Obrigatório', max_length=450, required=True, widget=forms.Textarea)
+
+    class Meta:
+        model = Produto
+        fields = ('nome', 'preco', 'descricao', 'quantidade')
+
+        widgets = {
+            'descricao': Textarea(attrs={'cols': 60, 'rows': 10}),
+            'caracteristica': Textarea(attrs={'cols': 60, 'rows': 10})
+        }
+
+        def __init__(self, *args, **kwargs):
+            super(EditarProduto, self).__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.layout = Layout(
+                Row(
+                    Column('nome', css_class='form-group col-md-6'),
+                    Column('preco', css_class='form-group col-md-6'),
+                    Column('descricao', css_class='form-group col-md-6'),
+                    Column('quantidade', css_class='form-group col-md-6'),
+                    css_class='form-row'
+                )
+            )
+            self.fields['nome'].widget.attrs['placeholder'] = 'Insira o nome do produto'
+            self.fields['preco'].widget.attrs['placeholder'] = 'Insira o preço do produto'
+            self.fields['descricao'].widget.attrs['placeholder'] = 'Insira a descrição do produto'
+            self.fields['quantidade'].widget.attrs['placeholder'] = 'Insira a quantidade do produto'
+            self.fields['caracteristica'].widget.attrs['placeholder'] = 'Insira as características do produto'
+            self.fields['topico'].widget.attrs['placeholder'] = 'Insira o tópico do produto'
