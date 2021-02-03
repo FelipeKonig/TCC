@@ -15,5 +15,5 @@ urlpatterns = [
     path('empresa/endereco/adicionar', endereco.adicionar_endereco, name='empresa_endereco_adicionar'),
     path('empresa/endereco/editar', endereco.editar_endereco, name='editar_endereco'),
     path('empresa/endereco/deletar', endereco.deletar_endereco, name='deletar_endereco'),
-    path('empresa/endereco/definir-endereco-padrao', endereco.definir_endereco_padrao, name='definir_endereco_padrao')
+    path('empresa/endereco/definir-endereco-padrao', endereco.definir_endereco_padrao, name='definir_endereco_padrao'),
 ]

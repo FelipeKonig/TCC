@@ -23,11 +23,11 @@
 				<figure class="icontext">
 						<div class="icon">
 							{% if not user.foto %}
-								<img class="rounded-circle img-sm" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
+								<img class="rounded-circle img-sm" id="foto" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
 								<input type="hidden" name="user icons png from pngtree.com" href='https://pngtree.com/so/user-icons'>
 								</input>
 							{% else %}
-								<img class="rounded-circle img-sm" src="{{ user.foto.url }}">
+								<img class="rounded-circle img-sm" id="foto" src="{{ usuario.foto.url }}">
 							{% endif %}
 						</div>
 						<div class="text">

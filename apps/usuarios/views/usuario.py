@@ -37,25 +37,25 @@ logger = logging.getLogger(__name__)
 @login_required(login_url='/usuarios/login')
 def perfil_principal(request):
 
-    enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
-    telefones = Telefone.objects.filter(usuario=request.user, status=True)
-    usuario_logado = CustomUsuario.objects.get(email=request.user)
-
     if request.method == 'POST' and request.FILES['foto']:
-        usuario = CustomUsuario.objects.get(email=request.user)
+        usuario = CustomUsuario.objects.get(pk=request.user.pk)
         nova_foto = request.FILES['foto']
         fs = FileSystemStorage()
         uploaded_file_url = fs.url(nova_foto)
         usuario.foto = nova_foto
         usuario.save()
 
-    context = {
+    usuario_logado = CustomUsuario.objects.get(pk=request.user.pk)
+    enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
+    telefones = Telefone.objects.filter(usuario=request.user, status=True)
+
+    contexto = {
         'enderecos': enderecos,
         'telefones': telefones,
-        'usuario':usuario_logado,
+        'usuario': usuario_logado,
         'perfil_usuario':True
     }
-    return render(request, 'usuarios/dados_perfil_usuario.html', context)
+    return render(request, 'usuarios/dados_perfil_usuario.html', contexto)
 
 @login_required(login_url='/usuarios/login')
 def perfil_configuracao(request):

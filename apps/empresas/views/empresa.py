@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -45,7 +46,7 @@ def empresa_perfil(request):
         empresa.logo = nova_logo
         empresa.save()
 
-    empresa = request.user.empresa
+    empresa = Empresa.objects.get(pk=request.user.empresa.pk)
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=empresa, status=True)
     # telefones = Telefone.objects.filter(usuario=request.user, status=True)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
