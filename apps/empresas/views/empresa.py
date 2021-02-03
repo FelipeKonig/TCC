@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import JsonResponse
+
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
