@@ -145,7 +145,6 @@ class CustomUsuario(AbstractUser):
     # Problemas com o diretório e criação das fotos; está duplicando a mesma imagem com dois nomes diferentes
     # retirei o método variation e deixei null=True
     foto = StdImageField('Foto', upload_to=adicionar_imagem_perfil, null=True)
-    #endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, related_name='Endereço', null=True)
     empresa = models.OneToOneField(Empresa, on_delete=models.CASCADE, null=True)
 
     # Se a chave estrangeira ficar no usuario, não vai ser possível fazer com que ele tenha vários endereços

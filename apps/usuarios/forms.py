@@ -2,6 +2,7 @@ from django.contrib.auth import password_validation
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django import forms
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from .validadoresForm import (
     validar_cpf,
@@ -24,7 +25,7 @@ CHOICES_EMPRESA_ADICIONAR = [('sim', 'Sim'),
                              ('nao', 'Não')]
 
 CHOICES_TIPO_TELEFONE = [('tipo', 'Selecione'),
-                        ('celular', 'Celular'),
+                         ('celular', 'Celular'),
                          ('fixo', 'Fixo')]
 
 
@@ -49,7 +50,10 @@ class CadastroPerfilUsuario(forms.ModelForm):
 
     telefone_selecionar = forms.ChoiceField(label='Selecione o tipo de telefone', choices=CHOICES_TIPO_TELEFONE,
                                             widget=forms.Select)
-    foto = forms.ImageField(label='Foto do perfil')
+    foto = forms.ImageField(label='Foto do perfil', required=False)
+
+    foto_padrao = forms.ImageField(required=False, )
+
 
 <<<<<<< HEAD:usuarios/forms.py
 class DateInput(forms.DateInput):

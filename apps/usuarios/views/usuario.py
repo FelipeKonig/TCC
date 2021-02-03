@@ -1,3 +1,4 @@
+from PIL.Image import Image
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,7 +38,7 @@ def perfil_principal(request):
 
     context = {
         'enderecos': enderecos,
-        'usuario':usuario_logado
+        'usuario': usuario_logado
     }
     return render(request, 'usuarios/dados_perfil_usuario.html', context)
 
@@ -60,6 +61,7 @@ class CriarPefilUsuario(LoginRequiredMixin, CreateView):
         empresa_selecionado = ""
 
         if form.is_valid():
+            print(request.POST)
             usuario_logado = CustomUsuario.objects.get(email=request.user)
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
@@ -68,6 +70,7 @@ class CriarPefilUsuario(LoginRequiredMixin, CreateView):
             empresa_selecionado = form.cleaned_data['empresa_selecionar']
             numeroTelefone = form.cleaned_data['numeroTelefone']
             foto = form.cleaned_data['foto']
+
             tipoTelefone = form.cleaned_data['telefone_selecionar']
 
             if cpf:

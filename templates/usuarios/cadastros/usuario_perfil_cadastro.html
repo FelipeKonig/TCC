@@ -17,10 +17,11 @@
 
 		  	{% if not usuario.status %}
 
-
 		<header class="mb-4"><h4 class="card-title">Criar perfil</h4></header>
 		<form  method="POST" id="usuarioForm"  autocomplete="off" enctype="multipart/form-data" >
 				{% csrf_token %}
+			<img id="usuarioSemFoto" hidden src="{% static 'ecommerce/images/usuarioSemFoto.png' %}"/>
+
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					{{ form.first_name|as_crispy_field }}
@@ -69,6 +70,7 @@
 				<button type="submit" class="btn btn-primary btn-block"> Salvar  </button>
 
 			</div>
+
 			</form>
 
 		  	{% elif usuario.status %}
@@ -108,8 +110,10 @@
 		     {% endif %}
 			{% endfor %}
 	{% endif %}
-	  </article>
-	</div>
+
+
+</article>
+</div>
 </section>
 
 <script src="{% static 'js/perfilUsuario.js' %}"></script>
@@ -118,6 +122,8 @@
 
 	{% if messages %}
 		{% for m in messages %}
+			{% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
 		<script>
 				const Toast = Swal.mixin({
 				  toast: true,
@@ -138,6 +144,9 @@
 				  if (result.isConfirmed) {
 				  }
 				})
+
+			{% endif %}
+
 		  </script>
 		{% endfor %}
 	{% endif %}
