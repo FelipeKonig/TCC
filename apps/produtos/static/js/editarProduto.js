@@ -1,7 +1,7 @@
-function editarEmpresa(){
+function editarProduto(id){
         Swal.fire({
           title: 'Atenção!',
-          text: "Tem certeza que deseja editar a sua empresa?",
+          text: "Tem certeza que deseja editar o seu produto?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#FF0000',
@@ -12,23 +12,20 @@ function editarEmpresa(){
         }).then((result) => {
           if (result.isConfirmed) {
               token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-              id = document.getElementsByName("campoEditar")[0].value;
+              id = document.getElementsByName("campoIDProduto"+id)[0].value;
 
             $.ajax({
                 type: 'POST',
-                url: '/empresas/editar-empresa/',
+                url: '/produtos/editar-produto/',
                 data: {
                     csrfmiddlewaretoken: token,
                     id: id
                 },
                 success: function(result){
-                    window.location.href = "/empresas/editar-empresa/";
+                    window.location.href = '/produtos/editar-produto/';
                 }
             });
-
-            //window.location.href = "/empresas/editar-empresa/"+id;
           }
         })
-
 }
 

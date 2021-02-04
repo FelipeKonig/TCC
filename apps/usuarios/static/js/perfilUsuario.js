@@ -1,8 +1,11 @@
 $(document).ready(function(){
   $('#id_cnpj').mask('00.000.000/0000-00');
   $( "#id_numeroTelefone" ).prop( "disabled", true );
+   document.getElementById('id_numeroTelefone').value='';
+   document.getElementById('id_telefone_selecionar').value = 'tipo';
 
-   $('#id_telefone_selecionar').change(function(event){
+  $('#id_telefone_selecionar').change(function(event){
+
    var telefone = event.currentTarget.value;
      if (telefone == 'fixo'){
      $('#id_numeroTelefone').mask('(00) 0000-0000');

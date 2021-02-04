@@ -28,6 +28,7 @@ class test_urls(SimpleTestCase):
         self.assertEquals(resolve(url).func, perfil_configuracao)
 
     def test_adicionar_endereco_url(self):
+
         url = reverse('usuarios:perfil_endereco_adicionar')
         self.assertEquals(resolve(url).func, adicionar_endereco)
 

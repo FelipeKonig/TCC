@@ -8,11 +8,26 @@ from django.views.generic import (
     CreateView,
     UpdateView,
 )
-from ..forms import CadastroEmpresa
+from ..forms import CadastroEmpresa, EditarEmpresaForm
 
 from ..models import Empresa
 from ...usuarios.models import Telefone, Endereco
 from apps.usuarios.models import CustomUsuario
+
+recuperar_id_empresa_editar = {}
+recuperar_id_empresa_deletar = {}
+
+from validate_docbr import CNPJ
+
+
+# Metodo para retornar se existe uma empresa ativa ou não
+def consulta_empresa(empresa):
+    if empresa is None:
+        query_set = Empresa.objects.none()
+    else:
+        query_set = Empresa.objects.filter(cnpj=empresa.cnpj, status=True)
+    return query_set
+
 
 def cnpj_sem_formatacao(cnpj):
     cnpj_cortado_digitos_finais = str(cnpj).split('-')
@@ -60,13 +75,26 @@ def empresa_perfil(request):
     return render(request,'empresas/empresa_perfil.html', contexto)
 
 
+@login_required(login_url='/usuarios/login')
+def deletar_empresa(request):
+    if len(request.POST) == 2:
+        empresa = get_object_or_404(Empresa, pk=request.POST.get('id'))
+        recuperar_id_empresa_deletar['empresa'] = empresa
+        empresa.status = False
+        empresa.save()
+    if not recuperar_id_empresa_deletar['empresa'].status:
+        messages.success(request, 'Empresa deletada com sucesso!')
+
+    return redirect('empresas:listar_empresas')
+
+
 class CriarEmpresa(LoginRequiredMixin, CreateView):
     login_url = '/usuarios/login'
 
     def get(self, request, *args, **kwargs):
         form = super().get_form(CadastroEmpresa)
         empresa = self.request.user.empresa
-        query_set = consulta_Empresa(empresa)
+        query_set = consulta_empresa(empresa)
         usuario_logado = CustomUsuario.objects.get(email=request.user)
         enderecos = Endereco.objects.filter(usuario=request.user, status=True)
         telefones = Telefone.objects.filter(usuario=request.user, status=True)
@@ -107,7 +135,6 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
             usuario_bd.empresa = empresa
             usuario_bd.save()
 
-            #     empresa.save()
             return redirect('empresas:listar_empresas')
 
         else:
@@ -117,68 +144,67 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
             'form': form
         }
 
-        if messages:
-            context['m'] = messages
-
         return render(request, 'empresas/empresa_cadastro.html', context)
 
 @login_required(login_url='/usuarios/login')
-def deletar_empresa(request, pk):
-    empresa = get_object_or_404(Empresa, id=pk)
-    empresa.status = False
-    empresa.save()
-    messages.success(request, 'Empresa deletada com sucesso!')
-    return redirect('empresas:listar_empresas')
+def editar_empresa(request):
+    usuario = CustomUsuario.objects.get(email=request.user)
+    form = EditarEmpresaForm(request.POST or None)
 
+    if len(request.POST) == 2:
+        if not recuperar_id_empresa_editar:
+            recuperar_id_empresa_editar['id'] = request.POST.get('id')
+    empresa = retornar_empresa()
 
-class EditarEmpresa(LoginRequiredMixin, UpdateView):
-    login_url = '/usuarios/login'
+    if str(request.method) == 'POST':
+        if len(request.POST) > 2:
+            form = EditarEmpresaForm(request.POST, instance=empresa)
+            cnpj = CNPJ()
 
-    def get(self, request, *args, **kwargs):
-        empresa = get_object_or_404(Empresa, pk=self.kwargs['pk'])
-        form = CadastroEmpresa(instance=empresa)
+            aux_cnpj = request.POST.get('cnpj')
+            resultado_validacao = cnpj.validate(aux_cnpj)
 
-        context = {
-            'form': form,
-            'editar': 'editar'
-        }
-        return render(request, 'empresas/empresa_cadastro.html', context)
-
-    def post(self, request, *args, **kwargs):
-        empresa = get_object_or_404(Empresa, pk=self.kwargs['pk'])
-        form = self.get_form(CadastroEmpresa)
-
-        if form.is_valid():
-            razaoSocial = form.cleaned_data['razaoSocial']
-            nomeFantasia = form.cleaned_data['fantasia']
-            inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
-            inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
-            logo = form.cleaned_data['logo']
-            cnpj = form.cleaned_data['cnpj']
-
-            if cnpj:
-                if len(cnpj) == 18:
-                    cnpj = cnpj_sem_formatacao(cnpj)
-
-                else:
-                    messages.error(request, 'CNPJ inválido')
-            else:
+            if not resultado_validacao:
                 messages.error(request, 'CNPJ inválido')
 
-            empresa.razaoSocial = razaoSocial
-            empresa.fantasia = nomeFantasia
-            empresa.inscricaoEstadual = inscricaoEstadual
-            empresa.inscricaoMunicipal = inscricaoMunicipal
-            empresa.logo = logo
-            empresa.cnpj = cnpj
+            if form.is_valid():
+                razaoSocial = form.cleaned_data['razaoSocial']
+                nomeFantasia = form.cleaned_data['fantasia']
+                inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
+                inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
+                cnpj = form.cleaned_data['cnpj']
 
-            empresa.save()
-            messages.success(request, 'Empresa editada com sucesso!')
-            return redirect('empresas:listar_empresas')
+                if cnpj:
+                    if len(cnpj) == 18:
+                        cnpj = cnpj_sem_formatacao(cnpj)
+                    else:
+                        messages.error(request, 'CNPJ inválido')
+                else:
+                    messages.error(request, 'CNPJ inválido')
 
-        context = {
-            'form': form,
-            'editar': 'editar'
-        }
+                empresa.razaoSocial = razaoSocial
+                empresa.fantasia = nomeFantasia
+                empresa.inscricaoEstadual = inscricaoEstadual
+                empresa.inscricaoMunicipal = inscricaoMunicipal
+                empresa.cnpj = cnpj
 
-        return render(request, 'empresas/empresa_cadastro.html', context)
+                empresa.save()
+                messages.success(request, 'Empresa editada com sucesso!')
+                return redirect('empresas:listar_empresas')
+
+    form = EditarEmpresaForm(instance=empresa)
+
+    context = {
+        'usuario': usuario,
+        'form': form,
+        'editar': 'editar'
+
+    }
+
+    return render(request, 'empresas/empresa_cadastro.html', context)
+
+
+def retornar_empresa():
+    if recuperar_id_empresa_editar:
+        empresa = get_object_or_404(Empresa, pk=recuperar_id_empresa_editar['id'])
+        return empresa

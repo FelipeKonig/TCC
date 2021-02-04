@@ -77,6 +77,8 @@ INSTALLED_APPS = [
     'apps.ecommerce',
     'apps.usuarios',
     'apps.empresas',
+    'apps.vitrines',
+    'apps.produtos',
     'crispy_forms',
 ]
 
@@ -121,6 +123,10 @@ DATABASES = {
         'PASSWORD': DB_PASSWORD,
         'HOST': DB_HOST,
         'PORT': '',
+        # 'TEST': {
+        #     'NAME': DB_TEST
+        #
+        # }
     }
 }
 
