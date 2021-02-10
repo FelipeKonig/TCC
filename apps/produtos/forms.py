@@ -19,21 +19,17 @@ def retorna_categorias():
     return dicionario
 
 class CriarProdutoForm(forms.ModelForm):
-    topico = forms.CharField(label='Tópico', required=True, help_text='Obrigatório', max_length=200)
     preco = forms.CharField(required=True, widget=forms.TextInput(
        attrs={'type': 'number','min': '0', 'step': "0.01"}))
     quantidade = forms.CharField(required=True, widget=forms.TextInput(
-       attrs={'type': 'number','min': '0', 'onkeydown': "if(event.key==='.'){event.preventDefault();}"}))
-    caracteristica = forms.CharField(
-        label='Características do produto', help_text='Obrigatório', max_length=450, required=True, widget=forms.Textarea)
+       attrs={'type': 'number','min': '1', 'onkeydown': "if(event.key==='.'){event.preventDefault();}"}))
 
     class Meta:
         model = Produto
         fields = ('nome', 'preco', 'descricao', 'quantidade', 'imagem')
 
         widgets = {
-            'descricao': Textarea(attrs={'cols': 60, 'rows': 10}),
-            'caracteristica': Textarea(attrs={'cols': 60, 'rows': 10})
+            'descricao': Textarea(attrs={'cols': 60, 'rows': 5})
         }
 
     def __init__(self, *args, **kwargs):
@@ -52,8 +48,6 @@ class CriarProdutoForm(forms.ModelForm):
         self.fields['preco'].widget.attrs['placeholder'] = 'Insira o preço do produto'
         self.fields['descricao'].widget.attrs['placeholder'] = 'Insira a descrição do produto'
         self.fields['quantidade'].widget.attrs['placeholder'] = 'Insira a quantidade do produto'
-        self.fields['caracteristica'].widget.attrs['placeholder'] = 'Insira as características do produto'
-        self.fields['topico'].widget.attrs['placeholder'] = 'Insira o tópico do produto'
 
 
 class EditarProduto(forms.ModelForm):

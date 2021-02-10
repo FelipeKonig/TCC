@@ -40,12 +40,12 @@ class SubCategoria(models.Model):
 class Produto(models.Model):
     nome = models.CharField('Nome', max_length=250, help_text='Obrigatório')
     preco = models.DecimalField('Preço', max_digits=10, decimal_places=2, help_text='Obrigatório')
-    vendedor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, default="")
     descricao = models.CharField('Descrição', max_length=450, help_text='Obrigatório')
     quantidade = models.IntegerField('Quantidade', help_text='Obrigatório')
     imagem = StdImageField('Imagem do produto', upload_to=adicionar_imagem_logo, help_text='Obrigatório')
-    categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, default='', null=True)
-    vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.CASCADE, default='', null=True)
+    categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE, default='')
+    subCategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, null=True)
+    vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.CASCADE, default='')
     status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
@@ -53,12 +53,11 @@ class Produto(models.Model):
         verbose_name_plural = 'Produtos'
 
     def __str__(self):
-        return '{}-{}-{}-{}-{}'.format(self.nome, self.preco, self.quantidade, self.descricao, self.vendedor)
+        return 'produto:{}; valor:{};quantidade:{}-{}'.format(self.nome, self.preco, self.quantidade, self.vitrine.vendedor)
 
 
 class Caracteristica(models.Model):
     topico = models.CharField('Tópico', max_length=200)
-    descricao = models.CharField('Descrição', max_length=450)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, default="")
     status = models.BooleanField('Ativo?', default=True)
 
@@ -67,4 +66,16 @@ class Caracteristica(models.Model):
         verbose_name_plural = 'Características'
 
     def __str__(self):
-        return '{}-{}-{}'.format(self.topico, self.descricao, self.produto)
+        return '{}; status:{}-produto:{}'.format(self.topico, self.status, self.produto.nome)
+
+class Atributo(models.Model):
+    caracteristica = models.ForeignKey(Caracteristica, on_delete=models.CASCADE, default="")
+    nome = models.CharField('Nome', max_length=200)
+    descricao = models.CharField('Descrição', max_length=450)
+
+    class Meta:
+        verbose_name = 'Atributo'
+        verbose_name_plural = 'Atributos'
+
+    def __str__(self):
+        return '{}-caracteristica:{}'.format(self.nome, self.caracteristica)

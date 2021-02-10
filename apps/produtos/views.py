@@ -1,4 +1,6 @@
 import requests
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,12 +10,7 @@ from apps.produtos.forms import (
     CriarProdutoForm,
     EditarProduto
 )
-from apps.produtos.models import (
-    Categoria,
-    SubCategoria,
-    Produto,
-    Caracteristica
-)
+from apps.produtos.models import *
 from apps.usuarios.models import CustomUsuario
 from django.http import JsonResponse
 import logging
@@ -25,6 +22,7 @@ logger = logging.getLogger(__name__)
 recuperar_id_editar_produto = {}
 recuperar_id_deletar_produto = {}
 
+logger = logging.getLogger(__name__)
 
 def retorna_categorias():
     categorias = 'https://api.mercadolibre.com/sites/MLB/categories#json'
@@ -62,70 +60,77 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 
         form = self.get_form(CriarProdutoForm)
         usuario_logado = CustomUsuario.objects.get(email=request.user)
-        dict_categorias = retorna_categorias()
-        id_categoria = request.POST.get('categoria')
+        nome_categoria = request.POST.get('categoria').split('|')[0]
         vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
 
         if form.is_valid():
+
+            # o formulario
+            # logger.debug(request.POST)
+
             nome = form.cleaned_data['nome']
             preco = form.cleaned_data['preco']
             descricao = form.cleaned_data['descricao']
             quantidade = form.cleaned_data['quantidade']
             imagem = form.cleaned_data['imagem']
-            caracteristica = form.cleaned_data['caracteristica']
-            categoria = buscar_categoria(id_categoria)
-            subcategoria = request.POST.get('subcategoria')
-            topico = form.cleaned_data['topico']
 
-            verificar_subcategoria_vazia = False
+            categoria = buscar_categoria_bd(nome_categoria)
 
-            try:
-                categoria_bd = Categoria.objects.get(nome=categoria)
-            except Categoria.DoesNotExist:
-                categoria_bd = Categoria.objects.create(nome=categoria)
+            produto = Produto.objects.create(
+                nome=nome,
+                preco=preco,
+                descricao=descricao,
+                quantidade=quantidade,
+                imagem=imagem,
+                categoria=categoria,
+                vitrine=vitrine
+            )
 
-            if subcategoria is not None:
-                try:
-                    subcategoria_bd = SubCategoria.objects.get(nome=subcategoria, categoria=categoria_bd)
-                except SubCategoria.DoesNotExist:
-                    subcategoria_bd = SubCategoria.objects.create(nome=subcategoria, categoria=categoria_bd)
-            else:
-                verificar_subcategoria_vazia = True
+            if request.POST.get('subcategoria'):
+                logger.debug(request.POST.get('subcategoria'))
+                subcategoria = buscar_subcategoria_bd(categoria, request.POST.get('subcategoria'))
 
-            try:
+                produto.subCategoria = subcategoria
+                produto.save()
 
-                produto = Produto.objects.get(nome=nome, preco=preco,
-                                              vendedor=usuario_logado, descricao=descricao,
-                                              quantidade=quantidade, imagem=imagem,
-                                              categoria=categoria_bd, vitrine=vitrine
-                                              )
+            total_caracteristicas = 0
+            for caracteristica in request.POST:
+                if 'titulo_caracteristica' in caracteristica:
 
-            except Produto.DoesNotExist:
-                produto = Produto.objects.create(
-                    nome=nome, preco=preco,
-                    vendedor=usuario_logado, descricao=descricao,
-                    quantidade=quantidade, imagem=imagem,
-                    categoria=categoria_bd, vitrine=vitrine
-                )
+                    # verifica qual posição da tabela de características
+                    total_caracteristicas += 1
 
-            try:
-                caracteristica_bd = Caracteristica.objects.get(descricao=caracteristica, topico=topico, produto=produto)
-            except Caracteristica.DoesNotExist:
-                caracteristica_bd = Caracteristica.objects.create(descricao=caracteristica, topico=topico,
-                                                                  produto=produto)
+                    titulo = 'titulo_caracteristica-' + str(total_caracteristicas)
+                    nome = 'nome_caracteristica-' + str(total_caracteristicas)
+                    descricao = 'descricao_caracteristica-' + str(total_caracteristicas)
 
-            if not verificar_subcategoria_vazia:
-                subcategoria_bd.save()
+                    topico = request.POST[titulo]
+                    nova_caracteristica = Caracteristica.objects.create(
+                        produto=produto,
+                        topico=topico
+                    )
+                    nova_caracteristica.save()
 
-            categoria_bd.save()
-            caracteristica_bd.save()
-            produto.save()
-            messages.success(request, 'Produto cadastrado com sucesso!')
-            return redirect('vitrines:minha_vitrine')
+                    # pego a lista dos nomes da lista de atributos na tabela
+                    nomes = request.POST.getlist(nome)
+                    # pego a lista de descriçoes da lista de atributos na tabela
+                    descricoes = request.POST.getlist(descricao)
+
+                    index = 0
+                    while index < len(nomes):
+
+                        novo_atributo = Atributo.objects.create(
+                            nome=nomes[index],
+                            descricao=descricoes[index],
+                            caracteristica = nova_caracteristica
+                        )
+                        novo_atributo.save()
+                        index += 1
 
         else:
             messages.error(request, 'Erro ao enviar formulário!')
 
+        dict_categorias = retorna_categorias()
         context = {
             'form': form,
             'usuario': usuario_logado,
@@ -135,7 +140,10 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 
 
 def carregar_subcategorias(request):
-    subcategorias = 'https://api.mercadolibre.com/categories/' + request.GET.get('categoria')
+
+    categoria = request.GET.get('categoria').split('|')[-1]
+    logger.debug(categoria)
+    subcategorias = 'https://api.mercadolibre.com/categories/' + categoria
 
     requisicao_subcategorias = requests.get(subcategorias)
 
@@ -155,23 +163,20 @@ def carregar_subcategorias(request):
         return JsonResponse({'subcategorias': dicionario})
 
 
-def buscar_categoria(id):
-    categoria = 'https://api.mercadolibre.com/categories/' + id
+def buscar_categoria_bd(nome):
 
-    requisicao_categoria = requests.get(categoria)
+    categoria_bd = Categoria.objects.get_or_create(nome=nome)
+    categoria_bd = Categoria.objects.get(nome=nome)
+    return categoria_bd
 
-    try:
-        lista = requisicao_categoria.json()
+def buscar_subcategoria_bd(categoria, subcategoria):
 
-    except ValueError:
-        logger.critical("Não encontrou as subcategorias")
-
-    return lista['name']
-
+    subcategoria_bd = SubCategoria.objects.get_or_create(nome=subcategoria, categoria=categoria)
+    subcategoria_bd = SubCategoria.objects.get(nome=subcategoria, categoria=categoria)
+    return subcategoria_bd
 
 @login_required(login_url='/usuarios/login')
 def editar_produto(request):
-    # print(request.POST)
 
     if not recuperar_id_editar_produto:
         recuperar_id_editar_produto['id'] = request.POST.get('id')

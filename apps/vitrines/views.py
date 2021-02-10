@@ -47,7 +47,7 @@ def listar_vitrine(request):
         tamanho_resultado_query_set = len(query_set)
 
     vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
-    produtos = Produto.objects.filter(vitrine=vitrine, vendedor=usuario_logado, status=True)
+    produtos = Produto.objects.filter(vitrine=vitrine, status=True)
     #No resultado query_set verifico se já existe uma vitrine ou não, caso ele já existe,
     #redireciono e mostro os dados da vitrine, caso contrário o usuário deverá cadastrar a sua vitrine
 
