@@ -1,6 +1,7 @@
 import requests
 import logging
 
+from PIL.Image import Image
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +14,6 @@ from apps.produtos.forms import (
 from apps.produtos.models import *
 from apps.usuarios.models import CustomUsuario
 from django.http import JsonResponse
-import logging
 
 from apps.vitrines.models import Vitrine
 
@@ -21,8 +21,6 @@ logger = logging.getLogger(__name__)
 
 recuperar_id_editar_produto = {}
 recuperar_id_deletar_produto = {}
-
-logger = logging.getLogger(__name__)
 
 def retorna_categorias():
     categorias = 'https://api.mercadolibre.com/sites/MLB/categories#json'
@@ -65,23 +63,17 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 
         if form.is_valid():
 
-            # o formulario
-            # logger.debug(request.POST)
-
             nome = form.cleaned_data['nome']
             preco = form.cleaned_data['preco']
             descricao = form.cleaned_data['descricao']
             quantidade = form.cleaned_data['quantidade']
-            imagem = form.cleaned_data['imagem']
-
             categoria = buscar_categoria_bd(nome_categoria)
 
-            produto = Produto.objects.create(
+            novo_produto = Produto.objects.create(
                 nome=nome,
                 preco=preco,
                 descricao=descricao,
                 quantidade=quantidade,
-                imagem=imagem,
                 categoria=categoria,
                 vitrine=vitrine
             )
@@ -90,43 +82,24 @@ class CriarProduto(LoginRequiredMixin, CreateView):
                 logger.debug(request.POST.get('subcategoria'))
                 subcategoria = buscar_subcategoria_bd(categoria, request.POST.get('subcategoria'))
 
-                produto.subCategoria = subcategoria
-                produto.save()
+                novo_produto.subCategoria = subcategoria
+                novo_produto.save()
 
-            total_caracteristicas = 0
-            for caracteristica in request.POST:
-                if 'titulo_caracteristica' in caracteristica:
+            adicionar_caracteristicas_produto(request.POST, novo_produto)
 
-                    # verifica qual posição da tabela de características
-                    total_caracteristicas += 1
+            imagens_produto = request.FILES.getlist('foto')
 
-                    titulo = 'titulo_caracteristica-' + str(total_caracteristicas)
-                    nome = 'nome_caracteristica-' + str(total_caracteristicas)
-                    descricao = 'descricao_caracteristica-' + str(total_caracteristicas)
+            index = 0
+            while index < len(imagens_produto):
 
-                    topico = request.POST[titulo]
-                    nova_caracteristica = Caracteristica.objects.create(
-                        produto=produto,
-                        topico=topico
-                    )
-                    nova_caracteristica.save()
+                nova_imagem = ImagemProduto.objects.create(
+                    imagem = imagens_produto[index],
+                    produto = novo_produto
+                )
+                nova_imagem.save()
+                index += 1
 
-                    # pego a lista dos nomes da lista de atributos na tabela
-                    nomes = request.POST.getlist(nome)
-                    # pego a lista de descriçoes da lista de atributos na tabela
-                    descricoes = request.POST.getlist(descricao)
-
-                    index = 0
-                    while index < len(nomes):
-
-                        novo_atributo = Atributo.objects.create(
-                            nome=nomes[index],
-                            descricao=descricoes[index],
-                            caracteristica = nova_caracteristica
-                        )
-                        novo_atributo.save()
-                        index += 1
-
+            return redirect('vitrines:minha_vitrine')
         else:
             messages.error(request, 'Erro ao enviar formulário!')
 
@@ -254,10 +227,6 @@ def editar_produto(request):
     caracteristica = Caracteristica.objects.filter(status=True, produto=produto).first()
     form = EditarProduto(instance=produto)
 
-    if len(request.POST) == 0:
-        form.fields['caracteristica'].initial = caracteristica.descricao
-        form.fields['topico'].initial = caracteristica.topico
-
     context = {
         'form': form,
         'usuario': usuario_logado,
@@ -265,8 +234,7 @@ def editar_produto(request):
         'subcategoria_produto': subcategoria,
         'categoria_produto': produto.categoria,
         'editar': 'editar',
-        'produto_id': produto.id,
-        'caracteristica': caracteristica
+        'produto_id': produto.id
     }
 
     return render(request, 'produtos/produto_editar.html', context)
@@ -285,6 +253,40 @@ def deletar_produto(request):
 
     return redirect('vitrines:minha_vitrine')
 
+def adicionar_caracteristicas_produto(formulario, novo_produto):
+
+    total_caracteristicas = 0
+    for caracteristica in formulario:
+        if 'titulo_caracteristica' in caracteristica:
+            # verifica qual posição da tabela de características
+            total_caracteristicas += 1
+
+            titulo = 'titulo_caracteristica-' + str(total_caracteristicas)
+            nome = 'nome_caracteristica-' + str(total_caracteristicas)
+            descricao = 'descricao_caracteristica-' + str(total_caracteristicas)
+
+            topico = formulario[titulo]
+            nova_caracteristica = Caracteristica.objects.create(
+                produto=novo_produto,
+                topico=topico
+            )
+            nova_caracteristica.save()
+
+            # pego a lista dos nomes da lista de atributos na tabela
+            nomes = formulario.getlist(nome)
+            # pego a lista de descriçoes da lista de atributos na tabela
+            descricoes = formulario.getlist(descricao)
+
+            index = 0
+            while index < len(nomes):
+
+                novo_atributo = Atributo.objects.create(
+                    nome = nomes[index],
+                    descricao = descricoes[index],
+                    caracteristica = nova_caracteristica
+                )
+                novo_atributo.save()
+                index += 1
 
 def retornar_produto():
     if recuperar_id_editar_produto:

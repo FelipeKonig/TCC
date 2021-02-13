@@ -69,12 +69,18 @@
 				</h4>
 		<div class="row">
 
-
+			{% if produtos.count == 0 %}
+				<h5> Sua vitrine não possui nenhum produto </h5>
+			{% endif %}
 			{% for produto in produtos %}
 				<div class="col-md-4">
 					<figure class="card card-product-grid">
 							<div class="img-wrap">
-								<img src="{{ produto.imagem.url }}">
+								{% for imagem in imagens_produtos %}
+									{% if imagem.produto == produto %}
+										<img src="{{ imagem.imagem.url }}">
+									{% endif %}
+								{% endfor %}
 							</div>
 							<figcaption class="info-wrap">
 								<a href="#" class="title mb-2">Nome do produto: {{ produto.nome }}</a>
@@ -139,5 +145,3 @@
     {% endfor %}
 {% endif %}
 {% endblock %}
-
-

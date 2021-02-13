@@ -135,7 +135,6 @@ class CriarPerfilUsuario(LoginRequiredMixin, CreateView):
         empresa_selecionado = ""
 
         if form.is_valid():
-            print(request.POST)
             usuario_logado = CustomUsuario.objects.get(email=request.user)
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']

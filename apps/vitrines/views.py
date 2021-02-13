@@ -7,7 +7,7 @@ from django.views.generic import (
     CreateView,
 )
 
-from apps.produtos.models import Produto
+from apps.produtos.models import Produto, ImagemProduto
 from apps.usuarios.models import CustomUsuario
 from apps.vitrines.forms import CadastroVitrine
 from apps.vitrines.models import Vitrine
@@ -48,15 +48,16 @@ def listar_vitrine(request):
 
     vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
     produtos = Produto.objects.filter(vitrine=vitrine, status=True)
+    imagens_produtos = ImagemProduto.objects.filter(produto__in=produtos)
+
     #No resultado query_set verifico se já existe uma vitrine ou não, caso ele já existe,
     #redireciono e mostro os dados da vitrine, caso contrário o usuário deverá cadastrar a sua vitrine
-
     context = {
         'usuario': usuario_logado,
         'vitrine': vitrine,
         'resultado_busca_vitrine': tamanho_resultado_query_set,
-        'produtos': produtos
-
+        'produtos': produtos,
+        'imagens_produtos': imagens_produtos
     }
 
     return render(request, 'vitrines/vitrine_listar.html', context)
