@@ -44,7 +44,7 @@
               {% endfor %}
           {% endif %}
 
-              <form  method="POST" autocomplete="off" enctype="multipart/form-data" >
+              <form method="POST" autocomplete="off" enctype="multipart/form-data" >
                   {% csrf_token %}
                   <div class="form-row">
                       <div class="form-group col-md-6">
@@ -66,17 +66,51 @@
                             <div id="collapse1" class="panel-collapse collapse">
                               <br>
                               <ul>
-                                <li><input type="file" name="foto" id="foto" accept='image/*' required></li>
-                                <li><input type="file" name="foto" id="foto" accept='image/*' ></li>
-                                <li><input type="file" name="foto" id="foto" accept='image/*' ></li>
-                                <li><input type="file" name="foto" id="foto" accept='image/*' ></li>
-                                <li><input type="file" name="foto" id="foto" accept='image/*' ></li>
+                                <li>
+                                  <label class="btn btn-info" for="foto-1">
+                                    <input id="foto-1" name="foto" type="file" style="display:none"
+                                    onchange="$(`#nome-foto-1`).text(this.files[0].name)" accept='image/*' required>
+                                    Selecione a imagem
+                                  </label>
+                                  <span class='label label-info' id="nome-foto-1"></span>
+                                  <small id="msg-foto" style="color:red;"></small>
+                                </li>
+                                <li>
+                                  <label class="btn btn-info" for="foto-2">
+                                      <input id="foto-2" name="foto" type="file" style="display:none"
+                                        onchange="$(`#nome-foto-2`).text(this.files[0].name)" accept='image/*'>
+                                      Selecione a imagem
+                                  </label>
+                                  <span class='label label-info' id="nome-foto-2"></span>
+                                </li>
+                                <li>
+                                  <label class="btn btn-info" for="foto-3">
+                                      <input id="foto-2" name="foto" type="file" style="display:none"
+                                        onchange="$(`#nome-foto-3`).text(this.files[0].name)" accept='image/*'>
+                                      Selecione a imagem
+                                  </label>
+                                  <span class='label label-info' id="nome-foto-3"></span>
+                                </li>
+                                <li>
+                                  <label class="btn btn-info" for="foto-4">
+                                      <input id="foto-4" name="foto" type="file" style="display:none"
+                                        onchange="$(`#nome-foto-4`).text(this.files[0].name)" accept='image/*'>
+                                      Selecione a imagem
+                                  </label>
+                                  <span class='label label-info' id="nome-foto-4"></span>
+                                </li>
+                                <li>
+                                  <label class="btn btn-info" for="foto-5">
+                                      <input id="foto-5" name="foto" type="file" style="display:none"
+                                        onchange="$(`#nome-foto-5`).text(this.files[0].name)" accept='image/*'>
+                                      Selecione a imagem
+                                  </label>
+                                  <span class='label label-info' id="nome-foto-5"></span>
+                                </li>
                               </ul>
                             </div>
                           </div>
                       </div>
-                    <!-- </div> -->
-
 
                   <div class="form-group  col-md-6">
                         {{ form.quantidade|as_crispy_field }}
@@ -123,7 +157,7 @@
 
                   <br><br>
                   <div class="form-group">
-                      <button type="submit" class="btn btn-primary"> Salvar </button>
+                      <button type="submit" class="btn btn-primary" onclick="return validateForm();"> Salvar </button>
                       <a href="{% url 'vitrines:minha_vitrine' %}" class="btn btn-secondary float-right">Voltar para vitrine
                         <i class="fas fa-arrow-circle-left"></i>
                       </a>
@@ -139,6 +173,19 @@
 <script src="{% static 'js/formularioProduto.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/validarFoto.js' %}" type="text/javascript"></script>
 
+<script type="text/javascript">
+  function validateForm() {
+    var foto = document.getElementById("foto-1");
+    console.log(foto.files.length);
+    if(foto.files.length == 0 ){
+      document.getElementById("msg-foto").innerHTML = 'Uma imagem é obrigatória';
+      return false;
+    }else{
+      return true;
+    }
+  }
+</script>
+
 <style media="screen">
   input[name=nome_caracteristica], input[name=descricao_caracteristica]  {
       background: transparent;
@@ -148,7 +195,7 @@
 
 	{% if messages %}
 		{% for m in messages %}
-		<script>
+    <script>
 
 
 			{% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
@@ -173,7 +220,7 @@
 				  }
 				})
 				{% endif %}
-		  </script>
+    </script>
 		{% endfor %}
 	{% endif %}
 

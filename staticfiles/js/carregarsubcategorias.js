@@ -27,7 +27,6 @@ $("#categoria").change(function() {
 
                     for(var i=0; i <  Object.keys(data['subcategorias']).length; i++ ){
                        	var subcategoria = data['subcategorias'][i];
-                       	// console.log(subcategoria)
 
                         $('#subcategoria').append(`<option id="subcategoria" name="subcategoria" value='${subcategoria}'>${subcategoria}</option>`);
                     }

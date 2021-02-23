@@ -20,7 +20,12 @@
       <!-- Modal body -->
         <div class="modal-body">
             {% csrf_token %}
-            <input type="file" name="foto" id="foto" accept='image/*' required>
+            <label class="btn btn-info" for="foto">
+                <input id="foto" name="foto" type="file" style="display:none"
+                  onchange="$(`#nome-foto`).text(this.files[0].name)" accept='image/*' required>
+                Selecione a imagem
+            </label>
+            <span class='label label-info' id="nome-foto"></span>
         </div>
 
         <!-- Modal footer -->

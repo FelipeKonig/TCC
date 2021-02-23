@@ -20,11 +20,11 @@ def adicionar_imagem_logo(instance, filename):
     else:
         nome_arquivo = str(buscar_produto[0].imagem).split('/')[1]
 
-        # se o produto já tem ua propria pasta, adicionar imagem nela
+        # se o produto já tem sua propria pasta, adicionar imagem nela
         if os.path.exists('media/fotoProduto/{}'.format(nome_arquivo)):
-            # caso ela não ser encontrada, criar nova pasta para o produto
             try:
                 return os.path.join('fotoProduto/{}'.format(nome_arquivo), filename)
+            # caso ela não ser encontrada, criar nova pasta para o produto
             except:
                 return os.path.join('fotoProduto/{}'.format(nome_arquivo), filename)
 
@@ -79,7 +79,12 @@ class ImagemProduto(models.Model):
         verbose_name_plural = 'Imagens dos produtos'
 
     def __str__(self):
-        return 'imagem:{}; status:{} -Produto:{}'.format(self.imagem, self.status, self.produto)
+        return 'imagem:{}; status:{} -Produto:{}'.format(self.imagem, self.status, self.produto.nome)
+
+    def nome_arquivo(self):
+        nome_arquivo = str(self.imagem).split('/')[2]
+        return nome_arquivo
+
 
 class Caracteristica(models.Model):
     topico = models.CharField('Tópico', max_length=200)

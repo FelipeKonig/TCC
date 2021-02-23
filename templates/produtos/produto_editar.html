@@ -6,7 +6,7 @@
 
 <main class="col-md-9">
 
-        <div class="card mb-4">
+    <div class="card mb-4">
       <div class="card-body ">
 
           {% if not usuario.status %}
@@ -41,47 +41,82 @@
                         {{ message }}
                     </div>
                 {% endif %}
-    {% endfor %}
-{% endif %}
+              {% endfor %}
+          {% endif %}
 
-              <form  method="POST" autocomplete="off" enctype="multipart/form-data" >
+              <form  method="POST" autocomplete="off" enctype="multipart/form-data" onsubmit="return validateForm()">
                   {% csrf_token %}
                   <div class="form-row">
-                      <div class="form-group col-md-6">
-                        {{ form.nome|as_crispy_field }}
-                      </div>
+                    <div class="form-group col-md-6">
+                      {{ form.nome|as_crispy_field }}
+                    </div>
                       <div class="form-group col-md-6">
                         {{ form.preco|as_crispy_field }}
-
                       </div>
                   </div>
 
-                               <div class="form-row">
-                                   {% if not editar == 'editar' %}
-                      <div class="form-group  col-md-6">
-
-                            {{ form.imagem|as_crispy_field }}
-
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="lista_imagens">Imagens do produto</label>
+                          <div id="lista_imagens">
+                            <a data-toggle="collapse" type="button" class="btn btn-secondary" href="#collapse1">
+                              Abrir lista de imagens para adicionar
+                            </a>
+                            <div id="collapse1" class="panel-collapse collapse">
+                              <br>
+                              <ul>
+                                {% for foto in imagens %}
+                                  {% if forloop.first %}
+                                    <li>
+                                      <label class="btn btn-info" for="foto-1">
+                                          <input id="foto-1" name="foto" type="file" style="display:none"
+                                            onchange="$(`#nome-foto-1`).text(this.files[0].name)" accept='image/*' disabled>
+                                          Imagem adicionada
+                                      </label>
+                                      <span class='label label-info' id="nome-foto-1">{{ foto.nome_arquivo }}</span>
+                                    </li>
+                                  {% else %}
+                                      <li>
+                                        <label class="btn btn-info" for="{{ foto.pk }}">
+                                            <input id="{{ foto.pk }}" name="foto" type="file" style="display:none"
+                                              onchange="$(`#nome-{{ foto.pk }}`).text(this.files[0].name)" accept='image/*' disabled>
+                                            Imagem adicionada
+                                        </label>
+                                        <span class='label label-info' id="nome-{{ foto.pk }}">{{ foto.nome_arquivo }}</span>
+                                      </li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% for index in range %}
+                                  <li>
+                                    <label class="btn btn-info" for="{{ index }}">
+                                        <input id="{{ index }}" name="foto" type="file" style="display:none"
+                                          onchange="$(`#nome-{{ index }}`).text(this.files[0].name)" accept='image/*'>
+                                        Selecione a imagem
+                                    </label>
+                                    <span class='label label-info' id="nome-{{ index }}"></span>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          </div>
                       </div>
-                        {% endif %}
+
+                  <div class="form-group col-md-6">
+                    {{ form.quantidade|as_crispy_field }}
+                  </div>
 
                   <div class="form-group  col-md-6">
-                        {{ form.quantidade|as_crispy_field }}
-                      </div>
-
-                  <div class="form-group  col-md-6">
-                      <label>Categoria*</label>
+                    {{produto.categoria.nome}}
+                      <label>Categoria</label>
 
                         <select name="categoria" id="categoria" class="form-control" required>
-                            <option value="" disabled selected hidden>Selecione sua categoria</option>
                             {% for indice, categoria in categorias.items %}
-                                {% if categoria_produto.nome == categoria.name %}
-                                  <option value="{{ categoria.id }}" selected>{{ categoria_produto.nome }}</option>
+                                {% if produto.categoria.nome == categoria.name %}
+                                  <option value="{{ categoria.name }}|{{categoria.id }}" selected >{{ produto.categoria.nome }}</option>
                                 {% elif categoria.name == 'Mais Categorias' %}
-                                   <option value="{{ categoria.id }}">Outras Categorias</option>
+                                   <option value="{{ categoria.name }}|{{categoria.id }}">Outras Categorias</option>
                                 {% else %}
-                                  <option value="{{ categoria.id }}">{{ categoria.name }}</option>
-
+                                  <option value="{{ categoria.name }}|{{categoria.id }}">{{ categoria.name }}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -89,62 +124,100 @@
 
                       </div>
 
-                                    <div class="form-group col-md-6">
-                                   <label>Subcategoria  {{ subcategoria_produto.nome }} </label>
-								<select id="subcategoria" name="subcategoria" class="form-control">
-                                    {% if subcategoria_produto %}
-                                      <option value="{{ subcategoria_produto.nome }}" selected>{{ subcategoria_produto.nome }}</option>
-                                    {% else %}
-                                        <option value="" disabled selected hidden>Selecione a subcategoria</option>
-                                    {% endif %}
-                                </select>
-                                        <small id="hint_id_subcategoria" class="form-text text-muted">Não obrigatório</small>
+                <div class="form-group col-md-6">
+                  <label>Subcategoria</label>
+								  <select id="subcategoria" name="subcategoria" class="form-control">
+                    {% if produto.subCategoria %}
+								     <option value="" disabled selected hidden>{{ produto.subCategoria.nome }}</option>
+                    {% else %}
+                      <option value="" disabled selected hidden>Selecione a subcategoria</option>
+                    {% endif %}
+								  </select>
+                  <small id="hint_id_subcategoria" class="form-text text-muted">Não obrigatório</small>
                  </div>
 
-                      <div class="form-group col-md-12">
-                        {{ form.descricao|as_crispy_field }}
-                      </div>
-                                   <input  type="hidden"  name="campoIDProduto" value="{{ produto_id }}">
+                     <div class="form-group col-md-12">
+                       {{ form.descricao|as_crispy_field }}
+                     </div>
+
                   </div>
 
-                  <div class="form-group">
+                  <label for="caracteristica_card">Características</label>
+                  {% for caract in lista_caracteristicas %}
+                  <div class="card">
+                    <div class="card-body">
+                      <div>
+                        <label for="{{caract.pk}}" style="font-weight:bold;">Título: </label>
+                          <input type="text" name="titulo-caracteristica-{{caract.pk}}" value="{{caract.topico}}" required>
+                        </div>
+                      </div>
+                        <table name='table' id="{{caract.pk}}" class="table table-bordered table-responsive-lg table-striped text-center">
+                          <thead>
+                            <tr>
+                              <th class="text-center">Tópico</th>
+                              <th class="text-center">Descrição</th>
+                              <th style="border-right-color: white;"> </th>
+                              <th class="text-center">
+                                  <span class="table-created-add" id="table-created-add"><a href="#!" class="text-success"><i
+                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for attr in lista_atributos %}
+                              {% if attr.caracteristica == caract %}
+                                <tr>
+                                  <td><input type="text" name="nome-caracteristica-{{caract.pk}}" class="form-control" value="{{attr.nome}}" required/></td>
+                                  <td><input type="text" name="descricao-caracteristica-{{caract.pk}}" class="form-control" value="{{attr.descricao}}" required/></td>
+                                  <td class="pt-3-half">
+                                    <span class="table-up"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-alt-up"
+                                          aria-hidden="true"></i></a></span>
+                                    <span class="table-down"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-alt-down"
+                                          aria-hidden="true"></i></a></span>
+                                  </td>
+                                  <td>
+                                    <span class="table-remove"><button type="button"
+                                        class="btn btn-danger btn-rounded btn-sm my-0">Remover</button></span>
+                                  </td>
+                                </tr>
+                              {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                      {% endfor %}
+                      <div id="tabela_adicional">
+                      </div>
+                      <div class="col-sm-6">
+                        <a href="#!" id="add_nova_tabela" class="btn btn-secondary"> Adicionar nova tabela de características </a>
+                      </div>
+                    </div>
+                  </div>
 
-                      <a href="{% url 'vitrines:minha_vitrine' %}" class="btn btn-secondary">Voltar para vitrine
+                  <br><br>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-primary"> Salvar </button>
+                      <a href="{% url 'vitrines:minha_vitrine' %}" class="btn btn-secondary float-right">Voltar para vitrine
                         <i class="fas fa-arrow-circle-left"></i>
                       </a>
-                       <button type="submit" class="btn btn-primary"> Salvar </button>
                   </div>
               </form>
-                  {% endif %}
+
+        {% endif %}
       </div>
     </div>
 
 </main>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{% static 'js/carregarsubcategorias.js' %}" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/inputmask.js " type="text/javascript"></script>
-<script src="{% static 'js/mascaraPreco.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/formularioProduto.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/validarFoto.js' %}" type="text/javascript"></script>
 
-<script>
-
-  $("#id_preco").keyup(function() {
-      return verificaNumero(this.value, "#id_preco");
-  });
-
-  $("#id_quantidade").keyup(function() {
-    return verificaNumero(this.value, "#id_quantidade");
-  });
-
-  function verificaNumero(char, input) {
-    if (char == ''){
-      $(input).val($(input).slice(0, -1));
-      return false;
-    }
-      return true;
+<style media="screen">
+  input[name=nome_caracteristica], input[name=descricao_caracteristica]  {
+      background: transparent;
+      border: none;
   }
-
-</script>
-
+</style>
 
 	{% if messages %}
 		{% for m in messages %}

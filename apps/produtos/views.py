@@ -1,6 +1,7 @@
 import requests
 import logging
 
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -78,7 +79,6 @@ class CriarProduto(LoginRequiredMixin, CreateView):
             )
 
             if request.POST.get('subcategoria'):
-                logger.debug(request.POST.get('subcategoria'))
                 subcategoria = buscar_subcategoria_bd(categoria, request.POST.get('subcategoria'))
 
                 novo_produto.subCategoria = subcategoria
@@ -88,15 +88,7 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 
             imagens_produto = request.FILES.getlist('foto')
 
-            index = 0
-            while index < len(imagens_produto):
-
-                nova_imagem = ImagemProduto.objects.create(
-                    imagem = imagens_produto[index],
-                    produto = novo_produto
-                )
-                nova_imagem.save()
-                index += 1
+            adicionar_imagens_produto(imagens_produto, novo_produto)
 
             return redirect('vitrines:minha_vitrine')
         else:
@@ -155,85 +147,86 @@ def editar_produto(request):
 
     produto = retornar_produto()
     usuario_logado = CustomUsuario.objects.get(email=request.user)
-    caracteristica_form = ""
-    topico_form = ""
+
+
     if str(request.method) == 'POST':
         if len(request.POST) > 2:
 
-            id_categoria = request.POST.get('categoria')
             form = EditarProduto(request.POST, instance=produto)
             if form.is_valid():
+                nome_categoria = request.POST.get('categoria').split('|')[0]
+                vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
 
                 nome = form.cleaned_data['nome']
                 preco = form.cleaned_data['preco']
                 descricao = form.cleaned_data['descricao']
                 quantidade = form.cleaned_data['quantidade']
-                caracteristica = form.cleaned_data['caracteristica']
-                categoria = buscar_categoria(id_categoria)
-                subcategoria = request.POST.get('subcategoria')
-                topico = form.cleaned_data['topico']
-
-                topico_form = topico
-                caracteristica_form = caracteristica
-                # vitrine = Vitrine.objects.filter(vendedor=usuario_logado, status=True).first()
-
-                verificar_subcategoria_vazia = False
-
-                try:
-                    categoria_bd = Categoria.objects.get(nome=categoria)
-                except Categoria.DoesNotExist:
-                    categoria_bd = Categoria.objects.create(nome=categoria)
-
-                if subcategoria is not None:
-                    try:
-                        subcategoria_bd = SubCategoria.objects.get(nome=subcategoria, categoria=categoria_bd)
-                    except SubCategoria.DoesNotExist:
-                        subcategoria_bd = SubCategoria.objects.create(nome=subcategoria, categoria=categoria_bd)
-                else:
-                    verificar_subcategoria_vazia = True
-
-                try:
-                    caracteristica_bd = Caracteristica.objects.get(descricao=caracteristica, topico=topico,
-                                                                   produto=produto)
-                except Caracteristica.DoesNotExist:
-                    caracteristica_produto_antigo = Caracteristica.objects.filter(status=True, produto=produto).first()
-                    caracteristica_produto_antigo.status = False
-                    caracteristica_produto_antigo.save()
-
-                    caracteristica_bd = Caracteristica.objects.create(descricao=caracteristica, topico=topico,
-                                                                      produto=produto)
-
-                if not verificar_subcategoria_vazia:
-                    subcategoria_bd.save()
+                categoria = buscar_categoria_bd(nome_categoria)
 
                 produto.nome = nome
                 produto.preco = preco
                 produto.quantidade = quantidade
                 produto.descricao = descricao
-                produto.categoria = categoria_bd
+                produto.categoria = categoria
 
-                categoria_bd.save()
-                caracteristica_bd.save()
+                if produto.subCategoria != None:
+                    if request.POST.get('subcategoria') != None:
+                        subcategoria = buscar_subcategoria_bd(categoria, request.POST.get('subcategoria'))
+                        produto.subCategoria = subcategoria
+                    else:
+                        produto.subCategoria = None
+                else:
+                    if request.POST.get('subcategoria') != None:
+                        subcategoria = buscar_subcategoria_bd(categoria, request.POST.get('subcategoria'))
+                        produto.subCategoria = subcategoria
+
                 produto.save()
+
+                lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
+
+                if len(lista_caracteristicas) > 0:
+                    editar_caracteristicas_produto(request.POST,lista_caracteristicas, produto)
+
+                adicionar_caracteristicas_produto(request.POST, produto)
+
+                imagens_produto = request.FILES.getlist('foto')
+                adicionar_imagens_produto(imagens_produto, produto)
+
                 messages.success(request, 'Produto editado com sucesso!')
                 return redirect('vitrines:minha_vitrine')
 
             else:
                 messages.error(request, 'Erro ao enviar formulário!')
 
+            return redirect('vitrines:minha_vitrine')
+
+    lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
+    lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
+
+    imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
+    range = 5 - len(imagens_produto)
+
+    # definindo a quantidade de imagens disponiveis para adicionar ao produto
+    # ironicamente é bem chato de fazer uma contagem de tamanho de lista no template
+    lista_imagens = []
+    i=1
+    while i <= range:
+        lista_imagens.append(i)
+        i+=1
+
     dict_categorias = retorna_categorias()
-    subcategoria = SubCategoria.objects.filter(status=True, categoria=produto.categoria).first()
-    caracteristica = Caracteristica.objects.filter(status=True, produto=produto).first()
     form = EditarProduto(instance=produto)
 
     context = {
         'form': form,
         'usuario': usuario_logado,
         'categorias': dict_categorias,
-        'subcategoria_produto': subcategoria,
-        'categoria_produto': produto.categoria,
-        'editar': 'editar',
-        'produto_id': produto.id
+        'lista_caracteristicas': lista_caracteristicas,
+        'lista_atributos': lista_atributos,
+        'imagens': imagens_produto,
+        'range': lista_imagens,
+        'produto': produto,
+        'editar': 'editar'
     }
 
     return render(request, 'produtos/produto_editar.html', context)
@@ -251,6 +244,64 @@ def deletar_produto(request):
         messages.success(request, 'Produto deletado com sucesso!')
 
     return redirect('vitrines:minha_vitrine')
+
+def adicionar_imagens_produto(imagens_produto, produto):
+
+    index = 0
+    while index < len(imagens_produto):
+
+        nova_imagem = ImagemProduto.objects.create(
+            imagem = imagens_produto[index],
+            produto = produto
+        )
+        nova_imagem.save()
+        index += 1
+
+def editar_caracteristicas_produto(formulario, lista_caracteristicas, produto):
+
+    lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
+
+    index_caract = 0
+    while index_caract < len(lista_caracteristicas):
+        caracteristica = lista_caracteristicas[index_caract]
+
+        titulo = 'titulo-caracteristica-' + str(caracteristica.pk)
+        nome = 'nome-caracteristica-' + str(caracteristica.pk)
+        descricao = 'descricao-caracteristica-' + str(caracteristica.pk)
+
+        topico = formulario[titulo]
+
+        if caracteristica.topico != topico:
+            Caracteristica.objects.filter(pk=caracteristica.pk).update(topico=topico)
+
+        # pego a lista dos nomes da lista de atributos na tabela
+        nomes = formulario.getlist(nome)
+        # pego a lista de descriçoes da lista de atributos na tabela
+        descricoes = formulario.getlist(descricao)
+
+        # fazendo uma consulta no banco deletando todos os objetos da respectiva tabela de caracteristica
+        # que foram alterados ou deletados
+        atributos_alterados = Atributo.objects.filter(
+                caracteristica_id=caracteristica.pk
+            ).exclude(
+                nome__in=nomes,
+                descricao__in=descricoes
+            ).delete()
+
+        index_atributo = 0
+        while index_atributo < len(nomes):
+
+            # [0] para não dar erro de multiplos objetos quando houver dois novos atributos com mesmo nome
+            # e descrição, evita o erro e também duplicação de objetos
+            atributo = Atributo.objects.get_or_create(
+                nome = nomes[index_atributo],
+                descricao = descricoes[index_atributo],
+                caracteristica = caracteristica
+            )[0]
+
+            index_atributo += 1
+        index_caract += 1
+
 
 def adicionar_caracteristicas_produto(formulario, novo_produto):
 
