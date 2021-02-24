@@ -91,12 +91,19 @@
 								<div class="price-wrap mb-3">
 									<span>Quantidade: {{ produto.quantidade }}</span>
 								</div>
-								<form method="POST" autocomplete="off">
-									{% csrf_token %}
-									<input  type="hidden"  name="campoIDProduto{{ produto.id }}" value="{{ produto.id }}">
-									<a href="#" class="btn btn-outline-primary mb-3" onclick="editarProduto({{ produto.id }})">  Editar <i class="fa fa-pen"></i></a>
-									<a href="#" class="btn btn-outline-danger mb-3" onclick="deletarProduto({{ produto.id }})"> Deletar <i class="fa fa-trash"></i>  </a>
-								</form>
+								<div class="form-inline">
+									<form method="POST" action="{% url 'produtos:editar_produto' %}" autocomplete="off">
+										{% csrf_token %}
+										<input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
+										<button class="btn btn-outline-primary mb-3" type="submit" >  Editar <i class="fa fa-pen"></i></button>
+									</form>
+									&nbsp;
+									<form method="POST" autocomplete="off">
+										{% csrf_token %}
+										<input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
+										<a href="#" class="btn btn-outline-danger mb-3" onclick="deletarProduto({{ produto.id }})"> Deletar <i class="fa fa-trash"></i>  </a>
+									</form>
+								</div>
 
 								<hr>
 								<a href="#" class="btn btn-success btn-block">Detalhes <i class="fa fa-info-circle"></i></a>

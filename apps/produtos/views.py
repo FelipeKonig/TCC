@@ -18,7 +18,6 @@ from apps.vitrines.models import Vitrine
 
 logger = logging.getLogger(__name__)
 
-recuperar_id_editar_produto = {}
 recuperar_id_deletar_produto = {}
 
 def retorna_categorias():
@@ -141,12 +140,8 @@ def buscar_subcategoria_bd(categoria, subcategoria):
 @login_required(login_url='/usuarios/login')
 def editar_produto(request):
 
-    if not recuperar_id_editar_produto:
-        recuperar_id_editar_produto['id'] = request.POST.get('id')
-
-    produto = retornar_produto()
     usuario_logado = CustomUsuario.objects.get(email=request.user)
-
+    produto = Produto.objects.get(pk=request.POST.get('campoIDProduto'))
 
     if str(request.method) == 'POST':
         if len(request.POST) > 2:
@@ -333,8 +328,3 @@ def adicionar_caracteristicas_produto(formulario, novo_produto):
                 )
                 novo_atributo.save()
                 index += 1
-
-def retornar_produto():
-    if recuperar_id_editar_produto:
-        produto = get_object_or_404(Produto, pk=recuperar_id_editar_produto['id'])
-        return produto

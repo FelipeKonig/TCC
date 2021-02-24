@@ -46,6 +46,7 @@
 
               <form  method="POST" autocomplete="off" enctype="multipart/form-data" onsubmit="return validateForm()">
                   {% csrf_token %}
+                  <input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       {{ form.nome|as_crispy_field }}
