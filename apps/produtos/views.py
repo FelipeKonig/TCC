@@ -1,7 +1,6 @@
 import requests
 import logging
 
-from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -281,12 +280,10 @@ def editar_caracteristicas_produto(formulario, lista_caracteristicas, produto):
 
         # fazendo uma consulta no banco deletando todos os objetos da respectiva tabela de caracteristica
         # que foram alterados ou deletados
-        atributos_alterados = Atributo.objects.filter(
-                caracteristica_id=caracteristica.pk
-            ).exclude(
-                nome__in=nomes,
-                descricao__in=descricoes
-            ).delete()
+        atributos_alterados = Atributo.objects.filter(caracteristica_id=caracteristica.pk).exclude(
+            nome__in=nomes,
+            descricao__in=descricoes
+        ).delete()
 
         index_atributo = 0
         while index_atributo < len(nomes):
@@ -301,7 +298,6 @@ def editar_caracteristicas_produto(formulario, lista_caracteristicas, produto):
 
             index_atributo += 1
         index_caract += 1
-
 
 def adicionar_caracteristicas_produto(formulario, novo_produto):
 

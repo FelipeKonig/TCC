@@ -48,7 +48,7 @@ def perfil_principal(request):
 
     usuario_logado = CustomUsuario.objects.get(pk=request.user.pk)
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
-    telefones = Telefone.objects.filter(usuario=request.user, status=True)
+    telefones = Telefone.objects.filter(usuario=request.user,empresa=None, status=True)
 
     contexto = {
         'enderecos': enderecos,
@@ -63,7 +63,7 @@ def perfil_configuracao(request):
 
     if request.method == 'POST':
 
-        telefones = Telefone.objects.filter(usuario=request.user, status=True)
+        telefones = Telefone.objects.filter(usuario=request.user,empresa=None, status=True)
         usuario = request.user
         usuario.first_name = request.POST['nome']
         usuario.last_name = request.POST['sobrenome']
@@ -84,11 +84,10 @@ def perfil_configuracao(request):
                     atualizar_telefone.save()
             else:
                 telefone = Telefone.objects.create(
-                usuario=usuario,
-                tipo=request.POST['tipo_telefone'],
-                numero=request.POST['numero_telefone']
+                    usuario=usuario,
+                    tipo=request.POST['tipo_telefone'],
+                    numero=request.POST['numero_telefone']
                 )
-                atualizar_telefone.save()
 
             if request.POST['numero_telefone2'] != '':
                 if len(telefones) > 1:
@@ -108,12 +107,10 @@ def perfil_configuracao(request):
                         tipo=request.POST['tipo_telefone2'],
                         numero=request.POST['numero_telefone2']
                     )
-                    messages.success(request, 'Perfil atualizado!')
-                    atualizar_telefone.save()
-
         usuario.save()
+        return redirect('usuarios:perfil_principal')
     # atualizando os telefones
-    telefones = Telefone.objects.filter(usuario=request.user, status=True)
+    telefones = Telefone.objects.filter(usuario=request.user,empresa=None, status=True)
 
     return render(request, 'usuarios/perfil-configuracao.html', {'telefones':telefones})
 

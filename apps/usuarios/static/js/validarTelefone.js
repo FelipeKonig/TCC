@@ -38,8 +38,8 @@ $(document).ready(function () {
 // Verificar se o numero de telefone novo está correto
 function validateForm() {
 
-  var tipo_telefone = document.forms['editar_perfil']['tipo_telefone'].value;
-  var numero_telefone = document.forms['editar_perfil']['numero_telefone'].value;
+  var tipo_telefone = document.forms['editar']['tipo_telefone'].value;
+  var numero_telefone = document.forms['editar']['numero_telefone'].value;
 
   if (tipo_telefone == 'celular') {
     if (numero_telefone.length < 15) {
@@ -53,21 +53,20 @@ function validateForm() {
     }
   }
 
-  var tipo_telefone2 = document.forms['editar_perfil']['tipo_telefone2'].value;
-  var numero_telefone2 = document.forms['editar_perfil']['numero_telefone2'].value;
+  var tipo_telefone2 = document.forms['editar']['tipo_telefone2'].value;
+  var numero_telefone2 = document.forms['editar']['numero_telefone2'].value;
 
   if (tipo_telefone2 == 'celular') {
-    if (numero_telefone2.length < 15) {
+    if (numero_telefone2.length < 15 && numero_telefone2.length > 0) {
       document.getElementsByName('numero_telefone2')[0].style.borderColor = 'red';
       return false;
     }
   }else{
-    if (numero_telefone2.length < 14) {
+    if (numero_telefone2.length < 14 && numero_telefone2.length > 0) {
       document.getElementsByName('numero_telefone2')[0].style.borderColor = 'red';
       return false;
     }
   }
 
-  // $("[name='numero_telefone2']").style.borderColor = 'red';
   return true;
 }

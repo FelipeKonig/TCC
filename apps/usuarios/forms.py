@@ -130,21 +130,6 @@ class CustomUsuarioCreationForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Insira sua senha novamente'
 
 
-'''
-class TelefoneForm(forms.ModelForm):
-    # numeroFixo = forms.CharField(required=False, help_text='Não obrigatório', label='Telefone fixo', max_length=30)
-
-    class Meta:
-        model = Telefone
-        fields = ('numero',)
-
-    def __init__(self, *args, **kwargs):
-        super(TelefoneForm, self).__init__(*args, **kwargs)
-        self.fields['tipo'].widget.attrs['placeholder'] = 'Insira o tipo do telefone'
-        self.fields['numero'].widget.attrs['placeholder'] = 'Insira o número do telefone'
- '''
-
-
 class EmailTokenSenhaForm(PasswordResetForm):
     email = forms.EmailField(required=True, help_text='Obrigatório', label='Email', max_length=254)
 

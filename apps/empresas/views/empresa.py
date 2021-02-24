@@ -13,6 +13,7 @@ from ..forms import CadastroEmpresa, EditarEmpresaForm
 from ..models import Empresa
 from ...usuarios.models import Telefone, Endereco
 from apps.usuarios.models import CustomUsuario
+from apps.usuarios.views.endereco import buscar_estados_api
 
 recuperar_id_empresa_editar = {}
 recuperar_id_empresa_deletar = {}
@@ -61,15 +62,18 @@ def empresa_perfil(request):
         empresa.logo = nova_logo
         empresa.save()
 
-    empresa = Empresa.objects.get(pk=request.user.empresa.pk)
+    if request.user.empresa != None:
+        empresa = Empresa.objects.get(pk=request.user.empresa.pk)
+    else:
+        empresa = None
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=empresa, status=True)
-    # telefones = Telefone.objects.filter(usuario=request.user, status=True)
+    telefones = Telefone.objects.filter(usuario=request.user, empresa=empresa, status=True)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
 
     contexto = {
         'empresa': empresa,
         'enderecos': enderecos,
-        # 'telefones': telefones,
+        'telefones': telefones,
         'usuario': usuario_logado
     }
     return render(request,'empresas/empresa_perfil.html', contexto)
@@ -85,7 +89,7 @@ def deletar_empresa(request):
     if not recuperar_id_empresa_deletar['empresa'].status:
         messages.success(request, 'Empresa deletada com sucesso!')
 
-    return redirect('empresas:listar_empresas')
+    return redirect('')
 
 
 class CriarEmpresa(LoginRequiredMixin, CreateView):
@@ -97,13 +101,13 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
         query_set = consulta_empresa(empresa)
         usuario_logado = CustomUsuario.objects.get(email=request.user)
         enderecos = Endereco.objects.filter(usuario=request.user, status=True)
-        telefones = Telefone.objects.filter(usuario=request.user, status=True)
 
+        estados = buscar_estados_api()
         context = {
             'form': form,
             'empresa': query_set,
             'enderecos': enderecos,
-            'telefones': telefones,
+            'estados': estados,
             'usuario': usuario_logado
         }
         return render(request, 'empresas/empresa_cadastro.html', context)
@@ -114,8 +118,6 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
         if form.is_valid():
             razaoSocial = form.cleaned_data['razaoSocial']
             nomeFantasia = form.cleaned_data['fantasia']
-            inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
-            inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
             logo = form.cleaned_data['logo']
             cnpj = form.cleaned_data['cnpj']
 
@@ -128,14 +130,25 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
                 messages.error(request, 'CNPJ inválido')
 
             empresa = Empresa.objects.create(cnpj=cnpj, razaoSocial=razaoSocial,
-                                             fantasia=nomeFantasia, inscricaoEstadual=inscricaoEstadual,
-                                             inscricaoMunicipal=inscricaoMunicipal, logo=logo)
+                                             fantasia=nomeFantasia, logo=logo)
+
+            if request.POST['inscricaoEstadual']:
+                inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
+                empresa.inscricaoEstadual=inscricaoEstadual
+            if request.POST['inscricaoMunicipal']:
+                inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
+                empresa.inscricaoMunicipal=inscricaoMunicipal
+
             usuario = self.request.user
             usuario_bd = CustomUsuario.objects.get(email=usuario.email)
             usuario_bd.empresa = empresa
             usuario_bd.save()
 
-            return redirect('empresas:listar_empresas')
+            if request.POST['numero_telefone'] != '':
+                telefones = Telefone.objects.filter(usuario=usuario_bd, empresa=usuario_bd.empresa, status=True)
+                verificar_telefone(request.POST, usuario_bd, telefones)
+
+            return redirect('empresas:empresa_perfil')
 
         else:
             messages.error(request, 'Erro ao enviar o formulário !')
@@ -149,12 +162,8 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
 @login_required(login_url='/usuarios/login')
 def editar_empresa(request):
     usuario = CustomUsuario.objects.get(email=request.user)
+    empresa = usuario.empresa
     form = EditarEmpresaForm(request.POST or None)
-
-    if len(request.POST) == 2:
-        if not recuperar_id_empresa_editar:
-            recuperar_id_empresa_editar['id'] = request.POST.get('id')
-    empresa = retornar_empresa()
 
     if str(request.method) == 'POST':
         if len(request.POST) > 2:
@@ -188,23 +197,68 @@ def editar_empresa(request):
                 empresa.inscricaoMunicipal = inscricaoMunicipal
                 empresa.cnpj = cnpj
 
+                if request.POST['numero_telefone'] != '':
+                    telefones = Telefone.objects.filter(empresa=usuario.empresa, status=True)
+                    verificar_telefone(request.POST, usuario, telefones)
+
                 empresa.save()
                 messages.success(request, 'Empresa editada com sucesso!')
-                return redirect('empresas:listar_empresas')
+                return redirect('empresas:empresa_perfil')
 
+    estados = buscar_estados_api()
+    telefones = Telefone.objects.filter(empresa=usuario.empresa, status=True)
     form = EditarEmpresaForm(instance=empresa)
 
     context = {
         'usuario': usuario,
         'form': form,
+        'estados': estados,
+        'telefones': telefones,
         'editar': 'editar'
-
     }
 
     return render(request, 'empresas/empresa_cadastro.html', context)
 
+def verificar_telefone(formulario, usuario, telefones):
+    # se o usuario não ter deletado o único número dele
+    if len(telefones) > 0:
+        if telefones[0].tipo != formulario['tipo_telefone'] or telefones[0].numero != formulario['numero_telefone']:
 
-def retornar_empresa():
-    if recuperar_id_empresa_editar:
-        empresa = get_object_or_404(Empresa, pk=recuperar_id_empresa_editar['id'])
-        return empresa
+            atualizar_telefone = Telefone.objects.get(
+                usuario=usuario,
+                empresa=usuario.empresa,
+                tipo=telefones[0].tipo,
+                numero=telefones[0].numero
+            )
+            atualizar_telefone.numero = formulario['numero_telefone']
+            atualizar_telefone.tipo = formulario['tipo_telefone']
+
+            atualizar_telefone.save()
+    else:
+        telefone = Telefone.objects.create(
+            usuario=usuario,
+            empresa=usuario.empresa,
+            tipo=formulario['tipo_telefone'],
+            numero=formulario['numero_telefone']
+        )
+
+    if formulario['numero_telefone2'] != '':
+        if len(telefones) > 1:
+            if telefones[1].tipo != formulario['tipo_telefone2'] or telefones[1].numero != formulario['numero_telefone2']:
+
+                atualizar_telefone = Telefone.objects.get(
+                    usuario=usuario,
+                    empresa=usuario.empresa,
+                    tipo=telefones[1].tipo,
+                    numero=telefones[1].numero
+                )
+                atualizar_telefone.numero = formulario['numero_telefone2']
+                atualizar_telefone.tipo = formulario['tipo_telefone2']
+                atualizar_telefone.save()
+        else:
+            telefone = Telefone.objects.create(
+                usuario=usuario,
+                empresa=usuario.empresa,
+                tipo=formulario['tipo_telefone2'],
+                numero=formulario['numero_telefone2']
+            )

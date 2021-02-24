@@ -22,6 +22,7 @@ def adicionar_imagem_perfil(instance, filename):
 
 class Telefone(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
+    empresa = models.ForeignKey(Empresa,on_delete=models.CASCADE, null=True, default="")
     tipo = models.CharField('Tipo', max_length=7, help_text='Obrigatório', default="")
     numero = models.CharField('Telefone fixo', max_length=30, help_text='Obrigatório', default="")
     padrao = models.BooleanField('Padrao', null=False, default=False)
@@ -32,8 +33,10 @@ class Telefone(models.Model):
         verbose_name_plural = 'Telefones'
 
     def __str__(self):
-        return '{}, {}: {}, status: {}'.format(self.usuario, self.tipo, self.numero, self.status)
-
+        if self.empresa == None:
+            return 'usuario:{}, {}: {}, status: {}'.format(self.usuario, self.tipo, self.numero, self.status)
+        else:
+            return 'empresa:{}, {}: {}, status: {}'.format(self.empresa, self.tipo, self.numero, self.status)
 
 class Estado(models.Model):
     nome = models.CharField('Nome', max_length=100, help_text='Obrigatório')

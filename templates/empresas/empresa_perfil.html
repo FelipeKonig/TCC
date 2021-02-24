@@ -18,52 +18,74 @@
              <br>
                 <a href="{% url 'empresas:criar_empresa' %}" class="btn btn-secondary mb-3" ><i class="fa fa-plus"></i> Adicionar nova empresa</a>
         </div>
-      {% endif %}
-        <main class="col-md-12">
-          <article class="card mb-3">
+        {% else %}
+          <main class="col-md-12">
+            <article class="card mb-3">
 
-            <div class="container">
-              <div class="row">
-                <figure class="icontext">
-                  <div class="icon">
-                    <img class="rounded-circle img-sm" src="{{ empresa.logo.url }}">
+              <div class="container">
+                <div class="row">
+                  <figure class="icontext">
+                    <div class="icon">
+                      <img class="rounded-circle img-sm" src="{{ empresa.logo.url }}">
+                    </div>
+                  </figure>
+                  <div class="col-lg-4 col-md-6">
+                    <strong> Nome fantasia: </strong> {{ empresa.fantasia }} <br>
+                    <strong> Razão Social: </strong> {{ empresa.razaoSocial }} <br>
+                    <strong> CNPJ: </strong> {{ empresa.cnpj }} <br>
+                    <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#modal-foto">Alterar logo</button>
+
+                    {% include 'usuarios/modal-foto.html' %}
+
                   </div>
-                </figure>
-                <div class="col-lg-4 col-md-6">
-                  <strong> Nome fantasia: </strong> {{ empresa.fantasia }} <br>
-                  <strong> Razão Social: </strong> {{ empresa.razaoSocial }} <br>
-                  <strong> CNPJ: </strong> {{ empresa.cnpj }} <br>
-                  <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#modal-foto">Alterar logo</button>
-
-                  {% include 'usuarios/modal-foto.html' %}
-
-                </div>
-                <div class="col-lg-6">
-                  {% if empresa.inscricaoEstadual is None %}
-                  <strong> Inscrição estadual: </strong> Sem inscrição estadual <br>
-                  {% else %}
-                  <strong> Inscrição estadual: </strong> {{ empresa.inscricaoEstadual }} <br>
-                  {% endif %}
-                  {% if empresa.inscricaoMunicipal is None %}
-                  <strong> Inscrição municipal: </strong> Sem inscrição municipal <br>
-                  {% else %}
-                  <strong> Inscrição estadual: </strong> {{ empresa.inscricaoMunicipal }} <br>
-                  {% endif %}
+                  <div class="col-lg-6">
+                    {% if empresa.inscricaoEstadual is None %}
+                    <strong> Inscrição estadual: </strong> Sem inscrição estadual <br>
+                    {% else %}
+                    <strong> Inscrição estadual: </strong> {{ empresa.inscricaoEstadual }} <br>
+                    {% endif %}
+                    {% if empresa.inscricaoMunicipal is None %}
+                    <strong> Inscrição municipal: </strong> Sem inscrição municipal <br>
+                    {% else %}
+                    <strong> Inscrição estadual: </strong> {{ empresa.inscricaoMunicipal }} <br>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            </div>
-            <hr>
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-7">
+              <hr>
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-7">
+                    <p>
+                      <i class="fa fa-map-marker text-muted"></i> &nbsp; Endereços da empresa:
+                      <br>
+                      <div class="form-inline">
+                        {% for endereco in enderecos %}
+                        {{ endereco.cidade.nome }}, {{ endereco.rua }},
+                        {{ endereco.bairro }}, {{ endereco.numero}} &nbsp
+                        <form action="{% url 'usuarios:editar_endereco' %}"  method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-light btn-sm" name="endereco"
+                          value="{{ endereco.pk }}" style="background-color:white; border-color:white;">
+                          Editar
+                        </button>
+                      </form>
+                      <br>
+                      {% empty %}
+                      <p> Sua empresa ainda não possui nenhum endereço </p>
+                      {% endfor %}
+                    </div>
+                  </p>
+                  <br>
+                </div>
+                <div class="col-lg-5">
                   <p>
-                    <i class="fa fa-map-marker text-muted"></i> &nbsp; Endereços da empresa:
+                    <i class="fas fa-phone text-muted"></i> &nbsp; Telefones da empresa:
                     <br>
                     <div class="form-inline">
-                      {% for endereco in enderecos %}
-                      {{ endereco.cidade.nome }}, {{ endereco.rua }},
-                      {{ endereco.bairro }}, {{ endereco.numero}} &nbsp
-                      <form action="{% url 'usuarios:editar_endereco' %}"  method="post">
+                      {% for telefone in telefones %}
+                      {{ telefone.tipo }}: {{ telefone.numero }} &nbsp
+                      <form action="#"  method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-light btn-sm" name="endereco"
                         value="{{ endereco.pk }}" style="background-color:white; border-color:white;">
@@ -72,59 +94,38 @@
                     </form>
                     <br>
                     {% empty %}
-                    <p> Sua empresa ainda não possui nenhum endereço </p>
+                    <p> A empresa ainda não possui nenhum telefone </p>
                     {% endfor %}
                   </div>
                 </p>
-                <br>
               </div>
-              <div class="col-lg-5">
-                <p>
-                  <i class="fas fa-phone text-muted"></i> &nbsp; Telefones da empresa:
-                  <br>
-                  <div class="form-inline">
-                    {% for telefone in telefones %}
-                    {{ telefone.tipo }}: {{ telefone.numero }} &nbsp
-                    <form action="#"  method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="btn btn-light btn-sm" name="endereco"
-                      value="{{ endereco.pk }}" style="background-color:white; border-color:white;">
-                      Editar
-                    </button>
-                  </form>
-                  <br>
-                  {% empty %}
-                  <p> A empresa ainda não possui nenhum telefone </p>
-                  {% endfor %}
-                </div>
-              </p>
             </div>
           </div>
-        </div>
-          </article>
-        </main>
+        </article>
+      </main>
 
-    <article class="card-group card-stat">
-      <figure class="card bg">
-        <div class="p-3">
-          <h4 class="title">38</h4>
-          <span>Pedidos em espera</span>
-        </div>
-      </figure>
-      <figure class="card bg">
-        <div class="p-3">
-          <h4 class="title">12</h4>
-          <span>Aguardando entrega</span>
-        </div>
-      </figure>
-      <figure class="card bg">
-        <div class="p-3">
-          <h4 class="title">50</h4>
-          <span>Produtos e serviços entregues</span>
-        </div>
-      </figure>
-    </article>
-  </div>
+      <article class="card-group card-stat">
+        <figure class="card bg">
+          <div class="p-3">
+            <h4 class="title">38</h4>
+            <span>Pedidos em espera</span>
+          </div>
+        </figure>
+        <figure class="card bg">
+          <div class="p-3">
+            <h4 class="title">12</h4>
+            <span>Aguardando entrega</span>
+          </div>
+        </figure>
+        <figure class="card bg">
+          <div class="p-3">
+            <h4 class="title">50</h4>
+            <span>Produtos e serviços entregues</span>
+          </div>
+        </figure>
+      </article>
+    </div>
+  {% endif %}
   </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -6,13 +6,13 @@ from .validadoresForm import validar_cnpj
 
 
 class CadastroEmpresa(forms.ModelForm):
-    #cnpj = forms.CharField(label='CNPJ', help_text='Obrigatório',
-     #                      max_length=18, validators=[validar_cnpj],
-     #                      widget=forms.TextInput(attrs={'data-mask': "00.000.000/0000-00"}))
+
+    inscricaoEstadual = forms.CharField(required=False, label='')
+    inscricaoMunicipal = forms.CharField(required=False, widget=forms.TextInput(attrs={'maxlength': "15"}))
 
     class Meta:
         model = Empresa
-        fields = ('razaoSocial', 'fantasia', 'inscricaoEstadual', 'inscricaoMunicipal', 'logo', 'cnpj')
+        fields = ('razaoSocial', 'fantasia', 'logo', 'cnpj')
 
     def __init__(self, *args, **kwargs):
         super(CadastroEmpresa, self).__init__(*args, **kwargs)
@@ -27,14 +27,20 @@ class CadastroEmpresa(forms.ModelForm):
                 css_class='form-row'
             )
         )
+        self.fields['inscricaoMunicipal'].label = "Inscrição Municipal"
         self.fields['razaoSocial'].widget.attrs['placeholder'] = 'Insira a razão social'
         self.fields['fantasia'].widget.attrs['placeholder'] = 'Insira o nome fantasia'
         self.fields['cnpj'].widget.attrs['placeholder'] = 'Insira o CNPJ'
+        self.fields['logo'].widget.attrs['required'] = True
         self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira a inscrição estadual'
         self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira a inscrição municipal'
 
 
 class EditarEmpresaForm(forms.ModelForm):
+
+    inscricaoEstadual = forms.CharField(required=False, label='')
+    inscricaoMunicipal = forms.CharField(required=False, widget=forms.TextInput(attrs={'maxlength': "15"}))
+
     class Meta:
         model = Empresa
         fields = ('razaoSocial', 'fantasia', 'inscricaoEstadual', 'inscricaoMunicipal', 'cnpj')
@@ -52,11 +58,11 @@ class EditarEmpresaForm(forms.ModelForm):
                 css_class='form-row'
             )
         )
+        self.fields['inscricaoEstadual'].help_text = "Não Obrigatório"
+        self.fields['inscricaoMunicipal'].label = "Inscrição Municipal"
+        self.fields['inscricaoMunicipal'].help_text = "Não Obrigatório"
         self.fields['razaoSocial'].widget.attrs['placeholder'] = 'Insira a razão social'
         self.fields['fantasia'].widget.attrs['placeholder'] = 'Insira o nome fantasia'
         self.fields['cnpj'].widget.attrs['placeholder'] = 'Insira o CNPJ'
         self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira a inscrição estadual'
         self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira a inscrição municipal'
-
-
-
