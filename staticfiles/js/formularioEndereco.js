@@ -19,7 +19,7 @@ $("#estado").change(function() {
 
   // executo o ajax e passo a url e informação desejada
   $.ajax({
-     url: '{% url "usuarios:ajax_carregar_cidades" %}',
+     url: '/usuarios/ajax/carregar-cidades/',
      data: {
        'estado': estado
      },
@@ -59,7 +59,7 @@ $(document).ready(function(){
     if(cep.length == 9){
 
         $.ajax({
-           url: '{% url "usuarios:verificar_cep" %}',
+           url: '/usuarios/ajax/verificar-cep/',
            data: {
              'cep': cep
            },
