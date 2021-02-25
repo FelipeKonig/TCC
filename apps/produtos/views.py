@@ -20,23 +20,6 @@ logger = logging.getLogger(__name__)
 
 recuperar_id_deletar_produto = {}
 
-def retorna_categorias():
-    categorias = 'https://api.mercadolibre.com/sites/MLB/categories#json'
-    requisicao_categorias = requests.get(categorias)
-
-    try:
-        lista = requisicao_categorias.json()
-
-    except ValueError:
-        logger.critical("Não encontrou as subcategorias")
-
-    dicionario = {}
-    for indice, categorias in enumerate(lista):
-        dicionario[indice] = categorias
-
-    return dicionario
-
-
 class CriarProduto(LoginRequiredMixin, CreateView):
     login_url = '/usuarios/login'
 
@@ -100,42 +83,23 @@ class CriarProduto(LoginRequiredMixin, CreateView):
         }
         return render(request, 'produtos/produto_cadastro.html', context)
 
+def visualizar_produto(request):
 
-def carregar_subcategorias(request):
+    produto = Produto.objects.get(pk=request.POST.get('campoIDProduto'))
+    imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
+    lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
+    lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
 
-    categoria = request.GET.get('categoria').split('|')[-1]
-    logger.debug(categoria)
-    subcategorias = 'https://api.mercadolibre.com/categories/' + categoria
+    contexto = {
+        'produto': produto,
+        'primeira_imagem': imagens_produto[0],
+        'imagens_produto': imagens_produto,
+        'lista_caracteristicas': lista_caracteristicas,
+        'lista_atributos': lista_atributos,
+        'vendedor': True
+    }
 
-    requisicao_subcategorias = requests.get(subcategorias)
-
-    try:
-        lista = requisicao_subcategorias.json()
-
-    except ValueError:
-        logger.critical("Não encontrou as subcategorias")
-
-    lista_subcategorias = lista['children_categories']
-
-    dicionario = {}
-    for indice, subcategoria in enumerate(lista_subcategorias):
-        dicionario[indice] = subcategoria.get('name')
-
-    if request.is_ajax():
-        return JsonResponse({'subcategorias': dicionario})
-
-
-def buscar_categoria_bd(nome):
-
-    categoria_bd = Categoria.objects.get_or_create(nome=nome)
-    categoria_bd = Categoria.objects.get(nome=nome)
-    return categoria_bd
-
-def buscar_subcategoria_bd(categoria, subcategoria):
-
-    subcategoria_bd = SubCategoria.objects.get_or_create(nome=subcategoria, categoria=categoria)
-    subcategoria_bd = SubCategoria.objects.get(nome=subcategoria, categoria=categoria)
-    return subcategoria_bd
+    return render(request, 'produtos/produto-visualizar.html', contexto)
 
 @login_required(login_url='/usuarios/login')
 def editar_produto(request):
@@ -238,6 +202,22 @@ def deletar_produto(request):
 
     return redirect('vitrines:minha_vitrine')
 
+def retorna_categorias():
+    categorias = 'https://api.mercadolibre.com/sites/MLB/categories#json'
+    requisicao_categorias = requests.get(categorias)
+
+    try:
+        lista = requisicao_categorias.json()
+
+    except ValueError:
+        logger.critical("Não encontrou as subcategorias")
+
+    dicionario = {}
+    for indice, categorias in enumerate(lista):
+        dicionario[indice] = categorias
+
+    return dicionario
+
 def adicionar_imagens_produto(imagens_produto, produto):
 
     index = 0
@@ -327,3 +307,39 @@ def adicionar_caracteristicas_produto(formulario, novo_produto):
                 )
                 novo_atributo.save()
                 index += 1
+
+def carregar_subcategorias(request):
+
+    categoria = request.GET.get('categoria').split('|')[-1]
+    logger.debug(categoria)
+    subcategorias = 'https://api.mercadolibre.com/categories/' + categoria
+
+    requisicao_subcategorias = requests.get(subcategorias)
+
+    try:
+        lista = requisicao_subcategorias.json()
+
+    except ValueError:
+        logger.critical("Não encontrou as subcategorias")
+
+    lista_subcategorias = lista['children_categories']
+
+    dicionario = {}
+    for indice, subcategoria in enumerate(lista_subcategorias):
+        dicionario[indice] = subcategoria.get('name')
+
+    if request.is_ajax():
+        return JsonResponse({'subcategorias': dicionario})
+
+
+def buscar_categoria_bd(nome):
+
+    categoria_bd = Categoria.objects.get_or_create(nome=nome)
+    categoria_bd = Categoria.objects.get(nome=nome)
+    return categoria_bd
+
+def buscar_subcategoria_bd(categoria, subcategoria):
+
+    subcategoria_bd = SubCategoria.objects.get_or_create(nome=subcategoria, categoria=categoria)
+    subcategoria_bd = SubCategoria.objects.get(nome=subcategoria, categoria=categoria)
+    return subcategoria_bd

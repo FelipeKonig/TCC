@@ -1,0 +1,188 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<section class="py-3 bg-light">
+  <div class="container">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'e-commerce:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="#!">{{ produto.categoria }}</a></li>
+        {% if produto.subCategoria %}
+          <li class="breadcrumb-item"><a href="#!">{{ produto.SubCategoria }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">Items</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg-white padding-y">
+<div class="container">
+
+<!-- ============================ ITEM DETAIL ======================== -->
+<div class="row">
+  <aside class="col-md-6">
+    <div class="card">
+      <article class="gallery-wrap">
+          <div class="img-big-wrap">
+              <div> <img id="img_principal" class="img-fluid mx-auto d-block shadow"
+                src="{{ primeira_imagem.imagem.url }}"></div>
+          </div> <!-- slider-product.// -->
+        <div class="thumbs-wrap">
+          {% for foto in imagens_produto %}
+              <img class="item-thumb" src="{{ foto.imagem.url }}">
+          {% endfor %}
+        </div> <!-- slider-nav.// -->
+      </article> <!-- gallery-wrap .end// -->
+    </div> <!-- card.// -->
+  </aside>
+
+<main id="info-produto" class="col-md-6">
+  <article class="product-info-aside">
+
+  <h2 class="title mt-3">{{ produto.nome }}</h2>
+
+  <div class="rating-wrap my-3">
+  	<ul class="rating-stars">
+  		<li style="width:80%" class="stars-active">
+  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+  			<i class="fa fa-star"></i>
+  		</li>
+  		<li>
+  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+  			<i class="fa fa-star"></i>
+  		</li>
+  	</ul>
+  	<small class="label-rating text-muted">132 avaliações</small>
+  	<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 encomendas </small>
+  </div> <!-- rating-wrap.// -->
+
+  <div class="mb-3">
+  	<var class="price h4">R$ {{ produto.preco }}</var>
+  </div> <!-- price-detail-wrap .// -->
+
+  </article> <!-- product-info-aside .// -->
+  <div class="product-info-aside child">
+    <div class="form-row mt-4">
+  		<div class="form-group col-md flex-grow-0">
+  			<div class="input-group mb-3 input-spinner mt-3">
+  			  <div class="input-group-prepend">
+  			    <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+  			  </div>
+  			  <input id="quant_produto" type="number" class="form-control" min="1" value="1" max="{{ produto.quantidade }}"
+            autocomplete="off" readonly>
+  			  <div class="input-group-append">
+  			    <button class="btn btn-light" type="button" id="button-plus"> + </button>
+  			  </div>
+  			</div>
+  		</div> <!-- col.// -->
+      {% if vendedor %}
+    		<div class="form-group col-lg">
+    			<a href="#!" data-toggle="popover" data-content="Função indisponível para o vendedor" data-placement="bottom"
+            class="btn  btn-primary mt-3">
+    				<i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
+    			</a>
+    			<a href="#!" data-toggle="popover" data-content="Função indisponível para o vendedor" data-placement="bottom"
+            class="btn btn-light mt-3">
+            <i class="fas fa-envelope"></i> <span class="text">contate o fornecedor</span>
+    			</a>
+    		</div> <!-- col.// -->
+      {% endif %}
+  	</div> <!-- row.// -->
+  </div>
+</main> <!-- col.// -->
+</div> <!-- row.// -->
+
+<!-- ================ ITEM DETAIL END .// ================= -->
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y bg">
+<div class="container">
+
+<div class="row">
+	<div class="col-md-8">
+		<h5 class="title-description">Descrição</h5>
+		<p>
+			{{ produto.descricao }}
+		</p>
+
+		<h5 class="title-description">Especificações</h5>
+    {% for caract in lista_caracteristicas %}
+  		<table class="table table-bordered">
+  			<tr> <th colspan="2">{{ caract.topico }}</th> </tr>
+        {% for attr in lista_atributos %}
+          {% if attr.caracteristica == caract %}
+            <tr> <td>{{ attr.nome }}</td><td>{{ attr.descricao }}</td> </tr>
+          {% endif %}
+        {% endfor %}
+  		</table>
+    {% endfor %}
+    {% if lista_caracteristicas is empty %}
+      <p> Este produto não possui especificações </p>
+    {% endif %}
+	</div> <!-- col.// -->
+
+	<aside class="col-md-4">
+
+		<div class="box">
+
+		<h5 class="title-description">Comentários</h5>
+			<p>
+				Ainda sem a função
+			</p>
+
+	</div> <!-- box.// -->
+	</aside> <!-- col.// -->
+</div> <!-- row.// -->
+
+</div> <!-- container .//  -->
+</section>
+
+</body>
+
+<style media="screen">
+  #info-produto {
+    display: flex;
+    flex-direction: column;
+  }
+  .child {
+    margin-bottom: auto;
+    margin-top: auto;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+</style>
+
+<script src="{% static 'js/visualizarProduto.js' %}" type="text/javascript"></script>
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+
+<script>
+  // $j optional alias to jQuery noConflict()
+  var $j = jQuery.noConflict();
+
+  $j(document).ready(function() {
+  	$j('[data-toggle="popover"]').popover();
+  });
+</script>
+
+{% endblock %}

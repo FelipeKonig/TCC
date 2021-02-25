@@ -17,6 +17,10 @@ class test_urls(SimpleTestCase):
         url = reverse('produtos:editar_produto')
         self.assertEquals(resolve(url).func, editar_produto)
 
+    def test_produto_cadastro_url(self):
+        url = reverse('produtos:visualizar_produto')
+        self.assertEquals(resolve(url).func, visualizar_produto)
+
     #AJAX
     def test_ajax_carregar_subcategorias_url(self):
         url = reverse('produtos:ajax_carregar_subcategorias')

@@ -95,7 +95,7 @@
 									<form method="POST" action="{% url 'produtos:editar_produto' %}" autocomplete="off">
 										{% csrf_token %}
 										<input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
-										<button class="btn btn-outline-primary mb-3" type="submit" >  Editar <i class="fa fa-pen"></i></button>
+										<button class="btn btn-outline-primary mb-3" type="submit" > Editar <i class="fa fa-pen"></i></button>
 									</form>
 									&nbsp;
 									<form method="POST" autocomplete="off">
@@ -106,7 +106,11 @@
 								</div>
 
 								<hr>
-								<a href="#" class="btn btn-success btn-block">Detalhes <i class="fa fa-info-circle"></i></a>
+								<form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
+									{% csrf_token %}
+									<input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
+									<button class="btn btn-success btn-block" type="submit" > Detalhes <i class="fa fa-info-circle"></i></i></button>
+								</form>
 
 							</figcaption>
 					</figure>
