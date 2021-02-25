@@ -66,6 +66,7 @@ def empresa_perfil(request):
         empresa = Empresa.objects.get(pk=request.user.empresa.pk)
     else:
         empresa = None
+
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=empresa, status=True)
     telefones = Telefone.objects.filter(usuario=request.user, empresa=empresa, status=True)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
@@ -132,12 +133,12 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
             empresa = Empresa.objects.create(cnpj=cnpj, razaoSocial=razaoSocial,
                                              fantasia=nomeFantasia, logo=logo)
 
-            if request.POST['inscricaoEstadual']:
-                inscricaoEstadual = form.cleaned_data['inscricaoEstadual']
-                empresa.inscricaoEstadual=inscricaoEstadual
-            if request.POST['inscricaoMunicipal']:
-                inscricaoMunicipal = form.cleaned_data['inscricaoMunicipal']
-                empresa.inscricaoMunicipal=inscricaoMunicipal
+            if request.POST['inscricaoEstadual'] != '':
+                empresa.inscricaoEstadual=request.POST['inscricaoEstadual']
+                empresa.save()
+            if request.POST['inscricaoMunicipal'] != '':
+                empresa.inscricaoMunicipal=request.POST['inscricaoMunicipal']
+                empresa.save()
 
             usuario = self.request.user
             usuario_bd = CustomUsuario.objects.get(email=usuario.email)

@@ -31,7 +31,6 @@ class CadastroEmpresa(forms.ModelForm):
         self.fields['razaoSocial'].widget.attrs['placeholder'] = 'Insira a razão social'
         self.fields['fantasia'].widget.attrs['placeholder'] = 'Insira o nome fantasia'
         self.fields['cnpj'].widget.attrs['placeholder'] = 'Insira o CNPJ'
-        self.fields['logo'].widget.attrs['required'] = True
         self.fields['inscricaoEstadual'].widget.attrs['placeholder'] = 'Insira a inscrição estadual'
         self.fields['inscricaoMunicipal'].widget.attrs['placeholder'] = 'Insira a inscrição municipal'
 

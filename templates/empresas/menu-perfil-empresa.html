@@ -2,11 +2,21 @@
   <nav class="list-group">
     <a class="list-group-item" href="{% url 'usuarios:perfil_principal' %}"> Visão geral da conta </a>
     <a class="list-group-item" href="{% url 'empresas:empresa_perfil' %}"> Minha empresa </a>
-    <a class="list-group-item" href="{% url 'empresas:empresa_endereco' %}"> Endereços da empresa </a>
-    <a class="list-group-item" href="page-profile-orders.html"> Pedidos em espera </a>
-    <a class="list-group-item" href="page-profile-wishlist.html"> Minha lista de vendas </a>
-    <a class="list-group-item" href="page-profile-seller.html"> Meus itens de venda </a>
-    <a class="list-group-item" href="{% url 'empresas:editar_empresa' %}"> Configurações da empresa </a>
+    <a class="list-group-item" href="{% url 'vitrines:minha_vitrine' %}"> Minha vitrine </a>
+    {% if not empresa %}
+    <a class="list-group-item" href="#!"> Endereços da empresa </a>
+    <a class="list-group-item" href="#!"> Pedidos em espera </a>
+    <a class="list-group-item" href="#!"> Minha lista de vendas </a>
+    <a class="list-group-item" href="#!"> Meus itens de venda </a>
+    <a class="list-group-item" href="#!"> Configurações da empresa </a>
     <a class="list-group-item" href="{% url 'logout' %}"> Sair </a>
+    {% else %}
+      <a class="list-group-item" href="{% url 'empresas:empresa_endereco' %}"> Endereços da empresa </a>
+      <a class="list-group-item" href="#!"> Pedidos em espera </a>
+      <a class="list-group-item" href="#!"> Minha lista de vendas </a>
+      <a class="list-group-item" href="#!"> Meus itens de venda </a>
+      <a class="list-group-item" href="{% url 'empresas:editar_empresa' %}"> Configurações da empresa </a>
+      <a class="list-group-item" href="{% url 'logout' %}"> Sair </a>
+    {% endif %}
   </nav>
 </aside> <!-- col.// -->

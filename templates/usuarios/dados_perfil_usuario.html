@@ -24,7 +24,7 @@
 				<figure class="icontext">
 						<div class="icon">
 							{% if not user.foto %}
-								<img class="rounded-circle img-sm" id="foto" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
+								<img class="rounded-circle img-sm" src="{% static 'ecommerce/images/avatars/user-icon.png' %}">
 								<input type="hidden" name="user icons png from pngtree.com" href='https://pngtree.com/so/user-icons'>
 								</input>
 							{% else %}
@@ -35,6 +35,9 @@
 							<strong> {{ user.first_name }} {{user.last_name }} </strong> <br>
 							<p class="mb-2"> {{ user.email }}  </p>
 							<button class="btn btn-light btn-sm" data-toggle="modal" data-target="#modal-foto">Alterar foto</button>
+
+							{% include 'usuarios/modal-foto.html' %}
+
 						</div>
 				</figure>
 				<hr>
@@ -122,7 +125,7 @@
 	</main>
 	<!-- card.// -->
 
-	{% include 'usuarios/modal-foto.html' %}
+
 	<script src="{% static 'js/validarFoto.js' %}" type="text/javascript"></script>
 
 {% endblock %}
