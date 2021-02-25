@@ -187,7 +187,6 @@ def editar_produto(request):
                 adicionar_imagens_produto(imagens_produto, produto)
 
                 messages.success(request, 'Produto editado com sucesso!')
-                return redirect('vitrines:minha_vitrine')
 
             else:
                 messages.error(request, 'Erro ao enviar formulário!')
