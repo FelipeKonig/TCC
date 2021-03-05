@@ -31,6 +31,7 @@ def adicionar_imagem_logo(instance, filename):
 class Categoria(models.Model):
     nome = models.CharField('Nome', max_length=200, help_text='Obrigatório')
     status = models.BooleanField('Ativo?', default=True)
+    numero_acessos = models.PositiveIntegerField(null=False, default=0)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -44,6 +45,7 @@ class SubCategoria(models.Model):
     nome = models.CharField('Nome', max_length=200, help_text='Não obrigatório')
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, null=True, default="")
     status = models.BooleanField('Ativo?', default=True)
+    numero_acessos = models.PositiveIntegerField(null=False, default=0)
 
     class Meta:
         verbose_name = 'Subcategoria'
@@ -60,6 +62,7 @@ class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, default='')
     subCategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, null=True)
     vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.CASCADE, default='')
+    numero_acessos = models.PositiveIntegerField(null=False, default=0)
     status = models.BooleanField('Ativo?', default=True)
 
     class Meta:
@@ -109,3 +112,15 @@ class Atributo(models.Model):
 
     def __str__(self):
         return '{}-caracteristica:{}'.format(self.nome, self.caracteristica)
+
+class Avaliacao(models.Model):
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
+    nota = models.IntegerField('Nota', default=0)
+    quantidade = models.PositiveIntegerField('Quantidade', default=0)
+    observacao = models.TextField('Observação', max_length=250, help_text='Não obrigatório', null=True)
+    vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.PROTECT, default="")
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT, default="")
+
+    class Meta:
+        verbose_name = 'Avaliação'
+        verbose_name_plural = 'Avaliações'
