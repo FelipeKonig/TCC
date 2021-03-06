@@ -114,13 +114,24 @@ class Atributo(models.Model):
         return '{}-caracteristica:{}'.format(self.nome, self.caracteristica)
 
 class Avaliacao(models.Model):
-    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default="")
     nota = models.IntegerField('Nota', default=0)
     quantidade = models.PositiveIntegerField('Quantidade', default=0)
-    observacao = models.TextField('Observação', max_length=250, help_text='Não obrigatório', null=True)
     vitrine = models.ForeignKey('vitrines.Vitrine', on_delete=models.PROTECT, default="")
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT, default="")
 
     class Meta:
         verbose_name = 'Avaliação'
         verbose_name_plural = 'Avaliações'
+
+    def atualizar_avaliacao(self):
+        avaliacoes = Avaliacao.objects.filter(self.produto)
+        nota_total = 0
+
+        for nota in avaliacoes:
+            nota_total += avaliacoes.nota
+        calc_nota = nota_total / self.quantidade
+
+        return nota_total
+
+    def __str__(self):
+        return 'nota:{}; quantidade:{}-produto:{}; vitrine:{}'.format(self.nota, self.quantidade, self.produto.nome, self.vitrine.nome)

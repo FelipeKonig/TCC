@@ -86,12 +86,14 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 def visualizar_produto(request):
 
     produto = Produto.objects.get(pk=request.POST.get('campoIDProduto'))
+    vitrine = Vitrine.objects.get(vendedor=request.user)
     imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
     lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
     lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
 
     contexto = {
         'produto': produto,
+        'vitrine': vitrine,
         'primeira_imagem': imagens_produto[0],
         'imagens_produto': imagens_produto,
         'lista_caracteristicas': lista_caracteristicas,

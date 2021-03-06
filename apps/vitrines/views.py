@@ -92,6 +92,13 @@ class CriarVitrine(LoginRequiredMixin, CreateView):
             nome = form.cleaned_data['nome']
             descricao = form.cleaned_data['descricao']
             vitrine = Vitrine.objects.create(nome=nome, descricao=descricao, vendedor=usuario_logado)
+
+            try:
+                if request.POST['empresa']:
+                    vitrine.empresa = request.user.empresa
+            except:
+                vitrine.empresa = None
+                
             vitrine.save()
 
             messages.success(request, 'Vitrine cadastrada com sucesso!')
@@ -126,6 +133,12 @@ def editar_vitrine(request):
                 vitrine.nome = nome
                 vitrine.descricao = descricao
 
+                try:
+                    if request.POST['empresa']:
+                        vitrine.empresa = request.user.empresa
+                except:
+                    vitrine.empresa = None
+
                 vitrine.save()
                 messages.success(request, 'Vitrine editada com sucesso!')
                 return redirect('vitrines:minha_vitrine')
@@ -137,7 +150,8 @@ def editar_vitrine(request):
 
     context = {
         'form': form,
-        'usuario': usuario_logado
+        'usuario': usuario_logado,
+        'vitrine': vitrine
     }
 
     return render(request, 'vitrines/cadastros/vitrine_editar.html', context)

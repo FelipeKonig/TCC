@@ -12,6 +12,8 @@
         <li class="breadcrumb-item"><a href="#!">{{ produto.categoria }}</a></li>
         {% if produto.subCategoria %}
           <li class="breadcrumb-item"><a href="#!">{{ produto.SubCategoria }}</a></li>
+        {% else %}
+          <li class="breadcrumb-item"><a href="#!">Sem subcategoria</a></li>
         {% endif %}
         <li class="breadcrumb-item active" aria-current="page">Items</li>
     </ol>
@@ -65,6 +67,18 @@
   <div class="mb-3">
   	<var class="price h4">R$ {{ produto.preco }}</var>
   </div> <!-- price-detail-wrap .// -->
+  <div class="mb-3">
+  	<p>Vitrine: {{ vitrine.nome }}</p>
+  </div> <!-- price-detail-wrap .// -->
+  {% if vitrine.empresa %}
+    <div class="mb-3">
+    	<p><i class="fas fa-building"></i> &nbsp; Empresa: {{ vitrine.empresa.fantasia }}</p>
+    </div> <!-- price-detail-wrap .// -->
+  {% else %}
+    <div class="mb-3">
+    	<p><i class="fas fa-male"></i> &nbsp; Pessoa: {{ vitrine.vendedor.nome }}</p>
+    </div> <!-- price-detail-wrap .// -->
+  {% endif %}
 
   </article> <!-- product-info-aside .// -->
   <div class="product-info-aside child">
@@ -89,7 +103,7 @@
     			</a>
     			<a href="#!" data-toggle="popover" data-content="Função indisponível para o vendedor" data-placement="bottom"
             class="btn btn-light mt-3">
-            <i class="fas fa-envelope"></i> <span class="text">contate o fornecedor</span>
+            <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
     			</a>
     		</div> <!-- col.// -->
       {% endif %}

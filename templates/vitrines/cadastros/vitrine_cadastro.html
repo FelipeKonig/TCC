@@ -45,6 +45,17 @@
                             {{ form.descricao|as_crispy_field }}
                       </div>
                   </div>
+                  {% if usuario.empresa %}
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                           <label for="empresa"> Cadastrar sua empresa na vitrine </label>
+                           <label class="checkbox-inline"><input type="checkbox" name="empresa" value="{{ usuario.empresa }}">
+                             {{ usuario.empresa.fantasia }}
+                           </label>
+                        </div>
+                    </div>
+                  {% endif %}
+
                   <div class="form-group col-md-9">
                       <button type="submit" class="btn btn-primary"> Salvar </button>
                   </div>

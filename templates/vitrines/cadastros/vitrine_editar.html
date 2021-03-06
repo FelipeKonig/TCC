@@ -51,6 +51,28 @@
 
                       </div>
                   </div>
+									{% if vitrine.empresa %}
+										<div class="checkbox">
+												<div class="form-group col-md-9">
+													 <label for="empresa" class="col-sm-12">Cadastrar sua empresa na vitrine </label>
+														<input type="checkbox" name="empresa" value="{{ vitrine.empresa }}" checked>
+														 {{ vitrine.empresa.fantasia }}
+														</input>
+												</div>
+										</div>
+									{% else %}
+										{% if usuario.empresa %}
+											<div class="checkbox">
+		                      <div class="form-group col-md-9">
+		                         <label for="empresa" class="col-sm-12">Cadastrar sua empresa na vitrine </label>
+														 	<input type="checkbox" name="empresa" value="{{ usuario.empresa }}">
+															 {{ usuario.empresa.fantasia }}
+														 	</input>
+		                      </div>
+		                  </div>
+										{% endif %}
+									{% endif %}
+
                   <div class="form-group col-md-9">
                       <button type="submit" class="btn btn-primary btn-block"> Salvar </button>
                   </div>
