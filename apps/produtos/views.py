@@ -86,19 +86,33 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 def visualizar_produto(request):
 
     produto = Produto.objects.get(pk=request.POST.get('campoIDProduto'))
-    vitrine = Vitrine.objects.get(vendedor=request.user)
+    vitrine = Vitrine.objects.get(vendedor=produto.vitrine.vendedor)
+    avaliacao = Avaliacao.objects.filter(produto=produto, vitrine=vitrine).first()
     imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
     lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
     lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
 
+    vendedor = False
+    if vitrine.vendedor == request.user:
+        vendedor = True
+
+    rating = list()
+    nota = 1
+    if avaliacao != None:
+        while nota <= avaliacao.nota:
+            rating.append(nota)
+            nota += 1
+            
     contexto = {
+        'nota': rating,
         'produto': produto,
         'vitrine': vitrine,
-        'primeira_imagem': imagens_produto[0],
+        'vendedor': vendedor,
+        'avaliacao': avaliacao,
         'imagens_produto': imagens_produto,
-        'lista_caracteristicas': lista_caracteristicas,
+        'primeira_imagem': imagens_produto[0],
         'lista_atributos': lista_atributos,
-        'vendedor': True
+        'lista_caracteristicas': lista_caracteristicas
     }
 
     return render(request, 'produtos/produto-visualizar.html', contexto)

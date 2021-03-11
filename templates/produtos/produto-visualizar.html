@@ -49,10 +49,10 @@
 
   <div class="rating-wrap my-3">
   	<ul class="rating-stars">
-  		<li style="width:80%" class="stars-active">
-  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-  			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-  			<i class="fa fa-star"></i>
+  		<li class="stars-active">
+        {% for rating in nota %}
+  			   <i class="fa fa-star"></i>
+        {% endfor %}
   		</li>
   		<li>
   			<i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -60,7 +60,11 @@
   			<i class="fa fa-star"></i>
   		</li>
   	</ul>
-  	<small class="label-rating text-muted">132 avaliações</small>
+    {% if avaliacao.quantidade == 1 %}
+      <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliação</small>
+    {% else %}
+      <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliações</small>
+    {% endif %}
   	<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 encomendas </small>
   </div> <!-- rating-wrap.// -->
 
@@ -76,7 +80,7 @@
     </div> <!-- price-detail-wrap .// -->
   {% else %}
     <div class="mb-3">
-    	<p><i class="fas fa-male"></i> &nbsp; Pessoa: {{ vitrine.vendedor.nome }}</p>
+    	<p><i class="fas fa-male"></i> &nbsp; Pessoa: {{ vitrine.vendedor.first_name }} {{ vitrine.vendedor.last_name }}</p>
     </div> <!-- price-detail-wrap .// -->
   {% endif %}
 
@@ -106,6 +110,15 @@
             <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
     			</a>
     		</div> <!-- col.// -->
+      {% else %}
+      <div class="form-group col-lg">
+        <a href="#!" class="btn  btn-primary mt-3">
+          <i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
+        </a>
+        <a href="#!" class="btn btn-light mt-3">
+          <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
+        </a>
+      </div> <!-- col.// -->
       {% endif %}
   	</div> <!-- row.// -->
   </div>
@@ -187,16 +200,5 @@
 </style>
 
 <script src="{% static 'js/visualizarProduto.js' %}" type="text/javascript"></script>
-<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="bootstrap.min.js"></script>
-
-<script>
-  // $j optional alias to jQuery noConflict()
-  var $j = jQuery.noConflict();
-
-  $j(document).ready(function() {
-  	$j('[data-toggle="popover"]').popover();
-  });
-</script> -->
 
 {% endblock %}
