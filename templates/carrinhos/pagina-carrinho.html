@@ -18,15 +18,17 @@
 <tr class="small text-uppercase">
   <th scope="col-sm">Produto</th>
   <th scope="col-sm" width="120">Quantidade</th>
-  <th scope="col-sm" width="120">Preço</th>
+  <th scope="col-sm" width="130">Preço</th>
   <th scope="col-sm" class="text-right" width="200"> </th>
 </tr>
 </thead>
 <tbody>
+	<hr>
 	<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
 	{% for pedido in pedidos_produtos %}
-		<tr id="coluna_{{ pedido.produto.nome }}_{{ pedido.pk }}">
+		<tr>
 			<td>
+				<hr>
 				<figure class="itemside">
 					{% for imagem in imagem_produto %}
 						{% if imagem.produto == pedido.produto %}
@@ -40,18 +42,21 @@
 				</figure>
 			</td>
 			<td>
+				<hr>
 				<select class="form-control" name="select_quantidade" id="select_quantidade_{{ pedido.pedido.pk }}_{{ pedido.produto.pk }}">
 					<input type="hidden" id="{{ pedido.produto.nome }}-{{ pedido.pedido.pk }}-{{ pedido.produto.pk }}"
 						value="{{ pedido.quantidade }}-{{ pedido.produto.quantidade }} ">
 				</select>
 			</td>
 			<td>
+				<hr>
 				<div class="price-wrap">
 					<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
 					<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
 				</div> <!-- price-wrap .// -->
 			</td>
 			<td>
+				<hr>
 				<a data-original-title="Salvar nos favoritos" title="" href="" class="btn btn-light mt-2" data-toggle="tooltip">
 					<i class="fa fa-heart"></i>
 				</a>
@@ -71,7 +76,7 @@
 	</div>
 {% else %}
 	<div class="alert alert-success mt-3" id="div_mensagem">
-		<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automatica na vitrine do vendedor </p>
+		<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automática na vitrine do vendedor </p>
 	</div>
 {% endif %}
 

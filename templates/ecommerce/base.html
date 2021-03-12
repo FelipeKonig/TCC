@@ -166,17 +166,22 @@
 						<a href="{% url 'vitrines:minha_vitrine' %}"> Minha vitrine </a>
 						<a href="{% url 'usuarios:perfil_endereco' %}"> Meus endereços </a>
 						<a href="page-profile-orders.html"> Meus pedidos </a>
+						<a href="{% url 'pedidos:visualizar_carrinho' %}"> Meu carrinho </a>
 				    <a href="page-profile-wishlist.html"> Minha lista de desejos </a>
-				    <a href="page-profile-seller.html"> Meus itens de venda </a>
 				    <a href="{% url 'usuarios:perfil_configuracao' %}"> Configurações </a>
 					</div>
 					<div class="col-6">
 						{% if not usuario.empresa %}
-				      <a href="#!"> Endereços da empresa </a>
-				      <a href="#!"> Pedidos em espera </a>
-				      <a href="#!"> Minha lista de vendas </a>
-				      <a href="#!"> Meus itens de venda </a>
-				      <a href="#!"> Configurações da empresa </a>
+				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+							 	data-placement="right"> Endereços da empresa </a>
+				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+							 	data-placement="right"> Pedidos em espera </a>
+				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+							 	data-placement="right"> Minha lista de vendas </a>
+							<a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+								data-placement="right"> Meus itens de vendas </a>
+				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+							 	data-placement="right"> Configurações da empresa </a>
 				    {% else %}
 				      <a href="{% url 'empresas:empresa_endereco' %}"> Endereços da empresa </a>
 				      <a href="#!"> Pedidos em espera </a>

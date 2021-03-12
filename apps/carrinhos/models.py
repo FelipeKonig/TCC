@@ -24,13 +24,20 @@ class Pedido_Produto(models.Model):
     quantidade = models.PositiveIntegerField('Quantidade')
     preco = models.DecimalField('Preço', max_digits=10, decimal_places=2, help_text='Obrigatório')
     precoTotal = models.DecimalField('Preço total', max_digits=10, decimal_places=2, help_text='Obrigatório', default=0)
-    data_criacao = models.DateField('Data de criação')
-    data_retirada = models.DateField('Data de entrega')
-    status = models.BooleanField('Finalizado', default=False)
+    dataCriacao = models.DateField('Data de criação')
+    dataRetirada = models.DateField('Data de entrega', null=True)
+    statusReservado = models.BooleanField('Reservado', default=False)
+    statusFinalizado = models.BooleanField('Finalizado', default=False)
 
     class Meta:
         verbose_name = 'Pedido_Produto'
         verbose_name_plural = 'Pedidos_Produtos'
 
     def __str__(self):
-        return 'pedido id: {}; produto: {}; vendedor: {}; status: {}'.format(self.pedido.pk, self.produto.nome, self.vendedor.nome, self.status)
+        return 'pedido id: {}; produto: {}; vendedor: {}; status de reserva: {}; status de entrega: {} '.format(
+            self.pedido.pk,
+            self.produto.nome,
+            self.vendedor.nome,
+            self.statusReservado,
+            self.statusFinalizado
+        )
