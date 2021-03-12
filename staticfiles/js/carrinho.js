@@ -10,6 +10,7 @@ $(document).ready(function () {
     var produto_nome = lista_produtos[i];
 
     produto_nome = reparaString(produto_nome);
+
     var produto = document.getElementById(produto_nome);
     var valor = produto.value;
     var quant = valor.split('-');
@@ -18,9 +19,9 @@ $(document).ready(function () {
     for(j=1; j <= quant_total; j++){
       var item = produto_nome.split('-');
       if(j != quant[0]){
-        $(`#select_quantidade_${item[1]}_${item[2]}`).append(`<option value="${j}" >${j}</option>`);
+        $(`#select_quantidade_${item[1]}`).append(`<option value="${j}" >${j}</option>`);
       }else{
-        $(`#select_quantidade_${item[1]}_${item[2]}`).append(`<option value="${j}" selected >${j}</option>`);
+        $(`#select_quantidade_${item[1]}`).append(`<option value="${j}" selected >${j}</option>`);
       }
     }
   }
@@ -69,25 +70,6 @@ $(document).ready(function () {
   		 },
       success: function (data) {
         $(produto).parents('tr').detach();
-
-        var pedido = Object.values(data);
-
-        if(pedido[0]){
-
-          var nova_msg = `<div class="alert alert-warning mt-3">
-          <p class="icontext"> O carrinho não possui nenhum produto </p>
-          </div>`
-
-          var novo_bt = `<a href="#!" class="btn btn-primary float-md mt-2" data-toggle="popover"
-          data-content="Nenhum produto para ser reservado" data-placement="bottom">
-          Finalizar pedido <i class="fa fa-chevron-right"></i>
-          </a>`
-
-          $(`#div_mensagem`).replaceWith(nova_msg);
-          $(`#bt_finalizar`).replaceWith(novo_bt);
-          document.getElementById(`preco_total`).innerHTML = 'R$ 0,0';
-          document.getElementById(`quantidade_total`).innerHTML = '0';
-        }
       }
     });
   });

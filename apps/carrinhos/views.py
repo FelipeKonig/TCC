@@ -12,8 +12,12 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 def visualizar_carrinho(request):
 
-    pedidos = Pedido.objects.filter(cliente=request.user)
-    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos)
+    pedidos = Pedido.objects.filter(cliente=request.user, status=False)
+    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, status=False)
+
+    pedidos_vazio = False
+    if len(pedidos_produtos) == 0:
+        pedidos_vazio = True
 
     quantidade_total = 0
     preco_total = 0
@@ -29,13 +33,14 @@ def visualizar_carrinho(request):
     index = 0
     while index < len(pedidos_produtos):
         pedido = pedidos_produtos[index]
-        lista_pedidos.append('{}-{}'.format(pedido.produto.nome,pedido.pedido.pk))
+        lista_pedidos.append('{}-{}-{}'.format(pedido.produto.nome,pedido.pedido.pk,pedido.produto.pk))
 
         imagem = ImagemProduto.objects.filter(produto=pedido.produto).first()
         imagem_produto.append(imagem)
         index += 1
 
     contexto = {
+        'pedidos_vazio': pedidos_vazio,
         'pedidos': pedidos,
         'preco_total': preco_total,
         'quantidade_total': quantidade_total,
@@ -51,9 +56,7 @@ def alterar_quantidade_produto_pedido(request):
 
     pedido_id = request.GET.get('produto').split('_')
     quantidade = request.GET.get('quantidade')
-
-    pedido_produto = Pedido_Produto.objects.filter(pedido__pk=pedido_id[2]).first()
-
+    pedido_produto = Pedido_Produto.objects.filter(pedido__pk=pedido_id[2], produto__pk=pedido_id[3], status=False).first()
     pedido_produto.quantidade=quantidade
     preco = float(pedido_produto.produto.preco)
 
@@ -67,6 +70,7 @@ def alterar_quantidade_produto_pedido(request):
 
     quantidade_total = 0
     preco_total = 0
+
     for pedido in pedidos_produtos:
         quantidade_total += pedido.quantidade
         preco_total += float(float(pedido.preco) * float(pedido.quantidade))
@@ -78,6 +82,26 @@ def alterar_quantidade_produto_pedido(request):
         'preco_total': preco_total,
         'quantidade_total': quantidade_total
     }
-    
+
+    if request.is_ajax():
+        return JsonResponse(contexto)
+
+def remover_produto_pedido(request):
+
+    produto_pedido = request.GET.get('produto').split('_')
+
+    produto = Pedido_Produto.objects.filter(pk=produto_pedido[1], produto__nome=produto_pedido[0], status=False).delete()
+
+    pedidos = Pedido.objects.filter(cliente=request.user, status=False)
+    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, status=False)
+
+    pedidos_vazio = False
+    if len(pedidos_produtos) == 0:
+        pedidos_vazio = True
+
+    contexto = {
+        'pedidos_vazio': pedidos_vazio
+    }
+
     if request.is_ajax():
         return JsonResponse(contexto)

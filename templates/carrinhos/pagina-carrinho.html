@@ -25,7 +25,7 @@
 <tbody>
 	<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
 	{% for pedido in pedidos_produtos %}
-		<tr>
+		<tr id="coluna_{{ pedido.produto.nome }}_{{ pedido.pk }}">
 			<td>
 				<figure class="itemside">
 					{% for imagem in imagem_produto %}
@@ -40,8 +40,8 @@
 				</figure>
 			</td>
 			<td>
-				<select class="form-control" name="select_quantidade" id="select_quantidade_{{ pedido.pedido.pk }}">
-					<input type="hidden" id="{{ pedido.produto.nome }}-{{ pedido.pedido.pk }}"
+				<select class="form-control" name="select_quantidade" id="select_quantidade_{{ pedido.pedido.pk }}_{{ pedido.produto.pk }}">
+					<input type="hidden" id="{{ pedido.produto.nome }}-{{ pedido.pedido.pk }}-{{ pedido.produto.pk }}"
 						value="{{ pedido.quantidade }}-{{ pedido.produto.quantidade }} ">
 				</select>
 			</td>
@@ -56,7 +56,7 @@
 					<i class="fa fa-heart"></i>
 				</a>
 				&nbsp;
-				<a href="" class="btn btn-light mt-2"> remover</a>
+				<button name="remover_produto" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2"> remover</button>
 			</td>
 		</tr>
 	{% endfor %}
@@ -65,9 +65,16 @@
 
 </div> <!-- card.// -->
 
-<div class="alert alert-success mt-3">
-	<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automatica na vitrine do vendedor </p>
-</div>
+{% if pedidos_vazio %}
+	<div class="alert alert-warning mt-3">
+		<p class="icontext"> O carrinho não possui nenhum produto </p>
+	</div>
+{% else %}
+	<div class="alert alert-success mt-3" id="div_mensagem">
+		<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automatica na vitrine do vendedor </p>
+	</div>
+{% endif %}
+
 
 	</main> <!-- col.// -->
 	<aside class="col-md-3">
@@ -88,9 +95,14 @@
 	</aside> <!-- col.// -->
 </div>
 <div class="card-body border-top">
-	<a href="#" class="btn btn-light mt-2"> <i class="fa fa-chevron-left"></i> Continuar comprando </a>
+	<a href="{% url 'e-commerce:home' %}" class="btn btn-light mt-2"> <i class="fa fa-chevron-left"></i> Continuar comprando </a>
 	&nbsp;
-	<a href="#" class="btn btn-primary float-md mt-2"> Finalizar pedido <i class="fa fa-chevron-right"></i> </a>
+	{% if pedidos_vazio %}
+		<a href="#!" class="btn btn-primary float-md mt-2" data-toggle="popover" data-content="Nenhum produto para ser reservado"
+		 	data-placement="bottom"> Finalizar pedido <i class="fa fa-chevron-right"></i> </a>
+	{% else %}
+		<a href="#!" id="bt_finalizar" class="btn btn-primary float-md mt-2"> Finalizar pedido <i class="fa fa-chevron-right"></i> </a>
+	{% endif %}
 </div>
 
 </div> <!-- container .//  -->

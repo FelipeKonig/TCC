@@ -8,13 +8,14 @@ from apps.vitrines.models import Vitrine
 class Pedido(models.Model):
     cliente = models.ForeignKey(CustomUsuario, on_delete=models.PROTECT, default="")
     produto = models.ManyToManyField(Produto, through="Pedido_Produto")
+    status = models.BooleanField('Finalizado', default=False)
 
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
 
     def __str__(self):
-        return 'pedido id: {}; cliente: {}'.format(self.pk, self.cliente.email)
+        return 'pedido id: {}; cliente: {}; status:{}'.format(self.pk, self.cliente.email, self.status)
 
 class Pedido_Produto(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
@@ -32,4 +33,4 @@ class Pedido_Produto(models.Model):
         verbose_name_plural = 'Pedidos_Produtos'
 
     def __str__(self):
-        return 'pedido id: {}; produto: {}; vendedor: {}'.format(self.pedido.pk, self.produto.nome, self.vendedor.nome)
+        return 'pedido id: {}; produto: {}; vendedor: {}; status: {}'.format(self.pedido.pk, self.produto.nome, self.vendedor.nome, self.status)
