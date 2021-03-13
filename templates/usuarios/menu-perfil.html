@@ -4,7 +4,7 @@
     <a class="list-group-item" href="{% url 'empresas:empresa_perfil' %}"> Minha empresa</a>
     <a class="list-group-item" href="{% url 'vitrines:minha_vitrine' %}"> Minha vitrine </a>
     <a class="list-group-item" href="{% url 'usuarios:perfil_endereco' %}"> Meus endereços </a>
-    <a class="list-group-item" href="page-profile-orders.html"> Meus pedidos </a>
+    <a class="list-group-item" href="{% url 'pedidos:listar_pedidos' %}"> Meus pedidos </a>
     <a class="list-group-item" href="page-profile-wishlist.html"> Minha lista de desejos </a>
     <a class="list-group-item" href="page-profile-seller.html"> Meus itens de venda </a>
     <a class="list-group-item" href="{% url 'usuarios:perfil_configuracao' %}"> Configurações </a>

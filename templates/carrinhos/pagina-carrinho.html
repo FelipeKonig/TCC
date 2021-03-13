@@ -11,74 +11,81 @@
 
 <div class="row">
 	<main class="col-md-9">
-<div class="card">
+		<div class="card">
 
-<table class="table table-responsive-sm table-borderless table-shopping-cart">
-<thead class="text-muted">
-<tr class="small text-uppercase">
-  <th scope="col-sm">Produto</th>
-  <th scope="col-sm" width="120">Quantidade</th>
-  <th scope="col-sm" width="130">Preço</th>
-  <th scope="col-sm" class="text-right" width="200"> </th>
-</tr>
-</thead>
-<tbody>
-	<hr>
-	<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
-	{% for pedido in pedidos_produtos %}
-		<tr>
-			<td>
+			<table class="table table-responsive-lg table-borderless table-shopping-cart">
+			<thead class="text-muted">
+			<tr class="small text-uppercase">
+			  <th scope="col-sm">Produto</th>
+				<th scope="col-sm" width="190">Informações gerais</th>
+			  <th scope="col-sm" width="120">Quantidade</th>
+			  <th scope="col-sm" width="130">Preço</th>
+			  <th scope="col-sm" class="text-left" width="200">Opções</th>
+			</tr>
+			</thead>
+			<tbody>
 				<hr>
-				<figure class="itemside">
-					{% for imagem in imagem_produto %}
-						{% if imagem.produto == pedido.produto %}
-							<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
-						{% endif	%}
-					{% endfor %}
-					<figcaption class="info">
-						<a href="#" class="title text-dark">{{ pedido.produto.nome }}</a>
-						<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
-					</figcaption>
-				</figure>
-			</td>
-			<td>
-				<hr>
-				<select class="form-control" name="select_quantidade" id="select_quantidade_{{ pedido.pedido.pk }}_{{ pedido.produto.pk }}">
-					<input type="hidden" id="{{ pedido.produto.nome }}-{{ pedido.pedido.pk }}-{{ pedido.produto.pk }}"
-						value="{{ pedido.quantidade }}-{{ pedido.produto.quantidade }} ">
-				</select>
-			</td>
-			<td>
-				<hr>
-				<div class="price-wrap">
-					<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
-					<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
-				</div> <!-- price-wrap .// -->
-			</td>
-			<td>
-				<hr>
-				<a data-original-title="Salvar nos favoritos" title="" href="" class="btn btn-light mt-2" data-toggle="tooltip">
-					<i class="fa fa-heart"></i>
-				</a>
-				&nbsp;
-				<button name="remover_produto" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2"> remover</button>
-			</td>
-		</tr>
-	{% endfor %}
-</tbody>
-</table>
+				<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
+				{% for pedido in pedidos_produtos %}
+					<tr>
+						<td>
+							<hr>
+							<figure class="itemside">
+								{% for imagem in imagem_produto %}
+									{% if imagem.produto == pedido.produto %}
+										<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
+									{% endif	%}
+								{% endfor %}
+								<figcaption class="info">
+									<a href="#" class="title text-dark">{{ pedido.produto.nome }}</a>
+									<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
+								</figcaption>
+							</figure>
+						</td>
+						<td>
+							<hr>
+							<button name="info_pedido" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2 text-nowrap">
+								ver informações do pedido
+							</button>
+						</td>
+						<td>
+							<hr>
+							<select class="form-control" name="select_quantidade" id="select_quantidade_{{ pedido.pedido.pk }}_{{ pedido.produto.pk }}">
+								<input type="hidden" id="{{ pedido.produto.nome }}-{{ pedido.pedido.pk }}-{{ pedido.produto.pk }}"
+									value="{{ pedido.quantidade }}-{{ pedido.produto.quantidade }} ">
+							</select>
+						</td>
+						<td>
+							<hr>
+							<div class="price-wrap">
+								<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
+								<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
+							</div> <!-- price-wrap .// -->
+						</td>
+						<td>
+							<hr>
+							<a data-original-title="Salvar nos favoritos" title="" href="" class="btn btn-light mt-2" data-toggle="tooltip">
+								<i class="fa fa-heart"></i>
+							</a>
+							&nbsp;
+							<button name="remover_produto" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2"> remover</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			</table>
 
-</div> <!-- card.// -->
+		</div> <!-- card.// -->
 
-{% if pedidos_vazio %}
-	<div class="alert alert-warning mt-3">
-		<p class="icontext"> O carrinho não possui nenhum produto </p>
-	</div>
-{% else %}
-	<div class="alert alert-success mt-3" id="div_mensagem">
-		<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automática na vitrine do vendedor </p>
-	</div>
-{% endif %}
+		{% if pedidos_vazio %}
+			<div class="alert alert-warning mt-3">
+				<p class="icontext"> O carrinho não possui nenhum produto </p>
+			</div>
+		{% else %}
+			<div class="alert alert-success mt-3" id="div_mensagem">
+				<p class="icontext"><i class="icon text-success fa fa-truck"></i> Reserva automática na vitrine do vendedor </p>
+			</div>
+		{% endif %}
 
 
 	</main> <!-- col.// -->
@@ -92,7 +99,7 @@
 					<hr>
 					<dl class="dlist-align">
 					  <dt>Preço total:</dt>
-						<dd class="text-right  h5" id="preco_total" ><strong>R$ {{ preco_total }}</strong></dd>
+						<dd class="text-right h5" id="preco_total" ><strong>R$ {{ preco_total }}</strong></dd>
 					</dl>
 
 			</div> <!-- card-body.// -->
@@ -100,14 +107,20 @@
 	</aside> <!-- col.// -->
 </div>
 <div class="card-body border-top">
+	<form class="" action="{% url 'pedidos:listar_pedidos' %}" method="post">
+		{% csrf_token %}
 	<a href="{% url 'e-commerce:home' %}" class="btn btn-light mt-2"> <i class="fa fa-chevron-left"></i> Continuar comprando </a>
 	&nbsp;
 	{% if pedidos_vazio %}
-		<a href="#!" class="btn btn-primary float-md mt-2" data-toggle="popover" data-content="Nenhum produto para ser reservado"
+		<a href="#!" class="form-inline btn btn-primary float-md mt-2" data-toggle="popover" data-content="Nenhum produto para ser reservado"
 		 	data-placement="bottom"> Finalizar pedido <i class="fa fa-chevron-right"></i> </a>
 	{% else %}
-		<a href="#!" id="bt_finalizar" class="btn btn-primary float-md mt-2"> Finalizar pedido <i class="fa fa-chevron-right"></i> </a>
+			<button id="bt_finalizar" type="submit" class="form-inline btn btn-primary float-md mt-2">
+				Finalizar pedido
+				<i class="fa fa-chevron-right"></i>
+			</button>
 	{% endif %}
+	</form>
 </div>
 
 </div> <!-- container .//  -->

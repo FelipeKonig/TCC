@@ -62,11 +62,16 @@
   			<i class="fa fa-star"></i>
   		</li>
   	</ul>
-    {% if avaliacao.quantidade == 1 %}
-      <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliação</small>
+    {% if avaliacao.quantidade == None %}
+      <small class="label-rating text-muted">Sem avaliações</small>
     {% else %}
-      <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliações</small>
+      {% if avaliacao.quantidade == 1 %}
+        <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliação</small>
+      {% else %}
+        <small class="label-rating text-muted">{{ avaliacao.quantidade }} avaliações</small>
+      {% endif %}
     {% endif %}
+
   	<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 encomendas </small>
   </div> <!-- rating-wrap.// -->
 

@@ -123,7 +123,7 @@
 						</a>
 					</div>
 					<div class="widget-header mr-3">
-						<a href="#" class="widget-view">
+						<a href="{% url 'pedidos:listar_pedidos' %}" class="widget-view">
 							<div class="icon-area">
 								<i class="fa fa-store"></i>
 							</div>
@@ -165,7 +165,7 @@
 						<a href="{% url 'empresas:empresa_perfil' %}"> Minha empresa</a>
 						<a href="{% url 'vitrines:minha_vitrine' %}"> Minha vitrine </a>
 						<a href="{% url 'usuarios:perfil_endereco' %}"> Meus endereços </a>
-						<a href="page-profile-orders.html"> Meus pedidos </a>
+						<a href="{% url 'pedidos:listar_pedidos' %}"> Meus pedidos </a>
 						<a href="{% url 'pedidos:visualizar_carrinho' %}"> Meu carrinho </a>
 				    <a href="page-profile-wishlist.html"> Minha lista de desejos </a>
 				    <a href="{% url 'usuarios:perfil_configuracao' %}"> Configurações </a>
@@ -200,7 +200,7 @@
 		<a class="nav-link" href="#">Categorias</a>
 		</li>
 		<li class="nav-item">
-		<a class="nav-link" href="#">Histórico de compras</a>
+		<a class="nav-link" href="{% url 'pedidos:visualizar_carrinho' %}">Histórico de compras</a>
 		</li>
 		<li class="nav-item">
 		<a class="nav-link" href="{% url 'vitrines:minha_vitrine' %}">Venda conosco</a>

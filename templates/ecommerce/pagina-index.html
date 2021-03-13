@@ -49,20 +49,20 @@
 </header>
 
 <div class="row row-sm">
-  {% for avaliacao in avaliacoes_produto %}
+  {% for recomendado in avaliacoes_produto %}
 
-    {% if avaliacao == avaliacoes_produto.first %}
+    {% if recomendado == avaliacoes_produto.first %}
       <div class="col-xl-2 col-lg-3 col-md-4 col-6 ml-3">
     {% else %}
       <div class="col-xl-2 col-lg-3 col-md-4 col-6">
     {% endif %}
       <div class="card card-sm card-product-grid">
         <div class="img-wrap">
-    {% for imagem in imagens_produto %}
-      {% if imagem.produto == avaliacao.produto %}
+    {% for imagem in imagens_produto_recomendados %}
+      {% if imagem.produto == recomendado.produto %}
         <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
           {% csrf_token %}
-          <input  type="hidden" name="campoIDProduto" value="{{ avaliacao.produto.id }}">
+          <input  type="hidden" name="campoIDProduto" value="{{ recomendado.produto.id }}">
           <button type="submit" style="border:None"> <img src="{{ imagem.imagem.url }}"> </button>
         </form>
       {% endif %}
@@ -71,17 +71,57 @@
         <figcaption class="info-wrap">
           <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
             {% csrf_token %}
-            <input  type="hidden" name="campoIDProduto" value="{{ avaliacao.produto.id }}">
-            <button type="submit" style="border:None"> <a class="title">{{ avaliacao.produto.nome }}</a> </button>
-          <!-- <a href="#" class="title">{{ avaliacao.produto.nome }}</a> -->
+            <input  type="hidden" name="campoIDProduto" value="{{ recomendado.produto.id }}">
+            <button type="submit" style="border:None"> <a class="title">{{ recomendado.produto.nome }}</a> </button>
           </form>
-          <div class="price mt-1"> R$ {{ avaliacao.produto.preco }}</div> <!-- price-wrap.// -->
+          <div class="price mt-1"> R$ {{ recomendado.produto.preco }}</div> <!-- price-wrap.// -->
         </figcaption>
       </div>
     </div> <!-- col.// -->
   {% endfor %}
 
-</div> <!-- row.// -->
+  </div> <!-- row.// -->
+</section>
+
+<section  class="padding-bottom-sm">
+
+<header class="section-heading heading-line">
+	<h4 class="title-section text-uppercase ml-3">Produtos Gerais</h4>
+</header>
+
+<div class="row row-sm">
+  {% for produto in produtos %}
+
+    {% if produto == avaliacoes_produto.first %}
+      <div class="col-xl-2 col-lg-3 col-md-4 col-6 ml-3">
+    {% else %}
+      <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+    {% endif %}
+      <div class="card card-sm card-product-grid">
+        <div class="img-wrap">
+    {% for imagem in imagens_produto %}
+      {% if imagem.produto == produto %}
+        <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
+          {% csrf_token %}
+          <input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
+          <button type="submit" style="border:None"> <img src="{{ imagem.imagem.url }}"> </button>
+        </form>
+      {% endif %}
+    {% endfor %}
+        </div>
+        <figcaption class="info-wrap">
+          <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
+            {% csrf_token %}
+            <input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
+            <button type="submit" style="border:None"> <a class="title">{{ produto.nome }}</a> </button>
+          </form>
+          <div class="price mt-1"> R$ {{ produto.preco }}</div> <!-- price-wrap.// -->
+        </figcaption>
+      </div>
+    </div> <!-- col.// -->
+  {% endfor %}
+
+  </div> <!-- row.// -->
 </section>
 <!-- =============== SECTION ITEMS .//END =============== -->
 

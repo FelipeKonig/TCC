@@ -2,22 +2,23 @@ import logging
 
 from datetime import date
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
 from django.forms.models import model_to_dict
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from apps.produtos.models import *
 
 logger = logging.getLogger(__name__)
 
 # Create your views here.
+@login_required(login_url='/usuarios/login')
 def visualizar_carrinho(request):
 
-    pedidos = Pedido.objects.filter(cliente=request.user, status=False)
+    pedidos = Pedido.objects.filter(cliente=request.user, statusReservado=False)
     pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, statusReservado=False, statusFinalizado=False)
 
     pedidos_vazio = False
-    if len(pedidos_produtos) == 0:
+    if len(pedidos) == 0:
         pedidos_vazio = True
 
     quantidade_total = 0
@@ -52,11 +53,12 @@ def visualizar_carrinho(request):
 
     return render(request, 'carrinhos/pagina-carrinho.html', contexto)
 
+@login_required(login_url='/usuarios/login')
 def adicionar_produto_carrinho(request):
 
     produto = get_object_or_404(Produto, pk=request.POST['produto'])
 
-    pedido = Pedido.objects.get_or_create(cliente=request.user, status=False)
+    pedido = Pedido.objects.get_or_create(cliente=request.user, statusReservado=False)
 
     quantidade = request.POST['quant_produto']
     preco = float(produto.preco)
@@ -93,6 +95,7 @@ def adicionar_produto_carrinho(request):
 
     return redirect('pedidos:visualizar_carrinho')
 
+@login_required(login_url='/usuarios/login')
 def remover_produto_pedido(request):
 
     produto_pedido = request.GET.get('produto').split('_')
@@ -104,7 +107,7 @@ def remover_produto_pedido(request):
         statusFinalizado=False
     ).delete()
 
-    pedidos = Pedido.objects.filter(cliente=request.user, status=False)
+    pedidos = Pedido.objects.filter(cliente=request.user, statusReservado=False)
     pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, statusReservado=False, statusFinalizado=False)
 
     pedidos_vazio = False
@@ -119,6 +122,7 @@ def remover_produto_pedido(request):
         return JsonResponse(contexto)
 
 # AJAX
+@login_required(login_url='/usuarios/login')
 def alterar_quantidade_produto_pedido(request):
 
     pedido_id = request.GET.get('produto').split('_')
@@ -138,8 +142,8 @@ def alterar_quantidade_produto_pedido(request):
 
     pedido_produto.save()
 
-    pedidos = Pedido.objects.filter(cliente=request.user)
-    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos)
+    pedidos = Pedido.objects.filter(cliente=request.user, statusReservado=False)
+    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, statusReservado=False)
 
     quantidade_total = 0
     preco_total = 0
@@ -158,3 +162,46 @@ def alterar_quantidade_produto_pedido(request):
 
     if request.is_ajax():
         return JsonResponse(contexto)
+
+@login_required(login_url='/usuarios/login')
+def listar_pedidos(request):
+
+    if request.method == 'POST':
+        pedido = get_object_or_404(Pedido, cliente=request.user, statusReservado=False)
+        pedidos_produtos = Pedido_Produto.objects.filter(pedido=pedido, statusReservado = False).update(statusReservado = True)
+
+        pedido.statusReservado = True
+        pedido.save()
+
+    pedidos = Pedido.objects.filter(cliente=request.user, statusReservado=True)
+    pedidos_produtos = Pedido_Produto.objects.filter(pedido__in=pedidos, statusReservado = True)
+
+    pedidos_vazio = False
+    if len(pedidos) == 0 or len(pedidos_produtos) == 0:
+        pedidos_vazio = True
+
+    quantidade_pedidos_total = 0
+    pedidos_entregues_total = 0
+    for pedido in pedidos_produtos:
+        quantidade_pedidos_total += 1
+        if pedido.statusFinalizado:
+            pedidos_entregues_total += 1
+
+    imagem_produto = list()
+    index = 0
+    while index < len(pedidos_produtos):
+        pedido = pedidos_produtos[index]
+        imagem = ImagemProduto.objects.filter(produto=pedido.produto).first()
+        imagem_produto.append(imagem)
+        index += 1
+
+    contexto = {
+        'pedidos': pedidos,
+        'pedidos_vazio': pedidos_vazio,
+        'imagem_produto': imagem_produto,
+        'pedidos_produtos': pedidos_produtos,
+        'pedidos_entregues_total': pedidos_entregues_total,
+        'quantidade_pedidos_total': quantidade_pedidos_total
+    }
+
+    return render(request, 'carrinhos/listar_pedidos.html', contexto)

@@ -1,0 +1,136 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<body>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	<main class="col-md-9">
+    <div class="card">
+			{% if pedidos_vazio %}
+	    	<div class="alert alert-warning mt-3">
+	    		<p class="icontext"> Nenhum pedido foi finalizado </p>
+	    	</div>
+			{% else %}
+				{% for pedido_cliente in pedidos %}
+				<h5 class="ml-2 mt-3">Pedido: {{ pedido_cliente.pk }} </h5>
+				<table class="table table-responsive-sm table-borderless table-shopping-cart mt-1">
+					<thead class="text-muted">
+						<tr class="small text-uppercase">
+							<th scope="col-sm">Produto</th>
+							<th scope="col-sm" width="190">Informações gerais</th>
+							<th scope="col-sm" width="120">Quantidade</th>
+							<th scope="col-sm" width="130">Preço</th>
+							<th scope="col-sm" width="130">Entregue</th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<hr>
+						<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
+						{% for pedido in pedidos_produtos %}
+						{% if pedido.pedido == pedido_cliente %}
+						<tr>
+							<td>
+								<hr>
+								<figure class="itemside">
+									{% for imagem in imagem_produto %}
+									{% if imagem.produto == pedido.produto %}
+									<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
+									{% endif	%}
+									{% endfor %}
+									<figcaption class="info">
+										<a href="#" class="title text-dark">{{ pedido.produto.nome }}</a>
+										<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
+									</figcaption>
+								</figure>
+							</td>
+							<td>
+								<hr>
+								<button name="info_pedido" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2 text-nowrap">
+									ver informações do pedido
+								</button>
+							</td>
+							<td>
+								<hr>
+								<p class="text-center"> {{ pedido.quantidade }} </p>
+							</td>
+							<td>
+								<hr>
+								<div class="price-wrap">
+									<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
+									<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
+								</div> <!-- price-wrap .// -->
+							</td>
+							<td>
+								<hr>
+								{% if pedido.statusFinalizado %}
+								<button data-original-title="Produto entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+									<i class="fa fa-check" style="color: green;"></i>
+								</button>
+								{% else %}
+								<button data-original-title="Produto não entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+									<i class="fas fa-times" style="color: red;"></i>
+								</button>
+								{% endif %}
+							</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+				{% endfor %}
+	    {% endif %}
+    </div> <!-- card.// -->
+
+	</main> <!-- col.// -->
+	<aside class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+					<dl class="dlist-align">
+					  <dt>Pedidos realizados:</dt>
+					  <dd class="text-right">{{ quantidade_pedidos_total }}</dd>
+					</dl>
+					<hr>
+					<dl class="dlist-align">
+					  <dt>Pedidos entregues:</dt>
+						<dd class="text-right h5"><strong>{{ pedidos_entregues_total }}</strong></dd>
+					</dl>
+
+			</div> <!-- card-body.// -->
+		</div>  <!-- card .// -->
+	</aside> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name border-top padding-y">
+<div class="container">
+<h6>Reservas e política de devoluções</h6>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div><!-- container // -->
+
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+</body>
+
+{% endblock %}
