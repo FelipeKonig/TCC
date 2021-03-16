@@ -34,9 +34,9 @@ class Telefone(models.Model):
 
     def __str__(self):
         if self.empresa == None:
-            return 'usuario:{}, {}: {}, status: {}'.format(self.usuario, self.tipo, self.numero, self.status)
+            return 'usuario:{}, {}: {}; padrão:{}, status: {}'.format(self.usuario, self.tipo, self.numero, self.padrao, self.status)
         else:
-            return 'empresa:{}, {}: {}, status: {}'.format(self.empresa, self.tipo, self.numero, self.status)
+            return 'empresa:{}, {}: {}; padrão:{}, status: {}'.format(self.empresa.razaoSocial, self.tipo, self.numero, self.padrao, self.status)
 
 class Estado(models.Model):
     nome = models.CharField('Nome', max_length=100, help_text='Obrigatório')

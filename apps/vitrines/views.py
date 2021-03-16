@@ -98,7 +98,7 @@ class CriarVitrine(LoginRequiredMixin, CreateView):
                     vitrine.empresa = request.user.empresa
             except:
                 vitrine.empresa = None
-                
+
             vitrine.save()
 
             messages.success(request, 'Vitrine cadastrada com sucesso!')

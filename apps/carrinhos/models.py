@@ -6,7 +6,7 @@ from apps.vitrines.models import Vitrine
 # Create your models here.
 
 class Pedido(models.Model):
-    cliente = models.ForeignKey(CustomUsuario, on_delete=models.PROTECT, default="")
+    cliente = models.ForeignKey(CustomUsuario, on_delete=models.CASCADE, default="")
     produto = models.ManyToManyField(Produto, through="Pedido_Produto")
     statusReservado = models.BooleanField('Reservado', default=False)
     statusFinalizado = models.BooleanField('Finalizado', default=False)

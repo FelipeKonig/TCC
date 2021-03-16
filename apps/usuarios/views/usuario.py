@@ -81,11 +81,13 @@ def perfil_configuracao(request):
                     )
                     atualizar_telefone.numero = request.POST['numero_telefone']
                     atualizar_telefone.tipo = request.POST['tipo_telefone']
+                    atualizar_telefone.padrao = True
                     atualizar_telefone.save()
             else:
                 telefone = Telefone.objects.create(
                     usuario=usuario,
                     tipo=request.POST['tipo_telefone'],
+                    padrao = True,
                     numero=request.POST['numero_telefone']
                 )
 
@@ -154,7 +156,7 @@ class CriarPerfilUsuario(LoginRequiredMixin, CreateView):
 
                     cpf_sem_formatacao_mascara += cpf_cortado_digitos_finais[1]
 
-            telefone = Telefone.objects.create(tipo=tipoTelefone, numero=numeroTelefone, usuario=usuario_logado)
+            telefone = Telefone.objects.create(tipo=tipoTelefone, numero=numeroTelefone, padrao=True, usuario=usuario_logado)
             usuario_logado.first_name = first_name
             usuario_logado.last_name = last_name
             usuario_logado.data_nascimento = data_nascimento

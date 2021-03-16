@@ -188,11 +188,20 @@ def listar_pedidos(request):
             pedidos_entregues_total += 1
 
     imagem_produto = list()
+
     index = 0
     while index < len(pedidos_produtos):
         pedido = pedidos_produtos[index]
         imagem = ImagemProduto.objects.filter(produto=pedido.produto).first()
-        imagem_produto.append(imagem)
+
+        repetida = False
+        for imagem2 in imagem_produto:
+            if imagem == imagem2:
+                repetida = True
+
+        if not repetida:
+            imagem_produto.append(imagem)
+
         index += 1
 
     contexto = {

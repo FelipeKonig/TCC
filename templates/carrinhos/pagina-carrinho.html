@@ -27,17 +27,22 @@
 				<hr>
 				<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
 				{% for pedido in pedidos_produtos %}
+				<form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
+					{% csrf_token %}
+					<input  type="hidden" name="campoIDProduto" value="{{ pedido.produto.id }}">
 					<tr>
 						<td>
 							<hr>
 							<figure class="itemside">
 								{% for imagem in imagem_produto %}
 									{% if imagem.produto == pedido.produto %}
-										<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
+						       	<button type="submit" style="border:None">
+											<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
+										</button>
 									{% endif	%}
 								{% endfor %}
 								<figcaption class="info">
-									<a href="#" class="title text-dark">{{ pedido.produto.nome }}</a>
+									<button type="submit" style="border:None"><a class="title text-dark">{{ pedido.produto.nome }}</a></button>
 									<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
 								</figcaption>
 							</figure>
@@ -71,6 +76,7 @@
 							<button name="remover_produto" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2"> remover</button>
 						</td>
 					</tr>
+					</form>
 				{% endfor %}
 			</tbody>
 			</table>

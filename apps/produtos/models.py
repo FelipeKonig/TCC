@@ -88,7 +88,6 @@ class ImagemProduto(models.Model):
         nome_arquivo = str(self.imagem).split('/')[2]
         return nome_arquivo
 
-
 class Caracteristica(models.Model):
     topico = models.CharField('Tópico', max_length=200)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, default="")

@@ -11,7 +11,8 @@ from apps.produtos.forms import (
     EditarProduto
 )
 from apps.produtos.models import *
-from apps.usuarios.models import CustomUsuario
+from apps.carrinhos.models import *
+from apps.usuarios.models import CustomUsuario, Endereco, Telefone
 from django.http import JsonResponse
 
 from apps.vitrines.models import Vitrine
@@ -85,8 +86,23 @@ class CriarProduto(LoginRequiredMixin, CreateView):
 
 def visualizar_produto(request):
 
-    produto = Produto.objects.get(pk=request.POST.get('campoIDProduto'))
-    vitrine = Vitrine.objects.get(vendedor=produto.vitrine.vendedor)
+    produto = get_object_or_404(Produto, pk=request.POST.get('campoIDProduto'))
+    vitrine = get_object_or_404(Vitrine, vendedor=produto.vitrine.vendedor)
+
+    if vitrine.empresa == None:
+        endereco = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=True, status=True).first()
+        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False, status=True)
+
+        telefone_padrao = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=True, status=True).first()
+        telefone_alternativo = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=False, status=True).first()
+    else:
+        endereco = Endereco.objects.filter(empresa=vitrine.empresa, padrao=True, status=True).first()
+        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False, status=True)
+
+        telefone_padrao = Telefone.objects.filter(empresa=vitrine.empresa, padrao=True, status=True).first()
+        telefone_alternativo = Telefone.objects.filter(empresa=vitrine.empresa, padrao=False, status=True).first()
+    encomendas = Pedido_Produto.objects.filter(produto=produto, statusFinalizado=True).count()
+    
     avaliacao = Avaliacao.objects.filter(produto=produto, vitrine=vitrine).first()
     imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
     lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
@@ -102,16 +118,21 @@ def visualizar_produto(request):
         while nota <= avaliacao.nota:
             rating.append(nota)
             nota += 1
-            
+
     contexto = {
         'nota': rating,
         'produto': produto,
         'vitrine': vitrine,
+        'endereco':endereco,
         'vendedor': vendedor,
         'avaliacao': avaliacao,
+        'enderecos': enderecos,
+        'encomendas': encomendas,
+        'telefone_padrao': telefone_padrao,
         'imagens_produto': imagens_produto,
-        'primeira_imagem': imagens_produto[0],
         'lista_atributos': lista_atributos,
+        'primeira_imagem': imagens_produto[0],
+        'telefone_alternativo':telefone_alternativo,
         'lista_caracteristicas': lista_caracteristicas
     }
 

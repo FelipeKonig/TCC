@@ -33,53 +33,59 @@
 						<hr>
 						<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
 						{% for pedido in pedidos_produtos %}
-						{% if pedido.pedido == pedido_cliente %}
-						<tr>
-							<td>
-								<hr>
-								<figure class="itemside">
-									{% for imagem in imagem_produto %}
-									{% if imagem.produto == pedido.produto %}
-									<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
-									{% endif	%}
-									{% endfor %}
-									<figcaption class="info">
-										<a href="#" class="title text-dark">{{ pedido.produto.nome }}</a>
-										<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
-									</figcaption>
-								</figure>
-							</td>
-							<td>
-								<hr>
-								<button name="info_pedido" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2 text-nowrap">
-									ver informações do pedido
-								</button>
-							</td>
-							<td>
-								<hr>
-								<p class="text-center"> {{ pedido.quantidade }} </p>
-							</td>
-							<td>
-								<hr>
-								<div class="price-wrap">
-									<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
-									<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
-								</div> <!-- price-wrap .// -->
-							</td>
-							<td>
-								<hr>
-								{% if pedido.statusFinalizado %}
-								<button data-original-title="Produto entregue" class="btn btn-light mt-2" data-toggle="tooltip">
-									<i class="fa fa-check" style="color: green;"></i>
-								</button>
-								{% else %}
-								<button data-original-title="Produto não entregue" class="btn btn-light mt-2" data-toggle="tooltip">
-									<i class="fas fa-times" style="color: red;"></i>
-								</button>
-								{% endif %}
-							</td>
-						</tr>
-						{% endif %}
+							{% if pedido.pedido == pedido_cliente %}
+							<form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
+									{% csrf_token %}
+									<input  type="hidden" name="campoIDProduto" value="{{ pedido.produto.id }}">
+							<tr>
+								<td>
+									<hr>
+									<figure class="itemside">
+										{% for imagem in imagem_produto %}
+												{% if imagem.produto == pedido.produto %}
+										       <button type="submit" style="border:None">
+														<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
+													</button>
+												{% endif	%}
+										{% endfor %}
+										<figcaption class="info">
+											<button type="submit" style="border:None"><a class="title text-dark">{{ pedido.produto.nome }}</a></button>
+											<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
+										</figcaption>
+									</figure>
+								</td>
+								<td>
+									<hr>
+									<button name="info_pedido" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2 text-nowrap">
+										ver informações do pedido
+									</button>
+								</td>
+								<td>
+									<hr>
+									<p class="text-center"> {{ pedido.quantidade }} </p>
+								</td>
+								<td>
+									<hr>
+									<div class="price-wrap">
+										<var class="price" id="preco_total_{{ pedido.pk }}" >R$ {{ pedido.precoTotal }}</var>
+										<small class="text-muted"> R$ {{ pedido.produto.preco }} cada </small>
+									</div> <!-- price-wrap .// -->
+								</td>
+								<td>
+									<hr>
+									{% if pedido.statusFinalizado %}
+									<button data-original-title="Produto entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+										<i class="fa fa-check" style="color: green;"></i>
+									</button>
+									{% else %}
+									<button data-original-title="Produto não entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+										<i class="fas fa-times" style="color: red;"></i>
+									</button>
+									{% endif %}
+								</td>
+							</tr>
+							</form>
+							{% endif %}
 						{% endfor %}
 					</tbody>
 				</table>

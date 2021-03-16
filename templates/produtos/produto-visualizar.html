@@ -13,9 +13,7 @@
         <li class="breadcrumb-item"><a href="{% url 'e-commerce:home' %}">Home</a></li>
         <li class="breadcrumb-item"><a href="#!">{{ produto.categoria }}</a></li>
         {% if produto.subCategoria %}
-          <li class="breadcrumb-item"><a href="#!">{{ produto.SubCategoria }}</a></li>
-        {% else %}
-          <li class="breadcrumb-item"><a href="#!">Sem subcategoria</a></li>
+          <li class="breadcrumb-item"><a href="#!">{{ produto.subCategoria }}</a></li>
         {% endif %}
         <li class="breadcrumb-item active" aria-current="page">Items</li>
     </ol>
@@ -32,7 +30,7 @@
     <div class="card">
       <article class="gallery-wrap">
           <div class="img-big-wrap">
-              <div> <img id="img_principal" class="img-fluid mx-auto d-block shadow"
+              <div> <img id="img_principal" class="zoom img-fluid mx-auto d-block shadow"
                 src="{{ primeira_imagem.imagem.url }}"></div>
           </div> <!-- slider-product.// -->
         <div class="thumbs-wrap">
@@ -72,7 +70,15 @@
       {% endif %}
     {% endif %}
 
-  	<small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 encomendas </small>
+    {% if encomendas == 0 %}
+  	 <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> Sem encomendas </small>
+    {% else %}
+      {% if encomendas == 1 %}
+        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{ encomendas }} encomenda </small>
+      {% else %}
+        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{ encomendas }} encomendas </small>
+      {% endif %}
+    {% endif %}
   </div> <!-- rating-wrap.// -->
 
   <div class="mb-3">
@@ -91,9 +97,51 @@
     </div> <!-- price-detail-wrap .// -->
   {% endif %}
 
+  <div class="card">
+    <div class="card-body">
+      <strong>Endereço do vendedor</strong>
+      {% if endereco %}
+        <div class="row">
+          <div class="col-lg-6 mt-2">
+            <p>Estado: {{ endereco.estado }}</p>
+          </div>
+          <div class="col-lg-6 mt-2">
+            <p>Cidade: {{ endereco.cidade }}</p>
+          </div>
+          <div class="col-lg-6">
+            <p>Bairro: {{ endereco.bairro }}</p>
+          </div>
+          <div class="col-lg-6">
+            <p>Rua: {{ endereco.rua }}</p>
+          </div>
+          <div class="col-md-6">
+            <p>Número: {{ endereco.numero }}</p>
+          </div>
+          <div class="col-md-6">
+            <p>CEP: {{ endereco.cep }}</p>
+          </div>
+          <div class="col-sm">
+            <p>complemento: {{ endereco.complemento }}</p>
+          </div>
+        </div>
+        {% if enderecos %}
+          <button type="button" class="btn btn-outline-secondary text-nowrap btn-sm mt-2" data-toggle="modal"
+            data-target="#mostrarEnderecos">
+            Ver outros endereços
+          </button>
+        {% endif %}
+      {% else %}
+        <div class="alert alert-warning mt-3">
+          <p class="icontext"> O vendedor não possui um endereco </p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- </div> -->
+
   </article> <!-- product-info-aside .// -->
   <div class="product-info-aside child">
-    <div class="form-row mt-4">
+    <div class="form-row mt-2">
   		<div class="form-group col-md flex-grow-0 mt-3">
   			<div class="input-group mb-3 input-spinner">
   			  <div class="input-group-prepend">
@@ -109,32 +157,97 @@
       {% if vendedor %}
     		<div class="form-inline col-lg">
     			<a href="#!" data-toggle="popover" data-content="Função indisponível para o vendedor" data-placement="bottom"
-            class="btn btn-primary mt-1">
+            class="btn btn-primary mt-1 ml-1">
     				<i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
     			</a>
     			<a href="#!" data-toggle="popover" data-content="Função indisponível para o vendedor" data-placement="bottom"
-            class="btn btn-light mt-1">
+            class="btn btn-light mt-1 ml-1">
             <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
     			</a>
     		</div> <!-- col.// -->
       {% else %}
       <div class="form-inline col-lg">
-          <button name="produto" value="{{ produto.pk }}" type="submit" class="btn btn-primary mt-1">
+          <button name="produto" value="{{ produto.pk }}" type="submit" class="btn btn-primary mt-1 ml-1">
             <i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
           </button>
 
         &nbsp;
-        <a href="#!" class="btn btn-light mt-1">
+        <a href="#!" class="btn btn-light mt-1 ml-1">
           <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
         </a>
       </div> <!-- col.// -->
       {% endif %}
   	</div> <!-- row.// -->
   </div>
+  <div class="card mt-2">
+    <div class="card-body">
+      <strong>Telefone do vendedor</strong>
+      <div class="row">
+        <div class="col-sm-12 mt-2">
+          <p>Telefone do vendedor: {{ telefone_padrao.numero }}</p>
+        </div>
+        {% if telefone_alternativo %}
+          <div class="col-sm-12 mt-2">
+            <p>Telefone alternativo do vendedor: {{ telefone_alternativo.numero }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
 </main> <!-- col.// -->
 </div> <!-- row.// -->
 
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="mostrarEnderecos" tabindex="-1" role="dialog" aria-labelledby="modalEnderecos" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEnderecos">Outros endereços</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            {% for endereco in enderecos %}
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6 mt-2">
+                      <p>Estado: {{ endereco.estado }}</p>
+                    </div>
+                    <div class="col-lg-6 mt-2">
+                      <p>Cidade: {{ endereco.cidade }}</p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>Bairro: {{ endereco.bairro }}</p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p>Rua: {{ endereco.rua }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p>Número: {{ endereco.numero }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p>CEP: {{ endereco.cep }}</p>
+                    </div>
+                    <div class="col-sm">
+                      <p>complemento: {{ endereco.complemento }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================ ITEM DETAIL END .// ================= -->
 

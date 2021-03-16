@@ -11,9 +11,9 @@
 <meta name="description" content="Bootstrap e-commerce html template similar to Alibaba">
 <meta name="keywords" content="Online template, shop, theme, template, html, css, bootstrap 4">
 
-<title>Site do TCC</title>
+<title>Click Reservas</title>
 
-<link href="{% static 'ecommerce/images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+<link href="{% static 'ecommerce/images/mini-logo.png' %}" rel="shortcut icon" type="image/x-icon">
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -34,6 +34,7 @@
 <link href="{% static 'ecommerce/fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
 
 <!-- custom style -->
+<link href="{% static 'ecommerce/css/image.css' %}" rel="stylesheet" type="text/css"/>
 <link href="{% static 'ecommerce/css/ui.css' %}" rel="stylesheet" type="text/css"/>
 <link href="{% static 'ecommerce/css/popover.css' %}" rel="stylesheet" type="text/css"/>
 <link href="{% static 'ecommerce/css/responsive.css' %}" rel="stylesheet" type="text/css" />
@@ -85,7 +86,7 @@
       <!-- deletar essa div -->
 			<div class="col-xl-2 col-lg-3 col-md-12">
 				<a href="{% url 'e-commerce:home' %}" class="brand-wrap">
-					<img class="logo" src="{% static 'ecommerce/images/logo.png' %}">
+					<img class="img-fluid mx-auto d-block" src="{% static 'ecommerce/images/logo.jpeg' %}">
 				</a> <!-- brand-wrap.// -->
 			</div>
 			<div class="col-xl-6 col-lg-5 col-md-6">
@@ -258,7 +259,7 @@
 						<li> <a href="{% url 'usuarios:login' %}"> Login de usuário </a></li>
 						<li> <a href="{% url 'usuarios:cadastrousuario' %}"> Registro de usuário </a></li>
 						<li> <a href="{% url 'usuarios:perfil_configuracao' %}"> Configurações da conta </a></li>
-						<li> <a href="#"> Minhas encomendas </a></li>
+						<li> <a href="{% url 'pedidos:visualizar_carrinho' %}"> Meus pedidos </a></li>
 					</ul>
 				</aside>
 				<aside class="col-md">
@@ -276,7 +277,7 @@
 		<section class="footer-bottom text-center">
 
 				<p class="text-white">Política de privacidade - Termos de uso - Informações do usuário Guia de consulta jurídica</p>
-				<p class="text-muted"> &copy 2021 TCC, Todos os direitos reservados </p>
+				<p class="text-muted"> &copy 2021 Click Reservas, Todos os direitos reservados </p>
 				<br>
 		</section>
 	</div><!-- //container -->

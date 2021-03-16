@@ -63,7 +63,7 @@
         <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
           {% csrf_token %}
           <input  type="hidden" name="campoIDProduto" value="{{ recomendado.produto.id }}">
-          <button type="submit" style="border:None"> <img src="{{ imagem.imagem.url }}"> </button>
+          <button type="submit" style="border:None"> <img class="zoom" src="{{ imagem.imagem.url }}"> </button>
         </form>
       {% endif %}
     {% endfor %}
@@ -104,7 +104,7 @@
         <form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
           {% csrf_token %}
           <input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
-          <button type="submit" style="border:None"> <img src="{{ imagem.imagem.url }}"> </button>
+          <button type="submit" style="border:None"> <img class="zoom" src="{{ imagem.imagem.url }}"> </button>
         </form>
       {% endif %}
     {% endfor %}

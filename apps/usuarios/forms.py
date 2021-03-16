@@ -46,7 +46,7 @@ class CadastroPerfilUsuario(forms.ModelForm):
     empresa_selecionar = forms.ChoiceField(label='Deseja adicionar a sua empresa?', choices=CHOICES_EMPRESA_ADICIONAR,
                                            widget=forms.RadioSelect)
 
-    numeroTelefone = forms.CharField(label='Telefone', required=True, help_text='Origatório')
+    numeroTelefone = forms.CharField(label='Telefone', required=True, help_text='Obrigatório')
 
     telefone_selecionar = forms.ChoiceField(label='Selecione o tipo de telefone', choices=CHOICES_TIPO_TELEFONE,
                                             widget=forms.Select)
