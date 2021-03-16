@@ -84,14 +84,14 @@ class CriarProduto(LoginRequiredMixin, CreateView):
         }
         return render(request, 'produtos/produto_cadastro.html', context)
 
-def visualizar_produto(request):
+def visualizar_produto(request, nome, pk):
 
-    produto = get_object_or_404(Produto, pk=request.POST.get('campoIDProduto'))
+    produto = get_object_or_404(Produto, pk=pk, nome=nome)
     vitrine = get_object_or_404(Vitrine, vendedor=produto.vitrine.vendedor)
 
     if vitrine.empresa == None:
         endereco = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=True, status=True).first()
-        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False, status=True)
+        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False,empresa=None, status=True)
 
         telefone_padrao = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=True, status=True).first()
         telefone_alternativo = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=False, status=True).first()
@@ -101,8 +101,8 @@ def visualizar_produto(request):
 
         telefone_padrao = Telefone.objects.filter(empresa=vitrine.empresa, padrao=True, status=True).first()
         telefone_alternativo = Telefone.objects.filter(empresa=vitrine.empresa, padrao=False, status=True).first()
+
     encomendas = Pedido_Produto.objects.filter(produto=produto, statusFinalizado=True).count()
-    
     avaliacao = Avaliacao.objects.filter(produto=produto, vitrine=vitrine).first()
     imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
     lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)

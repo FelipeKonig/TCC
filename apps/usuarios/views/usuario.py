@@ -76,6 +76,7 @@ def perfil_configuracao(request):
 
                     atualizar_telefone = Telefone.objects.get(
                         usuario=usuario,
+                        empresa=None,
                         tipo=telefones[0].tipo,
                         numero=telefones[0].numero
                     )
@@ -88,15 +89,19 @@ def perfil_configuracao(request):
                     usuario=usuario,
                     tipo=request.POST['tipo_telefone'],
                     padrao = True,
+                    empresa=None,
                     numero=request.POST['numero_telefone']
                 )
 
             if request.POST['numero_telefone2'] != '':
                 if len(telefones) > 1:
+                    logger.debug(len(telefones))
+                    logger.debug('CAIU AQUI')
                     if telefones[1].tipo != request.POST['tipo_telefone2'] or telefones[1].numero != request.POST['numero_telefone2']:
 
                         atualizar_telefone = Telefone.objects.get(
                             usuario=usuario,
+                            empresa=None,
                             tipo=telefones[1].tipo,
                             numero=telefones[1].numero
                         )
@@ -106,9 +111,15 @@ def perfil_configuracao(request):
                 else:
                     telefone = Telefone.objects.create(
                         usuario=usuario,
+                        empresa=None,
                         tipo=request.POST['tipo_telefone2'],
                         numero=request.POST['numero_telefone2']
                     )
+            else:
+                if len(telefones) > 1:
+                    logger.debug('CAIU AQUI')
+                    deletar_telefone = Telefone.objects.filter(pk=telefones[1].pk, empresa=None).delete()
+
         usuario.save()
         return redirect('usuarios:perfil_principal')
     # atualizando os telefones

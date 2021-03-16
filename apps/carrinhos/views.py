@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from apps.produtos.models import *
+from apps.usuarios.models import *
 
 logger = logging.getLogger(__name__)
 
@@ -214,3 +215,65 @@ def listar_pedidos(request):
     }
 
     return render(request, 'carrinhos/listar_pedidos.html', contexto)
+
+def visualizar_produto_pedido(request, pk_pedido, pk_pedido_produto, pk_produto, nome_produto):
+
+    pedido_produto = get_object_or_404(Pedido_Produto, pedido_id=pk_pedido, pk=pk_pedido_produto, produto_id=pk_produto)
+
+    pedido_status = False
+    if pedido_produto.statusReservado:
+        pedido_status = True
+
+    produto = pedido_produto.produto
+    vitrine = pedido_produto.vendedor
+    quantidade = pedido_produto.quantidade
+
+    if vitrine.empresa == None:
+        endereco = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=True, status=True).first()
+        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False,empresa=None, status=True)
+
+        telefone_padrao = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=True, status=True).first()
+        telefone_alternativo = Telefone.objects.filter(usuario=vitrine.vendedor, empresa=None, padrao=False, status=True).first()
+    else:
+        endereco = Endereco.objects.filter(empresa=vitrine.empresa, padrao=True, status=True).first()
+        enderecos = Endereco.objects.filter(usuario=vitrine.vendedor, padrao=False, status=True)
+
+        telefone_padrao = Telefone.objects.filter(empresa=vitrine.empresa, padrao=True, status=True).first()
+        telefone_alternativo = Telefone.objects.filter(empresa=vitrine.empresa, padrao=False, status=True).first()
+
+    encomendas = Pedido_Produto.objects.filter(produto=produto, statusFinalizado=True).count()
+    avaliacao = Avaliacao.objects.filter(produto=produto, vitrine=vitrine).first()
+    imagens_produto = ImagemProduto.objects.filter(produto=produto, status=True)
+    lista_caracteristicas = Caracteristica.objects.filter(produto=produto, status=True)
+    lista_atributos = Atributo.objects.filter(caracteristica__in=lista_caracteristicas)
+
+    vendedor = False
+    if vitrine.vendedor == request.user:
+        vendedor = True
+
+    rating = list()
+    nota = 1
+    if avaliacao != None:
+        while nota <= avaliacao.nota:
+            rating.append(nota)
+            nota += 1
+
+    contexto = {
+        'pedido': pedido_produto,
+        'nota': rating,
+        'produto': produto,
+        'vitrine': vitrine,
+        'endereco':endereco,
+        'vendedor': vendedor,
+        'avaliacao': avaliacao,
+        'enderecos': enderecos,
+        'encomendas': encomendas,
+        'telefone_padrao': telefone_padrao,
+        'imagens_produto': imagens_produto,
+        'lista_atributos': lista_atributos,
+        'primeira_imagem': imagens_produto[0],
+        'telefone_alternativo':telefone_alternativo,
+        'lista_caracteristicas': lista_caracteristicas
+    }
+
+    return render(request, 'produtos/produto-visualizar.html', contexto)

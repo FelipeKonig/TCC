@@ -34,29 +34,29 @@
 						<input type="hidden" id="lista_pedidos" value="{{ lista_pedidos }}">
 						{% for pedido in pedidos_produtos %}
 							{% if pedido.pedido == pedido_cliente %}
-							<form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
-									{% csrf_token %}
-									<input  type="hidden" name="campoIDProduto" value="{{ pedido.produto.id }}">
 							<tr>
 								<td>
 									<hr>
 									<figure class="itemside">
 										{% for imagem in imagem_produto %}
 												{% if imagem.produto == pedido.produto %}
-										       <button type="submit" style="border:None">
+										       <a href="{% url 'pedidos:visualizar_produto_pedido' pk_pedido=pedido_cliente.pk pk_pedido_produto=pedido.pk nome_produto=pedido.produto.nome pk_produto=pedido.produto.pk %}">
 														<div class="aside"><img src="{{ imagem.imagem.url }}" class="img-sm"></div>
-													</button>
+													</a>
 												{% endif	%}
 										{% endfor %}
 										<figcaption class="info">
-											<button type="submit" style="border:None"><a class="title text-dark">{{ pedido.produto.nome }}</a></button>
+											<a class="title text-dark" href="{% url 'pedidos:visualizar_produto_pedido' pk_pedido=pedido_cliente.pk pk_pedido_produto=pedido.pk nome_produto=pedido.produto.nome pk_produto=pedido.produto.pk %}">
+												{{ pedido.produto.nome }}
+											</a>
 											<p class="text-muted small">Vitrine: {{ pedido.produto.vitrine.nome }}</p>
 										</figcaption>
 									</figure>
 								</td>
 								<td>
 									<hr>
-									<button name="info_pedido" id="{{ pedido.produto.nome }}_{{ pedido.pk }}" class="btn btn-light mt-2 text-nowrap">
+									<a href="{% url 'pedidos:visualizar_produto_pedido' pk_pedido=pedido_cliente.pk pk_pedido_produto=pedido.pk nome_produto=pedido.produto.nome pk_produto=pedido.produto.pk %}"
+									 	class="btn btn-light mt-2 text-nowrap">
 										ver informações do pedido
 									</button>
 								</td>
@@ -84,7 +84,6 @@
 									{% endif %}
 								</td>
 							</tr>
-							</form>
 							{% endif %}
 						{% endfor %}
 					</tbody>
@@ -99,7 +98,7 @@
 			<div class="card-body">
 					<dl class="dlist-align">
 					  <dt>Pedidos realizados:</dt>
-					  <dd class="text-right">{{ quantidade_pedidos_total }}</dd>
+					  <dd class="text-right"><strong>{{ quantidade_pedidos_total }}</strong></dd>
 					</dl>
 					<hr>
 					<dl class="dlist-align">
