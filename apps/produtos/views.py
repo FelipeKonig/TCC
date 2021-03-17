@@ -29,12 +29,12 @@ class CriarProduto(LoginRequiredMixin, CreateView):
         usuario_logado = CustomUsuario.objects.get(email=request.user)
         dict_categorias = retorna_categorias()
 
-        context = {
+        contexto = {
             'form': form,
             'usuario': usuario_logado,
             'categorias': dict_categorias
         }
-        return render(request, 'produtos/produto_cadastro.html', context)
+        return render(request, 'produtos/produto_cadastro.html', contexto)
 
     def post(self, request, *args, **kwargs):
 
@@ -77,12 +77,12 @@ class CriarProduto(LoginRequiredMixin, CreateView):
             messages.error(request, 'Erro ao enviar formulário!')
 
         dict_categorias = retorna_categorias()
-        context = {
+        contexto = {
             'form': form,
             'usuario': usuario_logado,
             'categorias': dict_categorias
         }
-        return render(request, 'produtos/produto_cadastro.html', context)
+        return render(request, 'produtos/produto_cadastro.html', contexto)
 
 def visualizar_produto(request, nome, pk):
 
@@ -127,6 +127,7 @@ def visualizar_produto(request, nome, pk):
         'vendedor': vendedor,
         'avaliacao': avaliacao,
         'enderecos': enderecos,
+        'usuario': request.user,
         'encomendas': encomendas,
         'telefone_padrao': telefone_padrao,
         'imagens_produto': imagens_produto,
@@ -211,7 +212,7 @@ def editar_produto(request):
     dict_categorias = retorna_categorias()
     form = EditarProduto(instance=produto)
 
-    context = {
+    contexto = {
         'form': form,
         'usuario': usuario_logado,
         'categorias': dict_categorias,
@@ -223,7 +224,7 @@ def editar_produto(request):
         'editar': 'editar'
     }
 
-    return render(request, 'produtos/produto_editar.html', context)
+    return render(request, 'produtos/produto_editar.html', contexto)
 
 
 @login_required(login_url='/usuarios/login')

@@ -78,7 +78,9 @@
 							<div class="img-wrap">
 								{% for imagem in imagens_produtos %}
 									{% if imagem.produto == produto %}
-										<img src="{{ imagem.imagem.url }}">
+									<a href="{% url 'produtos:visualizar_produto' nome=produto.nome pk=produto.pk %}">
+										<img class="zoom" src="{{ imagem.imagem.url }}">
+									</a>
 									{% endif %}
 								{% endfor %}
 							</div>
@@ -106,12 +108,10 @@
 								</div>
 
 								<hr>
-								<form method="POST" action="{% url 'produtos:visualizar_produto' %}" autocomplete="off">
-									{% csrf_token %}
-									<input  type="hidden" name="campoIDProduto" value="{{ produto.id }}">
-									<button class="btn btn-success btn-block" type="submit" > Detalhes <i class="fa fa-info-circle"></i></i></button>
-								</form>
-
+									<a href="{% url 'produtos:visualizar_produto' nome=produto.nome pk=produto.pk %}"
+										class="btn btn-success btn-block">
+										Detalhes <i class="fa fa-info-circle"></i>
+									</a>
 							</figcaption>
 					</figure>
 				</div>

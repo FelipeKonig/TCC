@@ -13,11 +13,16 @@ from apps.usuarios.views.endereco import (
     buscar_cidades_api
 )
 
+@login_required(login_url='/usuarios/login')
 def empresa_endereco(request):
 
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=request.user.empresa, status=True)
 
-    return render(request, 'empresas/endereco/empresa-endereco.html', {'enderecos': enderecos})
+    contexto = {
+        'enderecos': enderecos,
+        'usuario': request.user
+    }
+    return render(request, 'empresas/endereco/empresa-endereco.html', contexto)
 
 @login_required(login_url='/usuarios/login')
 def adicionar_endereco(request):
@@ -49,7 +54,11 @@ def adicionar_endereco(request):
         form = EnderecoForm()
 
     estados = buscar_estados_api()
-    contexto = {'form': form, 'estados': estados}
+    contexto = {
+        'form': form,
+        'estados': estados,
+        'usuario': request.user
+    }
 
     return render(request, 'empresas/endereco/empresa-endereco-adicionar.html', contexto)
 
@@ -75,7 +84,12 @@ def editar_endereco(request):
         cidades = buscar_cidades_api(endereco.estado.sigla)
         nome_cidades = list(cidades.values())
         estados = buscar_estados_api()
-        contexto = {'endereco': endereco, 'estados': estados, 'cidades': nome_cidades}
+        contexto = {
+            'endereco': endereco,
+            'estados': estados,
+            'cidades': nome_cidades,
+            'usuario': request.user
+        }
 
         return render(request, 'empresas/endereco/empresa-endereco-editar.html', contexto)
 

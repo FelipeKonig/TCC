@@ -112,6 +112,17 @@ class Atributo(models.Model):
     def __str__(self):
         return '{}-caracteristica:{}'.format(self.nome, self.caracteristica)
 
+class Produto_Favorito(models.Model):
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Produto favorito'
+        verbose_name_plural = 'Produtos favoritos'
+
+    def __str__(self):
+        return 'produto favoritado:{}-cliente:{}'.format(self.produto, self.cliente)
+
 class Avaliacao(models.Model):
     nota = models.IntegerField('Nota', default=0)
     quantidade = models.PositiveIntegerField('Quantidade', default=0)

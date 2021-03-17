@@ -4,8 +4,6 @@
 {% block body %}
 
 <body>
-<form action="/pedidos/adicionar-produto-carrinho/"  method="post">
-  {% csrf_token %}
 
 <section class="py-3 bg-light">
   <div class="container">
@@ -45,7 +43,13 @@
 <main id="info-produto" class="col-md-6">
   <article class="product-info-aside">
 
-  <h2 class="title mt-3">{{ produto.nome }}</h2>
+  <div class="form-inline">
+    <h2 class="title mt-3">{{ produto.nome }}</h2>
+    &nbsp;
+    <button data-original-title="favoritar produto" class="btn btn-light mt-2" data-toggle="tooltip">
+      <i class="fa fa-heart"></i>
+    </button>
+  </div>
 
   <div class="rating-wrap my-3">
   	<ul class="rating-stars">
@@ -188,15 +192,18 @@
             </a>
           </div> <!-- col.// -->
         {% else %}
-          <div class="form-inline col-lg">
-            <button name="produto" value="{{ produto.pk }}" type="submit" class="btn btn-primary mt-1 ml-1">
-              <i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
-            </button>
-            &nbsp;
-            <a href="#!" class="btn btn-light mt-1 ml-1">
-              <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
-            </a>
-          </div> <!-- col.// -->
+          <form action="/pedidos/adicionar-produto-carrinho/"  method="post">
+            {% csrf_token %}
+            <div class="form-inline col-lg">
+              <button name="produto" value="{{ produto.pk }}" type="submit" class="btn btn-primary mt-1 ml-1">
+                <i class="fas fa-shopping-cart"></i> <span class="text">Adicionar ao carrinho </span>
+              </button>
+              &nbsp;
+              <a href="#!" class="btn btn-light mt-1 ml-1">
+                <i class="fas fa-envelope"></i> <span class="text">contate o vendedor</span>
+              </a>
+            </div> <!-- col.// -->
+          </form>
         {% endif %}
       </div> <!-- row.// -->
     </div>
@@ -220,8 +227,6 @@
 
 </main> <!-- col.// -->
 </div> <!-- row.// -->
-
-</form>
 
 <!-- Modal -->
 <div class="modal fade" id="mostrarEnderecos" tabindex="-1" role="dialog" aria-labelledby="modalEnderecos" aria-hidden="true">

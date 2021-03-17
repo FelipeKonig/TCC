@@ -15,7 +15,12 @@ logger = logging.getLogger(__name__)
 def perfil_endereco(request):
     enderecos = Endereco.objects.filter(usuario=request.user, empresa=None, status=True)
 
-    return render(request, 'usuarios/endereco/perfil-endereco.html', {'enderecos': enderecos})
+    contexto = {
+        'enderecos': enderecos,
+        'usuario': request.user
+    }
+
+    return render(request, 'usuarios/endereco/perfil-endereco.html', contexto)
 
 
 @login_required(login_url='/usuarios/login')
@@ -46,7 +51,11 @@ def adicionar_endereco(request):
         form = EnderecoForm()
 
     estados = buscar_estados_api()
-    contexto = {'form': form, 'estados': estados}
+    contexto = {
+        'form': form,
+        'estados': estados,
+        'usuario': request.user
+    }
 
     return render(request, 'usuarios/endereco/perfil-endereco-adicionar.html', contexto)
 
@@ -93,7 +102,12 @@ def editar_endereco(request):
         cidades = buscar_cidades_api(endereco.estado.sigla)
         nome_cidades = list(cidades.values())
         estados = buscar_estados_api()
-        contexto = {'endereco': endereco, 'estados': estados, 'cidades': nome_cidades}
+        contexto = {
+            'endereco': endereco,
+            'estados': estados,
+            'cidades': nome_cidades,
+            'usuario': request.user
+        }
 
         return render(request, 'usuarios/endereco/perfil-endereco-editar.html', contexto)
 

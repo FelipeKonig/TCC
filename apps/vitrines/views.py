@@ -52,7 +52,7 @@ def listar_vitrine(request):
 
     #No resultado query_set verifico se já existe uma vitrine ou não, caso ele já existe,
     #redireciono e mostro os dados da vitrine, caso contrário o usuário deverá cadastrar a sua vitrine
-    context = {
+    contexto = {
         'usuario': usuario_logado,
         'vitrine': vitrine,
         'resultado_busca_vitrine': tamanho_resultado_query_set,
@@ -60,7 +60,7 @@ def listar_vitrine(request):
         'imagens_produtos': imagens_produtos
     }
 
-    return render(request, 'vitrines/vitrine_listar.html', context)
+    return render(request, 'vitrines/vitrine_listar.html', contexto)
 
 
 class CriarVitrine(LoginRequiredMixin, CreateView):
@@ -76,13 +76,13 @@ class CriarVitrine(LoginRequiredMixin, CreateView):
         else:
             tamanho_resultado_query_set = len(query_set)
 
-        context = {
+        contexto = {
             'usuario': usuario_logado,
             'form': form,
             'resultado_busca_vitrine': tamanho_resultado_query_set
         }
 
-        return render(request, 'vitrines/cadastros/vitrine_cadastro.html', context)
+        return render(request, 'vitrines/cadastros/vitrine_cadastro.html', contexto)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form(CadastroVitrine)
@@ -108,14 +108,14 @@ class CriarVitrine(LoginRequiredMixin, CreateView):
 
         usuario_logado = CustomUsuario.objects.get(email=request.user)
 
-        context = {
+        contexto = {
             'form': form,
             'usuario': usuario_logado
         }
 
-        return render(request, 'vitrines/cadastros/vitrine_cadastro.html', context)
+        return render(request, 'vitrines/cadastros/vitrine_cadastro.html', contexto)
 
-
+@login_required(login_url='/usuarios/login')
 def editar_vitrine(request):
     if len(request.POST) == 2:
         if not recuperar_id_editar_vitrine:
@@ -148,13 +148,13 @@ def editar_vitrine(request):
     form = CadastroVitrine(instance=vitrine)
     usuario_logado = CustomUsuario.objects.get(email=request.user)
 
-    context = {
+    contexto = {
         'form': form,
         'usuario': usuario_logado,
         'vitrine': vitrine
     }
 
-    return render(request, 'vitrines/cadastros/vitrine_editar.html', context)
+    return render(request, 'vitrines/cadastros/vitrine_editar.html', contexto)
 
 
 def retornar_vitrine():

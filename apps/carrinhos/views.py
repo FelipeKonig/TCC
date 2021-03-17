@@ -43,6 +43,7 @@ def visualizar_carrinho(request):
         index += 1
 
     contexto = {
+        'usuario': request.user,
         'pedidos_vazio': pedidos_vazio,
         'pedidos': pedidos,
         'preco_total': preco_total,
@@ -156,6 +157,7 @@ def alterar_quantidade_produto_pedido(request):
     preco_total = float("{:.2f}".format(preco_total))
 
     contexto = {
+        'usuario': request.user,
         'produto': model_to_dict(pedido_produto),
         'preco_total': preco_total,
         'quantidade_total': quantidade_total
@@ -207,6 +209,7 @@ def listar_pedidos(request):
 
     contexto = {
         'pedidos': pedidos,
+        'usuario': request.user,
         'pedidos_vazio': pedidos_vazio,
         'imagem_produto': imagem_produto,
         'pedidos_produtos': pedidos_produtos,
@@ -216,6 +219,7 @@ def listar_pedidos(request):
 
     return render(request, 'carrinhos/listar_pedidos.html', contexto)
 
+@login_required(login_url='/usuarios/login')
 def visualizar_produto_pedido(request, pk_pedido, pk_pedido_produto, pk_produto, nome_produto):
 
     pedido_produto = get_object_or_404(Pedido_Produto, pedido_id=pk_pedido, pk=pk_pedido_produto, produto_id=pk_produto)
@@ -259,6 +263,7 @@ def visualizar_produto_pedido(request, pk_pedido, pk_pedido_produto, pk_produto,
             nota += 1
 
     contexto = {
+        'usuario': request.user,
         'pedido': pedido_produto,
         'nota': rating,
         'produto': produto,

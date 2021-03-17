@@ -104,14 +104,14 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
         enderecos = Endereco.objects.filter(usuario=request.user, status=True)
 
         estados = buscar_estados_api()
-        context = {
+        contexto = {
             'form': form,
             'empresa': query_set,
             'enderecos': enderecos,
             'estados': estados,
             'usuario': usuario_logado
         }
-        return render(request, 'empresas/empresa_cadastro.html', context)
+        return render(request, 'empresas/empresa_cadastro.html', contexto)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form(CadastroEmpresa)
@@ -154,11 +154,12 @@ class CriarEmpresa(LoginRequiredMixin, CreateView):
         else:
             messages.error(request, 'Erro ao enviar o formulário !')
 
-        context = {
-            'form': form
+        contexto = {
+            'form': form,
+            'usuario': request.user
         }
 
-        return render(request, 'empresas/empresa_cadastro.html', context)
+        return render(request, 'empresas/empresa_cadastro.html', contexto)
 
 @login_required(login_url='/usuarios/login')
 def editar_empresa(request):
@@ -210,7 +211,7 @@ def editar_empresa(request):
     telefones = Telefone.objects.filter(empresa=usuario.empresa, status=True)
     form = EditarEmpresaForm(instance=empresa)
 
-    context = {
+    contexto = {
         'usuario': usuario,
         'form': form,
         'estados': estados,
@@ -218,7 +219,7 @@ def editar_empresa(request):
         'editar': 'editar'
     }
 
-    return render(request, 'empresas/empresa_cadastro.html', context)
+    return render(request, 'empresas/empresa_cadastro.html', contexto)
 
 def verificar_telefone(formulario, usuario, telefones):
     # se o usuario não ter deletado o único número dele

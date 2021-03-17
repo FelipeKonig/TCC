@@ -160,8 +160,10 @@
 			<div class="dropdown-menu dropdown-large">
 				<nav class="row">
 					<div class="col-6">
-						<a href="{% url 'usuarios:login' %}">Página de login</a>
-						<a href="{% url 'usuarios:cadastrousuario' %}">Página de registro</a>
+						{% if usuario == None %}
+							<a href="{% url 'usuarios:login' %}">Página de login</a>
+							<a href="{% url 'usuarios:cadastrousuario' %}">Página de registro</a>
+						{% endif %}
 						<a href="{% url 'usuarios:perfil_principal' %}"> Meu perfil </a>
 						<a href="{% url 'empresas:empresa_perfil' %}"> Minha empresa</a>
 						<a href="{% url 'vitrines:minha_vitrine' %}"> Minha vitrine </a>
@@ -172,9 +174,15 @@
 				    <a href="{% url 'usuarios:perfil_configuracao' %}"> Configurações </a>
 					</div>
 					<div class="col-6">
-						{% if not usuario.empresa %}
-				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
-							 	data-placement="right"> Endereços da empresa </a>
+						{% if usuario.empresa %}
+							<a href="{% url 'empresas:empresa_endereco' %}"> Endereços da empresa </a>
+							<a href="#!"> Pedidos em espera </a>
+							<a href="#!"> Minha lista de vendas </a>
+							<a href="#!"> Meus itens de venda </a>
+							<a href="{% url 'empresas:editar_empresa' %}"> Configurações da empresa </a>
+				    {% else %}
+							<a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
+							 	data-placement="right"> Endereços da empresa</a>
 				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
 							 	data-placement="right"> Pedidos em espera </a>
 				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
@@ -183,12 +191,6 @@
 								data-placement="right"> Meus itens de vendas </a>
 				      <a href="#!" data-toggle="popover" data-content="Empresa não cadastrada"
 							 	data-placement="right"> Configurações da empresa </a>
-				    {% else %}
-				      <a href="{% url 'empresas:empresa_endereco' %}"> Endereços da empresa </a>
-				      <a href="#!"> Pedidos em espera </a>
-				      <a href="#!"> Minha lista de vendas </a>
-				      <a href="#!"> Meus itens de venda </a>
-				      <a href="{% url 'empresas:editar_empresa' %}"> Configurações da empresa </a>
 				    {% endif %}
 						{% if usuario %}
 							<a href="{% url 'logout' %}"> Sair </a>

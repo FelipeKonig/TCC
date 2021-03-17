@@ -19,7 +19,7 @@
 			{% else %}
 				{% for pedido_cliente in pedidos %}
 				<h5 class="ml-2 mt-3">Pedido: {{ pedido_cliente.pk }} </h5>
-				<table class="table table-responsive-sm table-borderless table-shopping-cart mt-1">
+				<table class="table table-responsive-lg table-borderless table-shopping-cart mt-1">
 					<thead class="text-muted">
 						<tr class="small text-uppercase">
 							<th scope="col-sm">Produto</th>
@@ -74,14 +74,17 @@
 								<td>
 									<hr>
 									{% if pedido.statusFinalizado %}
-									<button data-original-title="Produto entregue" class="btn btn-light mt-2" data-toggle="tooltip">
-										<i class="fa fa-check" style="color: green;"></i>
-									</button>
+										<button data-original-title="Produto entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+											<i class="fa fa-check" style="color: green; font-size:14px"></i>
+										</button>
 									{% else %}
-									<button data-original-title="Produto não entregue" class="btn btn-light mt-2" data-toggle="tooltip">
-										<i class="fas fa-times" style="color: red;"></i>
-									</button>
+										<button data-original-title="Produto não entregue" class="btn btn-light mt-2" data-toggle="tooltip">
+											<i class="fas fa-times" style="color: red;"></i>
+										</button>
 									{% endif %}
+										<button data-original-title="avaliar produto" class="btn btn-light mt-2" data-toggle="tooltip">
+											<i class="fa fa-star" style="color:yellow; font-size:14px"></i>
+										</button>
 								</td>
 							</tr>
 							{% endif %}

@@ -95,8 +95,6 @@ def perfil_configuracao(request):
 
             if request.POST['numero_telefone2'] != '':
                 if len(telefones) > 1:
-                    logger.debug(len(telefones))
-                    logger.debug('CAIU AQUI')
                     if telefones[1].tipo != request.POST['tipo_telefone2'] or telefones[1].numero != request.POST['numero_telefone2']:
 
                         atualizar_telefone = Telefone.objects.get(
@@ -117,7 +115,6 @@ def perfil_configuracao(request):
                     )
             else:
                 if len(telefones) > 1:
-                    logger.debug('CAIU AQUI')
                     deletar_telefone = Telefone.objects.filter(pk=telefones[1].pk, empresa=None).delete()
 
         usuario.save()
@@ -125,7 +122,12 @@ def perfil_configuracao(request):
     # atualizando os telefones
     telefones = Telefone.objects.filter(usuario=request.user,empresa=None, status=True)
 
-    return render(request, 'usuarios/perfil-configuracao.html', {'telefones':telefones})
+    contexto = {
+        'telefones':telefones,
+        'usuario': request.user
+    }
+
+    return render(request, 'usuarios/perfil-configuracao.html', contexto)
 
 # ---------------- Cadastro usuário ----------------
 class CriarPerfilUsuario(LoginRequiredMixin, CreateView):
@@ -134,11 +136,11 @@ class CriarPerfilUsuario(LoginRequiredMixin, CreateView):
     def get(self, request, *args, **kwargs):
         usuario_logado = CustomUsuario.objects.get(email=request.user)
         form = super().get_form(CadastroPerfilUsuario)
-        context = {
+        contexto = {
             'form': form,
             'usuario': usuario_logado
         }
-        return render(request, 'usuarios/cadastros/usuario_perfil_cadastro.html', context)
+        return render(request, 'usuarios/cadastros/usuario_perfil_cadastro.html', contexto)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form(CadastroPerfilUsuario)
@@ -184,12 +186,12 @@ class CriarPerfilUsuario(LoginRequiredMixin, CreateView):
             messages.success(request, 'Perfil cadastrado com sucesso!')
             form = CadastroPerfilUsuario()
 
-        context = {
+        contexto = {
             'form': form,
             'empresaSelecionada': empresa_selecionado,
         }
 
-        return render(request, 'usuarios/cadastros/usuario_perfil_cadastro.html', context)
+        return render(request, 'usuarios/cadastros/usuario_perfil_cadastro.html', contexto)
 
 
 class SignUp(SuccessMessageMixin, CreateView):
